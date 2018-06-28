@@ -1,0 +1,44 @@
+<div class="header">
+  <h1>
+    <span (click)="openSelector()">{{ monDetail }}</span>
+  </h1>
+  <div class="right" (click)="next()"></div>
+  <div class="left" (click)="prev()"></div>
+</div>
+
+<div class="calendar">
+
+  <div *ngIf="true" class="month new">
+    <div class="week" *ngFor="let week of calendarData; trackBy: trackByFn; let week_index = index;">
+      <div #dayElm class="day" *ngFor="let day of week.days; trackBy: trackByFn; let day_index = index;"
+        [ngClass]="{ other: day.other, today: day.isToday }" (click)="showEventList(week, day, dayElm)" >
+        <div class="day-name">{{ weekNames[day.name] }}</div>
+        <div class="day-number">{{ day.number }}</div>
+        <div class="day-events">
+          <ng-container *ngFor="let event of day.events;">
+            <span [ngClass]="event.color"></span>
+          </ng-container>
+        </div>
+      </div>
+      <div class="details" [ngClass]="{ 'in': week.selectedDay, 'out': !week.selectedDay }">
+        <div class="arrow" *ngIf="week.selectedDay" [ngStyle]="week.style"></div>
+        <div class="events in" *ngIf="week.selectedDay">
+          <div class="event" *ngFor="let event of week.selectedDay.events;" (click)="openEvent(event)">
+            <div class="event-category" [ngClass]="event.color"></div>
+            <span>{{ event.title }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- <ngx-calendar-week></ngx-calendar-week> -->
+
+</div>
+
+<div class="legend">
+  <span class="entry orange">工作</span>
+  <span class="entry blue">運動</span>
+  <span class="entry yellow">娛樂</span>
+  <span class="entry green">其他</span>
+</div>
