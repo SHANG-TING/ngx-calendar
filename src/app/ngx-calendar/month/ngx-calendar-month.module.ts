@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NgxCalendarMonthViewComponent } from './ngx-calendar-month-view';
+import { NgxCalendarMonthViewComponent } from './';
 
 const COMPONENTS = [
   NgxCalendarMonthViewComponent
@@ -10,6 +10,7 @@ const COMPONENTS = [
   imports: [
     CommonModule
   ],
-  declarations: []
+  declarations: [COMPONENTS],
+  exports: [COMPONENTS]
 })
 export class NgxCalendarMonthModule { }
