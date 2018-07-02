@@ -43,10 +43,15 @@
   border-bottom-left-radius: 5px;
 }
 
-.cal-week-view .cal-event, .cal-week-view .cal-header {
+.cal-week-view .cal-event,
+.cal-week-view .cal-header {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.cal-week-view .cal-header.cal-today {
+  background-color: #289643;
 }
 
 .cal-week-view .cal-event {
@@ -60,12 +65,26 @@
   border: 1px solid #1e90ff;
   color: #1e90ff;
 }
+
+.cal-week-view .cal-event.orange {
+  background-color: #ffc681;
+  border-color: rgb(173, 33, 33);
+}
+
+.cal-week-view .cal-event.blue {
+  background-color: #c4e7ff;
+  border-color: #0834e3;
+}
+
 a {
   color: #007bff;
   text-decoration: none;
   background-color: transparent;
   -webkit-text-decoration-skip: objects;
 }
+
 .cal-week-view .cal-event-title:link {
   color: currentColor;
 }
+
+

@@ -6,39 +6,31 @@
   <div class="left" (click)="prev()"></div>
 </div>
 
-<div class="calendar">
+<div class="calendar" [ngSwitch]="viewMode">
 
-  <div *ngIf="true" class="month new">
-    <div class="week" *ngFor="let week of calendarData; trackBy: trackByFn; let week_index = index;">
-      <div #dayElm class="day" *ngFor="let day of week.days; trackBy: trackByFn; let day_index = index;"
-        [ngClass]="{ other: day.other, today: day.isToday }" (click)="showEventList(week, day, dayElm)" >
-        <div class="day-name">{{ weekNames[day.name] }}</div>
-        <div class="day-number">{{ day.number }}</div>
-        <div class="day-events">
-          <ng-container *ngFor="let event of day.events;">
-            <span [ngClass]="event.color"></span>
-          </ng-container>
-        </div>
-      </div>
-      <div class="details" [ngClass]="{ 'in': week.selectedDay, 'out': !week.selectedDay }">
-        <div class="arrow" *ngIf="week.selectedDay" [ngStyle]="week.style"></div>
-        <div class="events in" *ngIf="week.selectedDay">
-          <div class="event" *ngFor="let event of week.selectedDay.events;" (click)="openEvent(event)">
-            <div class="event-category" [ngClass]="event.color"></div>
-            <span>{{ event.title }}</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <ngx-calendar-month-view *ngSwitchCase="'month'"
+    [weekNames]="weekNames"
+    [yearName]="yearName"
+    [monthName]="monthName"
+    [events]="events"
+    [nstr]="nstr"
+    (open)="openEvent($event)"
+  ></ngx-calendar-month-view>
 
-  <!-- <ngx-calendar-week></ngx-calendar-week> -->
+  <ngx-calendar-week-view *ngSwitchCase="'week'"
+    [events]="events"
+    [nstr]="nstr"
+  ></ngx-calendar-week-view>
+
+  <ngx-calendar-day-view *ngSwitchCase="'day'"
+  ></ngx-calendar-day-view>
 
 </div>
 
 <div class="legend">
-  <span class="entry orange">工作</span>
-  <span class="entry blue">運動</span>
-  <span class="entry yellow">娛樂</span>
-  <span class="entry green">其他</span>
+  <span class="entry orange">課程</span>
+  <span class="entry blue">海訓</span>
+  <button type="button" style="float: right;" [disabled]="viewMode === 'day'" (click)="viewMode = 'day';">day</button>
+  <button type="button" style="float: right;" [disabled]="viewMode === 'week'" (click)="viewMode = 'week';">week</button>
+  <button type="button" style="float: right;" [disabled]="viewMode === 'month'" (click)="viewMode = 'month';">month</button>
 </div>

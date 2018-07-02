@@ -10,126 +10,43 @@ export class AppComponent {
   title = 'app';
   events: CalendarEvent[] = [
     {
-      title: '上班(5月第一個禮拜)',
-      start: new Date(2018, 3, 30),
-      end: new Date(2018, 4, 3),
-      color: colors.orange
+      title: '蘭嶼課程-1',
+      start: new Date(2018, 6, 13),
+      end: new Date(2018, 6, 16),
+      color: colors.orange,
+      url: 'https://docs.google.com/forms/d/e/1FAIpQLSchC4AadufooQ_wR7krQk9ys2nsPmekq0qj22ZodxPT9Dlxjw/viewform'
     } as CalendarEvent,
     {
-      title: '上班(5月第二個禮拜)',
-      start: new Date(2018, 4, 7),
-      end: new Date(2018, 4, 11),
-      color: colors.orange
+      title: '蘭嶼課程-2',
+      start: new Date(2018, 6, 24),
+      end: new Date(2018, 6, 27),
+      color: colors.orange,
+      url: 'https://docs.google.com/forms/d/e/1FAIpQLSchC4AadufooQ_wR7krQk9ys2nsPmekq0qj22ZodxPT9Dlxjw/viewform'
     } as CalendarEvent,
     {
-      title: '下午打慢速壘球比賽',
-      start: new Date(2018, 4, 12),
-      color: colors.blue
+      title: '蘭嶼海訓-1',
+      start: new Date(2018, 5, 26),
+      end: new Date(2018, 5, 28),
+      color: colors.blue,
+      url: 'https://docs.google.com/forms/d/e/1FAIpQLSchC4AadufooQ_wR7krQk9ys2nsPmekq0qj22ZodxPT9Dlxjw/viewform'
     } as CalendarEvent,
     {
-      title: '早上9點和丞恩去威秀影城看復仇者聯盟3',
-      start: new Date(2018, 3, 29),
-      color: colors.yellow
-    } as CalendarEvent,
-    {
-      title: '晚上和銘峰還有丞恩一起去吃台北橋的披薩',
-      start: new Date(2018, 4, 9),
-      color: colors.yellow
-    } as CalendarEvent,
-    {
-      title: '晚上和銘峰還有丞恩一起去吃台北橋的披薩',
-      start: new Date(2018, 4, 9),
-      color: colors.yellow
-    } as CalendarEvent,
-    {
-      title: '晚上和銘峰還有丞恩一起去吃台北橋的披薩',
-      start: new Date(2018, 4, 9),
-      color: colors.yellow
-    } as CalendarEvent,
-    {
-      title: '晚上和銘峰還有丞恩一起去吃台北橋的披薩',
-      start: new Date(2018, 4, 9),
-      color: colors.yellow
-    } as CalendarEvent,
-    {
-      title: '晚上和銘峰還有丞恩一起去吃台北橋的披薩',
-      start: new Date(2018, 4, 9),
-      color: colors.yellow
-    } as CalendarEvent,
-    {
-      title: '晚上和銘峰還有丞恩一起去吃台北橋的披薩',
-      start: new Date(2018, 4, 9),
-      color: colors.yellow
-    } as CalendarEvent,
-    {
-      title: '晚上和銘峰還有丞恩一起去吃台北橋的披薩',
-      start: new Date(2018, 4, 9),
-      color: colors.yellow
-    } as CalendarEvent,
-    {
-      title: '晚上和銘峰還有丞恩一起去吃台北橋的披薩',
-      start: new Date(2018, 4, 9),
-      color: colors.yellow
-    } as CalendarEvent,
-    {
-      title: '晚上和銘峰還有丞恩一起去吃台北橋的披薩',
-      start: new Date(2018, 4, 9),
-      color: colors.yellow
-    } as CalendarEvent,
-    {
-      title: '晚上和銘峰還有丞恩一起去吃台北橋的披薩',
-      start: new Date(2018, 4, 9),
-      color: colors.yellow
-    } as CalendarEvent,
-    {
-      title: '晚上和銘峰還有丞恩一起去吃台北橋的披薩',
-      start: new Date(2018, 4, 9),
-      color: colors.yellow
-    } as CalendarEvent,
-    {
-      title: '晚上和銘峰還有丞恩一起去吃台北橋的披薩',
-      start: new Date(2018, 4, 9),
-      color: colors.yellow
-    } as CalendarEvent,
-    {
-      title: '晚上和銘峰還有丞恩一起去吃台北橋的披薩',
-      start: new Date(2018, 4, 9),
-      color: colors.yellow
-    } as CalendarEvent,
-    {
-      title: '晚上和銘峰還有丞恩一起去吃台北橋的披薩',
-      start: new Date(2018, 4, 9),
-      color: colors.yellow
-    } as CalendarEvent,
-    {
-      title: '晚上和銘峰還有丞恩一起去吃台北橋的披薩',
-      start: new Date(2018, 4, 9),
-      color: colors.yellow
-    } as CalendarEvent,
-    {
-      title: '晚上和銘峰還有丞恩一起去吃台北橋的披薩',
-      start: new Date(2018, 6, 9),
-      color: colors.yellow
-    } as CalendarEvent,
-    {
-      title: '晚上和銘峰還有丞恩一起去吃台北橋的披薩',
-      start: new Date(2018, 6, 9),
-      color: colors.yellow
-    } as CalendarEvent,
-    {
-      title: 'Angular線上讀書會',
-      start: new Date(2018, 4, 8),
-      color: colors.green
-    } as CalendarEvent,
-    {
-      title: '和有舜去澎湖參加100km自行車挑戰賽',
-      start: new Date(2018, 4, 3),
-      end: new Date(2018, 4, 6),
-      color: colors.green
+      title: '蘭嶼海訓-2',
+      start: new Date(2018, 5, 27),
+      end: new Date(2018, 5, 29),
+      color: colors.blue,
+      url: 'https://docs.google.com/forms/d/e/1FAIpQLSchC4AadufooQ_wR7krQk9ys2nsPmekq0qj22ZodxPT9Dlxjw/viewform'
     } as CalendarEvent
   ];
 
-  onOpenEvent($event) {
-    alert(JSON.stringify($event));
+  addEvent() {
+    const newEvents = this.events.slice();
+    newEvents.push(this.events[0]);
+    this.events = newEvents;
+  }
+
+  onOpenEvent($event: CalendarEvent) {
+    // alert(JSON.stringify($event));
+    window.open($event.url);
   }
 }

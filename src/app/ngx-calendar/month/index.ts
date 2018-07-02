@@ -1,1 +1,1 @@
-export * from './ngx-calendar-month-view';
+export * from './ngx-calendar-month.module';

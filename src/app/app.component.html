@@ -2,4 +2,16 @@
 
 <ngx-calendar [events]="events" (open)="onOpenEvent($event)"></ngx-calendar>
 
+
+<div style="
+
+position: fixed;
+width: 40px;
+height: 100px;
+bottom: 30px;
+right: 0;
+background: blueviolet;
+
+"><button (click)="addEvent()">add</button></div>
+
 <!-- <ngx-calendar-week></ngx-calendar-week> -->

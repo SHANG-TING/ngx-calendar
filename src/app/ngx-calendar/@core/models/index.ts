@@ -18,6 +18,15 @@ export interface CalendarEvent {
   end?: Date;
   title: string;
   color: colors;
+  url: string;
+}
+
+export interface CalendarWeekDay {
+  date: Date;
+  year: number;
+  month: number;
+  day: number;
+  isToday: boolean;
 }
 
 export enum colors {
@@ -25,4 +34,10 @@ export enum colors {
   green = 'green',
   blue = 'blue',
   yellow = 'yellow'
+}
+
+export enum CalendarViewMode {
+  month = 'month',
+  week = 'week',
+  day = 'day'
 }
