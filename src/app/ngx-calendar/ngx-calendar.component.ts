@@ -88,8 +88,13 @@ export class NgxCalendarComponent implements OnInit {
       }
     });
   }
+
   getSize() {
     return this.size;
+  }
+
+  chaneMode(mode: any): void {
+    this.viewMode = mode;
   }
 
 }

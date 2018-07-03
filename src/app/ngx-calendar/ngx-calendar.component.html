@@ -24,8 +24,8 @@
   <div class="legend">
     <span class="entry orange">課程</span>
     <span class="entry blue">海訓</span>
-    <button type="button" style="float: right;" [disabled]="viewMode === 'day'" (click)="viewMode = 'day';">day</button>
-    <button type="button" style="float: right;" [disabled]="viewMode === 'week'" (click)="viewMode = 'week';">week</button>
-    <button type="button" style="float: right;" [disabled]="viewMode === 'month'" (click)="viewMode = 'month';">month</button>
+    <button type="button" style="float: right;" [disabled]="viewMode === 'day'" (click)="chaneMode('day')">day</button>
+    <button type="button" style="float: right;" [disabled]="viewMode === 'week'" (click)="chaneMode('week')">week</button>
+    <button type="button" style="float: right;" [disabled]="viewMode === 'month'" (click)="chaneMode('month')">month</button>
   </div>
 </div>
