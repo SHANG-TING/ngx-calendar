@@ -20,10 +20,16 @@ export class NgxCalendarComponent implements OnInit {
   @Input() nstr = new Date();
   @Output() open: EventEmitter<any> = new EventEmitter();
 
+  @Input() className = 'black';
+  @Input() size = {
+    width: '100vw',
+    height: '100vh'
+  };
+
   /**
    * 顯示模式
    */
-  viewMode: CalendarViewMode = CalendarViewMode.week;
+  viewMode: CalendarViewMode = CalendarViewMode.day;
 
   get ynow() { return this.nstr.getFullYear(); }
   get mnow() { return this.nstr.getMonth(); }
@@ -75,12 +81,15 @@ export class NgxCalendarComponent implements OnInit {
     this._pop.open(this.monthPopupComponent, {
       disableTitle: true,
       disableCloseButton: true,
-      data: {},
+      data: this.className,
     }).subscribe(selectedDate => {
       if (selectedDate) {
         this.nstr = selectedDate;
       }
     });
+  }
+  getSize() {
+    return this.size;
   }
 
 }

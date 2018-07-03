@@ -1,0 +1,125 @@
+.wrapper {
+  &.black {
+    background-color: #5e5b5b;
+    .header {
+      background-color: #007bff;
+    }
+    .title {
+      color: #FFFFFF;
+    }
+    .left {
+      border-color: transparent rgba(160, 159, 160, 1) transparent transparent;
+      &:hover {
+        border-color: transparent white transparent transparent;
+      }
+    }
+    .right {
+      border-color: transparent transparent transparent rgba(160, 159, 160, 1);
+      &:hover {
+        border-color: transparent transparent transparent white;
+      }
+    }
+    .box {
+      background-color: rgb(79, 75, 75);
+      color: white;
+    }
+  }
+}
+
+.wrapper {
+  width: 300px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  .header {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    .title {
+      font-size: 20px;
+      margin: 10px;
+    }
+    .button-block {
+      display: flex;
+      align-items: center;
+      .header-button {
+        padding: 1em;
+        background: transparent;
+        border: 0;
+        color: rgba(160, 159, 160, 1);
+        cursor: pointer;
+        .button {
+          border-style: solid;
+          cursor: pointer;
+          transition: all .5s linear;
+          &.left {
+            border-width: 7.5px 10px 7.5px 0;
+          }
+          &.right {
+            border-width: 7.5px 0 7.5px 10px;
+          }
+        }
+      }
+    }
+  }
+}
+
+header a.prev,
+header a.next {
+  float: right;
+}
+
+header a.prev,
+header a.next {
+  float: right;
+}
+
+.container:after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.container {
+  padding: 10px 0 10px 10px;
+}
+
+.wrapper .box {
+  float: left;
+  width: 60px;
+  height: 60px;
+  margin: 0 10px 10px 0;
+  text-align: center;
+  -webkit-transition: all 1.0s ease;
+  -moz-transition: all 1.0s ease;
+  transition: all 1.0s ease;
+  cursor: pointer;
+}
+
+.wrapper .box::before {
+  content: '';
+  width: 0;
+  height: 100%;
+  display: inline-block;
+  position: relative;
+  vertical-align: middle;
+  background: #f00;
+}
+
+.wrapper .box:active {
+  background-color: yellow;
+  color: black;
+}
+
+.wrapper .box.year {
+  width: 60px;
+  height: 30px;
+}
+
+.wrapper.list-mode .container {
+  padding-right: 10px;
+}
+
+.wrapper.list-mode .box {
+  width: 100%;
+}

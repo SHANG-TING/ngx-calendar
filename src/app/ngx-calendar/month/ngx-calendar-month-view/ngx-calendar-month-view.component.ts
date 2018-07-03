@@ -9,6 +9,7 @@ import { NgxCalendarService } from '../../ngx-calendar.service';
 })
 export class NgxCalendarMonthViewComponent implements OnChanges {
 
+  @Input() className = 'black';
   @Input() weekNames: string[] = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
   @Input() yearName = '年';
   @Input() monthName = '月';

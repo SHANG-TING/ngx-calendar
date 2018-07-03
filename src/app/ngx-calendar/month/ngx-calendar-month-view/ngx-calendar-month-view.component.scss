@@ -230,8 +230,19 @@
   opacity: 1;
 }
 
-.week {
-  background: #4A4A4A;
+.black {
+  .day {
+    color: white;
+    &.other {
+      color: #717171;
+    }
+    &.today {
+      color: #53b7ff;
+    }
+  }
+  .day-name {
+    color: rgba(255, 255, 255, .5);
+  }
 }
 
 .day {
@@ -239,50 +250,30 @@
   width: calc(100% / 7);
   padding: 10px;
   text-align: center;
-  vertical-align: top;
   cursor: pointer;
-  background: #4A4A4A;
-  position: relative;
-  z-index: 100;
   .day-events {
     list-style: none;
     margin-top: 3px;
     text-align: center;
-    height: 12px;
+    min-height: 12px;
     line-height: 6px;
     overflow: hidden;
     span {
-      vertical-align: top;
       display: inline-block;
-      padding: 0;
-      margin: 0;
       width: 5px;
       height: 5px;
-      line-height: 5px;
       margin: 0 1px;
     }
   }
-}
-
-.day.other {
-  color: rgba(255, 255, 255, .3);
-}
-
-.day.today {
-  color: rgba(156, 202, 235, 1);
-}
-
-.day-name {
-  font-size: 9px;
-  text-transform: uppercase;
-  margin-bottom: 5px;
-  color: rgba(255, 255, 255, .5);
-  letter-spacing: .7px;
-}
-
-.day-number {
-  font-size: 24px;
-  letter-spacing: 1.5px;
+  .day-name {
+    font-size: 9px;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+    letter-spacing: .7px;
+  }
+  .day-number {
+    font-size: 24px;
+  }
 }
 
 .blue {

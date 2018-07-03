@@ -9,20 +9,22 @@ export enum CalendarSelectorMode {
 @Component({
   selector: 'app-ngx-calendar-month-popup',
   templateUrl: './ngx-calendar-month-popup.component.html',
-  styleUrls: ['./ngx-calendar-month-popup.component.css']
+  styleUrls: ['./ngx-calendar-month-popup.component.scss']
 })
 export class NgxCalendarMonthPopupComponent implements OnInit, PopUpRef {
+  theme;
   mode = CalendarSelectorMode.Year;
   minYear = 2016;
   selectedYear: number;
   selectedMonth: number;
   months = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
   get years() {
-    return Array.from({length: 24 }, (v, k) => k + this.minYear);
+    return Array.from({ length: 24 }, (v, k) => k + this.minYear);
   }
 
   public popupOutputSender = new Subject();
   constructor(@Inject(POPUP_TOKEN) private data) {
+    this.theme = data;
   }
 
   ngOnInit() {

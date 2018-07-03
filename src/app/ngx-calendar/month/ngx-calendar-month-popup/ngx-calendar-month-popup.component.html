@@ -1,11 +1,28 @@
-<div class="wrapper">
-  <header>
-    <a href="javascript:void(0)" class="hide-list">
+<div class="wrapper" [ngClass]="theme">
+  <header class="header">
+    <div class="title">
       <span *ngIf="mode === 'Year'">{{ minYear }} ~ {{ minYear + 24 }}年</span>
-      <span *ngIf="mode === 'Month'" (click)="backToYearSelector()">{{ selectedYear }}年▲</span>
-    </a>
-    <a *ngIf="mode === 'Year'" style="float: right;" (click)="nextYearRange()">＞</a>
-    <a *ngIf="mode === 'Year'" style="float: right;" (click)="prevYearRange()">＜</a>
+      <span *ngIf="mode === 'Month'">{{ selectedYear }}年</span>
+    </div>
+    <div class="button-block">
+
+      <ng-container *ngIf="mode === 'Year'; else Month">
+
+        <button class="header-button" (click)="nextYearRange()">
+          <div class="button left"></div>
+        </button>
+        <button class="header-button" *ngIf="mode === 'Year'" (click)="prevYearRange()">
+          <div class="button right"></div>
+        </button>
+      </ng-container>
+
+      <ng-template #Month>
+        <button class="header-button" (click)="backToYearSelector()">
+          ▲
+        </button>
+      </ng-template>
+
+    </div>
   </header>
   <div *ngIf="mode === 'Year'" class="container">
     <div class="box year" *ngFor="let year of years; let i = index;" (click)="selectYear(year)">{{ year }}</div>

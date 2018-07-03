@@ -1,7 +1,7 @@
-<div *ngIf="true" class="month new">
+<div *ngIf="true" class="month new" [ngClass]="className">
   <div class="week" *ngFor="let week of calendarData; trackBy: trackByFn; let week_index = index;">
-    <div #dayElm class="day" *ngFor="let day of week.days; trackBy: trackByFn; let day_index = index;"
-      [ngClass]="{ other: day.other, today: day.isToday }" (click)="showEventList(week, day, dayElm)" >
+    <div #dayElm class="day" *ngFor="let day of week.days; trackBy: trackByFn; let day_index = index;" [ngClass]="{ other: day.other, today: day.isToday }"
+      (click)="showEventList(week, day, dayElm)">
       <div class="day-name">{{ weekNames[day.name] }}</div>
       <div class="day-number">{{ day.number }}</div>
       <div class="day-events">
@@ -15,7 +15,7 @@
       <div class="events in" *ngIf="week.selectedDay">
         <div class="event" *ngFor="let event of week.selectedDay.events;" (click)="openEvent(event)">
           <div class="event-category" [ngClass]="event.color"></div>
-          <span >{{ event.title }}</span>
+          <span>{{ event.title }}</span>
         </div>
       </div>
     </div>

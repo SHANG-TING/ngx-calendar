@@ -1,36 +1,31 @@
-<div class="header">
-  <h1>
-    <span (click)="openSelector()">{{ monDetail }}</span>
-  </h1>
-  <div class="right" (click)="next()"></div>
-  <div class="left" (click)="prev()"></div>
-</div>
+<div class="content" [ngClass]="className" [ngStyle]="getSize()">
+  <div class="header">
+    <span class="header-button" (click)="prev()">
+      <div class="button left"></div>
+    </span>
+    <h1 class="title" (click)="openSelector()">
+      {{ monDetail }}
+    </h1>
+    <span class="header-button" (click)="next()">
+      <div class="button right"></div>
+    </span>
+  </div>
+  <div class="view-block" [ngSwitch]="viewMode">
 
-<div class="calendar" [ngSwitch]="viewMode">
+    <ngx-calendar-month-view [className]="className" *ngSwitchCase="'month'" [weekNames]="weekNames" [yearName]="yearName" [monthName]="monthName"
+      [events]="events" [nstr]="nstr" (open)="openEvent($event)"></ngx-calendar-month-view>
 
-  <ngx-calendar-month-view *ngSwitchCase="'month'"
-    [weekNames]="weekNames"
-    [yearName]="yearName"
-    [monthName]="monthName"
-    [events]="events"
-    [nstr]="nstr"
-    (open)="openEvent($event)"
-  ></ngx-calendar-month-view>
+    <ngx-calendar-week-view [className]="className" *ngSwitchCase="'week'" [events]="events" [nstr]="nstr"></ngx-calendar-week-view>
 
-  <ngx-calendar-week-view *ngSwitchCase="'week'"
-    [events]="events"
-    [nstr]="nstr"
-  ></ngx-calendar-week-view>
+    <ngx-calendar-day-view [className]="className" *ngSwitchCase="'day'"></ngx-calendar-day-view>
 
-  <ngx-calendar-day-view *ngSwitchCase="'day'"
-  ></ngx-calendar-day-view>
+  </div>
 
-</div>
-
-<div class="legend">
-  <span class="entry orange">課程</span>
-  <span class="entry blue">海訓</span>
-  <button type="button" style="float: right;" [disabled]="viewMode === 'day'" (click)="viewMode = 'day';">day</button>
-  <button type="button" style="float: right;" [disabled]="viewMode === 'week'" (click)="viewMode = 'week';">week</button>
-  <button type="button" style="float: right;" [disabled]="viewMode === 'month'" (click)="viewMode = 'month';">month</button>
+  <div class="legend">
+    <span class="entry orange">課程</span>
+    <span class="entry blue">海訓</span>
+    <button type="button" style="float: right;" [disabled]="viewMode === 'day'" (click)="viewMode = 'day';">day</button>
+    <button type="button" style="float: right;" [disabled]="viewMode === 'week'" (click)="viewMode = 'week';">week</button>
+    <button type="button" style="float: right;" [disabled]="viewMode === 'month'" (click)="viewMode = 'month';">month</button>
+  </div>
 </div>
