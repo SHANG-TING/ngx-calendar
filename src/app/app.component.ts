@@ -7,6 +7,7 @@ import { CalendarEvent, colors } from './ngx-calendar/@core/models';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  theme = 'black'
   title = 'app';
   events: CalendarEvent[] = [
     {
@@ -48,5 +49,9 @@ export class AppComponent {
   onOpenEvent($event: CalendarEvent) {
     // alert(JSON.stringify($event));
     window.open($event.url);
+  }
+
+  changeTheme() {
+    this.theme = this.theme === 'black' ? 'white' : 'black';
   }
 }

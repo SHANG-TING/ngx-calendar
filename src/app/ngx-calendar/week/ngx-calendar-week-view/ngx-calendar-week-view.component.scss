@@ -1,11 +1,21 @@
 .black {
-  .cal-day-headers{
+  .cal-day-headers {
     background: #4A4A4A;
   }
   .cal-header {
     border-right: 1px solid #e1e1e1;
     border-bottom: 1px solid #e1e1e1;
     color: white;
+  }
+}
+
+.white {
+  .cal-day-headers {
+    background: white;
+  }
+  .cal-header {
+    border-right: 1px solid #e1e1e1;
+    border-bottom: 1px solid #e1e1e1;
   }
 }
 

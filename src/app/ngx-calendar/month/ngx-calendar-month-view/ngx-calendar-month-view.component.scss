@@ -243,6 +243,30 @@
   .day-name {
     color: rgba(255, 255, 255, .5);
   }
+  .details {
+    background: rgba(164, 164, 164, 1);
+  }
+}
+
+.white {
+  .day {
+    color: black;
+    &.other {
+      color: #dadada;
+      .day-name {
+        color: #dadada;
+      }
+    }
+    &.today {
+      color: #53b7ff;
+    }
+  }
+  .day-name {
+    color: #db4437;
+  }
+  .details {
+    background: #dcffc7;
+  }
 }
 
 .day {
@@ -296,7 +320,6 @@
   position: relative;
   width: 100%;
   height: 75px;
-  background: rgba(164, 164, 164, 1);
   margin-top: 5px;
   border-radius: 4px;
 }

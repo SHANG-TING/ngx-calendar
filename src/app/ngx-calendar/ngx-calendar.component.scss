@@ -53,6 +53,27 @@
       }
     }
   }
+  &.white {
+    background: white;
+    .header {
+      background: #c7c7c7;
+    }
+    .title {
+      color: black;
+    }
+    .left {
+      border-color: transparent black transparent transparent;
+      &:hover {
+        border-color: transparent white transparent transparent;
+      }
+    }
+    .right {
+      border-color: transparent transparent transparent black;
+      &:hover {
+        border-color: transparent transparent transparent white;
+      }
+    }
+  }
   .view-block {
     height: calc(100% - 50px);
     overflow-y: auto;

@@ -29,7 +29,7 @@ export class NgxCalendarComponent implements OnInit {
   /**
    * 顯示模式
    */
-  viewMode: CalendarViewMode = CalendarViewMode.day;
+  viewMode: CalendarViewMode = CalendarViewMode.month;
 
   get ynow() { return this.nstr.getFullYear(); }
   get mnow() { return this.nstr.getMonth(); }

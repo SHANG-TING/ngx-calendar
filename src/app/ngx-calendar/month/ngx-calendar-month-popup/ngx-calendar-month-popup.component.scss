@@ -24,6 +24,31 @@
       color: white;
     }
   }
+  &.white {
+    background-color: white;
+    .header {
+      background-color: #39fbd6;
+    }
+    .title {
+      color: black;
+    }
+    .left {
+      border-color: transparent rgba(160, 159, 160, 1) transparent transparent;
+      &:hover {
+        border-color: transparent white transparent transparent;
+      }
+    }
+    .right {
+      border-color: transparent transparent transparent rgba(160, 159, 160, 1);
+      &:hover {
+        border-color: transparent transparent transparent white;
+      }
+    }
+    .box {
+      background-color: #f6ffcf;
+      color: black;
+    }
+  }
 }
 
 .wrapper {

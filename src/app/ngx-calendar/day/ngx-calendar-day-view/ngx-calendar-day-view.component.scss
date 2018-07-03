@@ -1,10 +1,31 @@
 .black {
-  .line {
-    height: 30px;
-    border-bottom: thin dashed #888f90;
+  .hour {
+    .line {
+      border-bottom: thin dashed #888f90;
+      &:hover {
+        background: wheat;
+      }
+    }
+    &.name {
+      color: white;
+    }
+    &:nth-child(odd) {
+      background: #6f6e6e;
+    }
   }
-  .name {
-    color: white;
+}
+
+.white {
+  .hour {
+    .line {
+      border-bottom: thin dashed black;
+      &:hover {
+        background: wheat;
+      }
+    }
+    &:nth-child(odd) {
+      background: #fbeeee;
+    }
   }
 }
 
@@ -22,9 +43,6 @@
   }
   .hour {
     height: 60px;
-    &:nth-child(odd) {
-      background: #6f6e6e;
-    }
     &.name {
       line-height: 60px;
       text-align: center;
@@ -32,9 +50,6 @@
     .line {
       height: 30px;
       display: flex;
-      &:hover {
-        background: wheat;
-      }
       .active {
         width: 100px;
         height: 100%;

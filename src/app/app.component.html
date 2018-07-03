@@ -9,7 +9,7 @@
 <div style="background: green;height: 200px;"> -->
 
 <div>
-  <ngx-calendar  [events]="events" (open)="onOpenEvent($event)"></ngx-calendar>
+  <ngx-calendar [className]="theme" [events]="events" (open)="onOpenEvent($event)"></ngx-calendar>
 </div>
 
 <div style="
@@ -23,6 +23,7 @@ background: blueviolet;
 
 ">
   <button (click)="addEvent()">add</button>
+  <button (click)="changeTheme()">{{ theme }}</button>
 </div>
 
 <!-- <ngx-calendar-week></ngx-calendar-week> -->
