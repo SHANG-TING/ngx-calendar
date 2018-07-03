@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve -o",
     "build": "ng build --prod --build-optimizer",
+    "build:deploy": "ng build --prod --build-optimizer --base-href=https://shang-ting.github.io/ngx-calendar/ && ngh -d dist/ngx-calendar",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
