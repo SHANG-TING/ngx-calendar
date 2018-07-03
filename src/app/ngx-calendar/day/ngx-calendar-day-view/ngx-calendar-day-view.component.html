@@ -5,19 +5,13 @@
     </div>
   </div>
   <div class="strip">
-    <section *ngFor="let item of hour;let index = index;" class="hour" #bar>
-      <div class="line">
-        <div class="active" [ngStyle]="active.first" *ngFor="let active of item.active">
-
-        </div>
-      </div>
-      <div class="line">
-        <div class="active" [ngStyle]="active.second" *ngFor="let active of item.active">
-
-        </div>
-      </div>
-
+    <section *ngFor="let item of hour; let index = index;" class="hour" #bar>
+      <div class="line"></div>
+      <div class="line"></div>
     </section>
+
+
+    <!-- events -->
     <div *ngFor="let item of data" class="bar" [ngStyle]="item.style">
     </div>
      <!--<div style="background: green;
