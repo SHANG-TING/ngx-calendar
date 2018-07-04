@@ -7,7 +7,7 @@ import { CalendarEvent, colors } from './ngx-calendar/@core/models';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  theme = 'black'
+  theme = 'black';
   title = 'app';
   events: CalendarEvent[] = [
     {
