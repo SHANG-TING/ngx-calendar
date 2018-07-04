@@ -61,9 +61,6 @@ export class NgxCalendarWeekViewComponent implements OnInit, OnChanges {
 
     this.weekEvents = this.events
       .filter(e => {
-        if (!e.end) {
-          return firstdate <= e.start && e.start < lastdate;
-        }
         return (e.start >= firstdate && e.start < lastdate) ||
           (firstdate >= e.start && firstdate <= e.end) ||
           (e.start <= firstdate && lastdate < e.end);
@@ -80,33 +77,29 @@ export class NgxCalendarWeekViewComponent implements OnInit, OnChanges {
           url: e.url
         };
 
-        if (e.end) {
+        if (e.start >= firstdate && e.end < lastdate) {
 
-          if (e.start >= firstdate && e.end < lastdate) {
+          event.width = ((e.end.getDay() - e.start.getDay() + 1) / 7) * 100 + '%';
+          event.left = ((e.start.getDay() - firstday) / 7) * 100 + '%';
 
-            event.width = ((e.end.getDay() - e.start.getDay() + 1) / 7) * 100 + '%';
-            event.left = ((e.start.getDay() - firstday) / 7) * 100 + '%';
+        } else if (e.start < firstdate && (firstdate <= e.end && e.end < lastdate)) {
 
-          } else if (e.start < firstdate && (firstdate <= e.end && e.end < lastdate)) {
+          event.width = ((e.end.getDay() - firstday + 1) / 7) * 100 + '%';
+          event.left = 0 + '%';
+          event.startsBeforeWeek = false;
 
-            event.width = ((e.end.getDay() - firstday + 1) / 7) * 100 + '%';
-            event.left = 0 + '%';
-            event.startsBeforeWeek = false;
+        } else if ((e.start >= firstdate && e.start < lastdate) && e.end >= lastdate) {
 
-          } else if ((e.start >= firstdate && e.start < lastdate) && e.end >= lastdate) {
+          event.width = ((lastday - e.start.getDay() + 1) / 7) * 100 + '%';
+          event.left = ((e.start.getDay() - firstday) / 7) * 100 + '%';
+          event.endsAfterWeek = false;
 
-            event.width = ((lastday - e.start.getDay() + 1) / 7) * 100 + '%';
-            event.left = ((e.start.getDay() - firstday) / 7) * 100 + '%';
-            event.endsAfterWeek = false;
+        } else if (e.start <= firstdate && lastdate < e.end) {
 
-          } else if (e.start <= firstdate && lastdate < e.end) {
-
-            event.width = '100%';
-            event.left = '0%';
-            event.startsBeforeWeek = false;
-            event.endsAfterWeek = false;
-
-          }
+          event.width = '100%';
+          event.left = '0%';
+          event.startsBeforeWeek = false;
+          event.endsAfterWeek = false;
         }
 
         return event;
