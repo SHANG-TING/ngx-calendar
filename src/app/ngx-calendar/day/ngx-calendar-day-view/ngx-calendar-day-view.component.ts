@@ -171,6 +171,8 @@ export class NgxCalendarDayViewComponent implements OnInit, AfterViewInit {
             left: `${i * 110}px`,
             background: e.color.toString()
           },
+          startsBeforeWeek: true,
+          endsAfterWeek: true,
           data: e
         };
 
@@ -187,8 +189,8 @@ export class NgxCalendarDayViewComponent implements OnInit, AfterViewInit {
           //      |---------------------|
           // |----------------|
 
-          event.style.top = `0px`;
           event.style.height = `${getPixelForDiffSplit(e.end, firstdate) * width}px`;
+          event.startsBeforeWeek = false;
 
         } else if ((e.start >= firstdate && e.start < lastdate) && e.end >= lastdate) {
 
@@ -197,14 +199,16 @@ export class NgxCalendarDayViewComponent implements OnInit, AfterViewInit {
 
           event.style.top = `${getPixelForDiffSplit(e.start, firstdate) * width}px`;
           event.style.height = `${getPixelForDiffSplit(lastdate, e.start) * width}px`;
+          event.endsAfterWeek = false;
 
         } else if (e.start <= firstdate && lastdate < e.end) {
 
           //      |---------------------|
           // |-------------------------------|
 
-          event.style.top = `0px`;
           event.style.height = `${24 * 2 * width}px`;
+          event.startsBeforeWeek = false;
+          event.endsAfterWeek = false;
         }
 
         return event;
