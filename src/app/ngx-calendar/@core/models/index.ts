@@ -15,10 +15,10 @@ export interface CalendarDay {
 
 export interface CalendarEvent {
   start: Date;
-  end?: Date;
+  end: Date;
   title: string;
   color: colors;
-  url: string;
+  url?: string;
 }
 
 export interface CalendarWeekDay {
