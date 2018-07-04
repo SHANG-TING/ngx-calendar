@@ -7,9 +7,13 @@ import { Component, OnInit, Input, QueryList, ViewChildren, ElementRef, AfterVie
 })
 export class NgxCalendarDayViewComponent implements OnInit, AfterViewInit {
 
-  @ViewChildren('bar') bars: QueryList<ElementRef>;
-
   @Input() className = 'black';
+  @Input() nstr = new Date();
+  @Input() start = '10:00';
+  @Input() end = '23:00';
+  @Input() split = 30;
+
+  @ViewChildren('bar') bars: QueryList<ElementRef>;
 
   data = [
     {
