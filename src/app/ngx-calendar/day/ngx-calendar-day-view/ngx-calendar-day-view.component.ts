@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, QueryList, ViewChildren, ElementRef, AfterViewInit } from '@angular/core';
+import { CalendarEvent } from '../../@core/models';
 
 @Component({
   selector: 'ngx-calendar-day-view',
@@ -8,35 +9,39 @@ import { Component, OnInit, Input, QueryList, ViewChildren, ElementRef, AfterVie
 export class NgxCalendarDayViewComponent implements OnInit, AfterViewInit {
 
   @Input() className = 'black';
-  @Input() nstr = new Date();
+  @Input() events: CalendarEvent[] = [];
+  @Input() nstr = new Date(2018, 6, 16);
   @Input() start = '10:00';
   @Input() end = '23:00';
   @Input() split = 30;
 
   @ViewChildren('bar') bars: QueryList<ElementRef>;
 
-  data = [
-    {
-      style: {
-        top: '30px',
-        height: '180px',
-        background: 'yellow'
-      }
-    }, {
-      style: {
-        top: '60px',
-        height: '180px',
-        left: '110px',
-        background: 'blue'
-      }
-    }, {
-      style: {
-        top: '30px',
-        height: '180px',
-        left: '220px',
-        background: 'red'
-      }
-    },
+  dayEvents: any[] = [
+    // {
+    //   style: {
+    //     top: '30px',
+    //     height: '180px',
+    //     background: 'yellow'
+    //   },
+    //   data: {}
+    // }, {
+    //   style: {
+    //     top: '60px',
+    //     height: '180px',
+    //     left: '110px',
+    //     background: 'blue'
+    //   },
+    //   data: {}
+    // }, {
+    //   style: {
+    //     top: '30px',
+    //     height: '180px',
+    //     left: '220px',
+    //     background: 'red'
+    //   },
+    //   data: {}
+    // },
   ];
 
   hour = [
@@ -116,25 +121,94 @@ export class NgxCalendarDayViewComponent implements OnInit, AfterViewInit {
 
   constructor() { }
 
-  ngAfterViewInit() {
-    let tempWidth = 0;
-    for (let index = 0; index < this.data.length; index++) {
-      tempWidth = tempWidth + index * 10;
-    }
+  ngOnInit() {
+    this.setDayEvent();
+  }
 
-    if ((document.body.offsetWidth - 100) < (100 * this.data.length) + tempWidth) {
+  ngAfterViewInit() {
+    // 崇軒大神版本
+    // let tempWidth = 0;
+    // for (let index = 0; index < this.dayEvents.length; index++) {
+    //   tempWidth = tempWidth + index * 10;
+    // }
+
+    // 灰塵版本 (僅供參考XD)
+    const tempWidth = this.dayEvents.map((x, i) => i * 10).reduce((a, b) => a + b);
+
+    if ((document.body.offsetWidth - 100) < (100 * this.dayEvents.length) + tempWidth) {
 
       this.bars.forEach(
         (item, index) => {
-          item.nativeElement.style.width = `${(100 * this.data.length) + tempWidth}px`;
+          item.nativeElement.style.width = `${(100 * this.dayEvents.length) + tempWidth}px`;
         }
       );
-
     }
-
   }
 
-  ngOnInit() {
+  setDayEvent() {
+    const firstdate = new Date(this.nstr.getFullYear(), this.nstr.getMonth(), this.nstr.getDate());
+    const lastdate = new Date(firstdate.getTime());
+    lastdate.setDate(lastdate.getDate() + 1);
+
+    const width = 30;
+    const getPixelForDiffSplit = (end, start) => {
+      const diffMs = (end.getTime() - start.getTime());
+      return (diffMs % 86400000) / (this.split * 60 * 1000);
+    };
+
+    this.dayEvents = this.events
+      .filter(e => {
+        return (e.start >= firstdate && e.start < lastdate) ||
+          (firstdate >= e.start && firstdate <= e.end) ||
+          (firstdate >= e.start  && lastdate < e.end);
+      })
+      .sort((e1, e2) => e1.start.getTime() - e2.start.getTime())
+      .map((e, i) => {
+        const event = {
+          style: {
+            top: '0px',
+            height: '0px',
+            left: `${i * 110}px`,
+            background: e.color.toString()
+          },
+          data: e
+        };
+
+        if (e.start >= firstdate && e.end < lastdate) {
+
+          //      |---------------------|
+          //            |---------|
+
+          event.style.top = `${getPixelForDiffSplit(e.start, firstdate) * width}px`;
+          event.style.height = `${getPixelForDiffSplit(e.end, e.start) * width}px`;
+
+        } else if (e.start < firstdate && (firstdate <= e.end && e.end < lastdate)) {
+
+          //      |---------------------|
+          // |----------------|
+
+          event.style.top = `0px`;
+          event.style.height = `${getPixelForDiffSplit(e.end, firstdate) * width}px`;
+
+        } else if ((e.start >= firstdate && e.start < lastdate) && e.end >= lastdate) {
+
+          //      |---------------------|
+          //                |--------------------|
+
+          event.style.top = `${getPixelForDiffSplit(e.start, firstdate) * width}px`;
+          event.style.height = `${getPixelForDiffSplit(lastdate, e.start) * width}px`;
+
+        } else if (e.start <= firstdate && lastdate < e.end) {
+
+          //      |---------------------|
+          // |-------------------------------|
+
+          event.style.top = `0px`;
+          event.style.height = `${24 * 2 * width}px`;
+        }
+
+        return event;
+      });
   }
 
 }

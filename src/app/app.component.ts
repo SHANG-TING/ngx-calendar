@@ -11,30 +11,30 @@ export class AppComponent {
   title = 'app';
   events: CalendarEvent[] = [
     {
-      title: '蘭嶼課程-1',
-      start: new Date(2018, 6, 13),
-      end: new Date(2018, 6, 16),
+      title: '蘭嶼課程-A',
+      start: new Date(2018, 6, 13, 9, 0),
+      end: new Date(2018, 6, 16, 18, 0),
       color: colors.orange,
       url: 'https://docs.google.com/forms/d/e/1FAIpQLSchC4AadufooQ_wR7krQk9ys2nsPmekq0qj22ZodxPT9Dlxjw/viewform'
     } as CalendarEvent,
     {
-      title: '蘭嶼課程-2',
-      start: new Date(2018, 6, 24),
-      end: new Date(2018, 6, 27),
+      title: '蘭嶼課程-B',
+      start: new Date(2018, 6, 16, 13, 30),
+      end: new Date(2018, 6, 16, 22, 0),
       color: colors.orange,
       url: 'https://docs.google.com/forms/d/e/1FAIpQLSchC4AadufooQ_wR7krQk9ys2nsPmekq0qj22ZodxPT9Dlxjw/viewform'
     } as CalendarEvent,
     {
-      title: '蘭嶼海訓-1',
-      start: new Date(2018, 5, 26),
-      end: new Date(2018, 5, 28),
+      title: '蘭嶼海訓-A',
+      start: new Date(2018, 6, 16, 10, 30),
+      end: new Date(2018, 6, 20, 16, 30),
       color: colors.blue,
       url: 'https://docs.google.com/forms/d/e/1FAIpQLSchC4AadufooQ_wR7krQk9ys2nsPmekq0qj22ZodxPT9Dlxjw/viewform'
     } as CalendarEvent,
     {
-      title: '蘭嶼海訓-2',
-      start: new Date(2018, 5, 27),
-      end: new Date(2018, 5, 29),
+      title: '蘭嶼海訓-B',
+      start: new Date(2018, 6, 7, 7, 30),
+      end: new Date(2018, 6, 29, 11, 30),
       color: colors.blue,
       url: 'https://docs.google.com/forms/d/e/1FAIpQLSchC4AadufooQ_wR7krQk9ys2nsPmekq0qj22ZodxPT9Dlxjw/viewform'
     } as CalendarEvent

@@ -12,7 +12,10 @@
 
 
     <!-- events -->
-    <div *ngFor="let item of data" class="bar" [ngStyle]="item.style">
+    <div *ngFor="let dayEvent of dayEvents" class="bar" [ngStyle]="dayEvent.style">
+      <span style="color: white">
+          {{ dayEvent.data.title }}
+      </span>
     </div>
      <!--<div style="background: green;
     height: 90px;
