@@ -32,6 +32,13 @@
       }
     }
   }
+
+  .legend {
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+  }
+
   &.black {
     background: #4A4A4A;
     .header {
@@ -51,6 +58,10 @@
       &:hover {
         border-color: transparent transparent transparent white;
       }
+    }
+    .legend {
+      background: #333333;
+      color: white;
     }
   }
   &.white {
@@ -73,21 +84,19 @@
         border-color: transparent transparent transparent white;
       }
     }
+    .legend {
+      background: #c7c7c7;
+      color: black;
+    }
   }
   .view-block {
-    height: calc(100% - 50px);
+    height: calc(100% - 80px);
     overflow-y: auto;
   }
+
 }
 
-.legend {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  height: 30px;
-  background: rgba(60, 60, 60, 1);
-  line-height: 30px;
-}
+
 
 .entry {
   position: relative;

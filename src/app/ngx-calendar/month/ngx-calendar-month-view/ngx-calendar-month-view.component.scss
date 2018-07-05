@@ -237,6 +237,7 @@
       color: #717171;
     }
     &.today {
+      background: #467298;
       color: #53b7ff;
     }
   }
@@ -245,6 +246,7 @@
   }
   .details {
     background: rgba(164, 164, 164, 1);
+    color: white;
   }
 }
 
@@ -258,11 +260,15 @@
       }
     }
     &.today {
+      background: #d7ecff;
       color: #53b7ff;
     }
   }
   .day-name {
     color: #db4437;
+  }
+  .arrow {
+    border-color: transparent transparent #dcffc7 transparent;
   }
   .details {
     background: #dcffc7;

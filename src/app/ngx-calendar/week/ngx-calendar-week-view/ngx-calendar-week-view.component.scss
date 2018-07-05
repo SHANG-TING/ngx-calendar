@@ -6,6 +6,9 @@
     border-right: 1px solid #e1e1e1;
     border-bottom: 1px solid #e1e1e1;
     color: white;
+    &.cal-today {
+      background-color: #467298;
+    }
   }
 }
 
@@ -16,6 +19,9 @@
   .cal-header {
     border-right: 1px solid #e1e1e1;
     border-bottom: 1px solid #e1e1e1;
+    &.cal-today {
+      background-color: #d7ecff;
+    }
   }
 }
 
@@ -35,9 +41,6 @@
       text-overflow: ellipsis;
       white-space: nowrap;
       height: 50px;
-      &.cal-today {
-        background-color: #5cc18a;
-      }
     }
   }
   .action-block {
