@@ -1,11 +1,11 @@
 <div [ngClass]="className" class="content">
   <div class="title">
-    <div class="hour name" *ngFor="let item of hour">
-      {{ item.name }}
+    <div class="hour name" *ngFor="let hourSchema of hourSchemas">
+      {{ hourSchema.name }}
     </div>
   </div>
   <div class="strip">
-    <section *ngFor="let item of hour; let index = index;" class="hour" #bar>
+    <section *ngFor="let hourSchema of hourSchemas; let index = index;" class="hour" #bar>
       <div class="line"></div>
       <div class="line"></div>
     </section>

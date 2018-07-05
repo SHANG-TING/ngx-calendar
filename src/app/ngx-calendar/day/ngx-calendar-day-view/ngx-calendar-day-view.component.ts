@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, QueryList, ViewChildren, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input, QueryList, ViewChildren, ElementRef, OnChanges, SimpleChanges } from '@angular/core';
 import { CalendarEvent } from '../../@core/models';
 
 @Component({
@@ -6,16 +6,61 @@ import { CalendarEvent } from '../../@core/models';
   templateUrl: './ngx-calendar-day-view.component.html',
   styleUrls: ['./ngx-calendar-day-view.component.scss']
 })
-export class NgxCalendarDayViewComponent implements OnInit, AfterViewInit {
+export class NgxCalendarDayViewComponent implements OnInit, OnChanges {
 
   @Input() className = 'black';
   @Input() events: CalendarEvent[] = [];
   @Input() nstr = new Date(2018, 6, 16);
-  @Input() start = '10:00';
-  @Input() end = '23:00';
+  @Input() start = '00:00';
+  @Input() end = '24:00';
   @Input() split = 30;
 
   @ViewChildren('bar') bars: QueryList<ElementRef>;
+
+  get firstDate() {
+    const date = new Date(this.nstr.getFullYear(), this.nstr.getMonth(), this.nstr.getDate());
+    const time = this.start.split(':');
+
+    if (time.length > 0) {
+      const hour = Number(time[0]);
+      const minute = Number(time[1]);
+
+      if (hour !== undefined || hour !== NaN) {
+        date.setHours(hour);
+
+        if (minute !== undefined || minute !== NaN) {
+          date.setMinutes(minute);
+        }
+      }
+    }
+
+    return date;
+  }
+
+  get lastDate() {
+    const date = new Date(this.nstr.getFullYear(), this.nstr.getMonth(), this.nstr.getDate());
+    const time = this.end.split(':');
+
+    if (time.length > 0) {
+      const hour = Number(time[0]);
+      const minute = Number(time[1]);
+
+      if (hour) {
+        date.setHours(hour);
+
+        if (minute) {
+          date.setMinutes(minute);
+        }
+      }
+    }
+
+    if ((Number(date) - Number(this.firstDate)) <= 0) {
+      date.setHours(24);
+      date.setMinutes(0);
+    }
+
+    return date;
+  }
 
   dayEvents: any[] = [
     // {
@@ -44,7 +89,7 @@ export class NgxCalendarDayViewComponent implements OnInit, AfterViewInit {
     // },
   ];
 
-  hour = [
+  hourSchemas: any[] = [
     {
       name: '12 AM'
     },
@@ -121,48 +166,46 @@ export class NgxCalendarDayViewComponent implements OnInit, AfterViewInit {
 
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit(): void {
+    this.setHourSchemas();
     this.setDayEvent();
+    this.bindDayEventWidth();
   }
 
-  ngAfterViewInit() {
-    // 崇軒大神版本
-    // let tempWidth = 0;
-    // for (let index = 0; index < this.dayEvents.length; index++) {
-    //   tempWidth = tempWidth + index * 10;
-    // }
+  setHourSchemas(): void {
+    const diffMs = (Number(this.lastDate) - Number(this.firstDate));
+    const diffHrs = Math.ceil(diffMs / 3600000); // hours
+    // const diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000); // minutes
+    const firstHour = this.firstDate.getHours();
 
-    // 灰塵版本 (僅供參考XD)
-    const tempWidth = this.dayEvents.map((x, i) => i * 10).reduce((a, b) => a + b);
+    this.hourSchemas = [];
 
-    if ((document.body.offsetWidth - 100) < (100 * this.dayEvents.length) + tempWidth) {
-
-      this.bars.forEach(
-        (item, index) => {
-          item.nativeElement.style.width = `${(100 * this.dayEvents.length) + tempWidth}px`;
-        }
-      );
+    for (let i = firstHour; i < firstHour + diffHrs; i++) {
+      this.hourSchemas.push({
+        name: `${('0' + i).substr(-2)} ${i > 12 ? 'PM' : 'AM'}`
+      });
     }
   }
 
-  setDayEvent() {
-    const firstdate = new Date(this.nstr.getFullYear(), this.nstr.getMonth(), this.nstr.getDate());
-    const lastdate = new Date(firstdate.getTime());
-    lastdate.setDate(lastdate.getDate() + 1);
-
+  setDayEvent(): void {
     const width = 30;
+    const firstdate = this.firstDate;
+    const lastdate = this.lastDate;
     const getPixelForDiffSplit = (end, start) => {
       const diffMs = (end.getTime() - start.getTime());
       return (diffMs % 86400000) / (this.split * 60 * 1000);
     };
 
     this.dayEvents = this.events
+      // 先過濾出會經過這一天的事件們
       .filter(e => {
         return (e.start >= firstdate && e.start < lastdate) ||
           (firstdate >= e.start && firstdate <= e.end) ||
-          (firstdate >= e.start  && lastdate < e.end);
+          (firstdate >= e.start && lastdate < e.end);
       })
+      // 根據開始時間做排序
       .sort((e1, e2) => e1.start.getTime() - e2.start.getTime())
+      // 轉換為畫面上需要綁定的值
       .map((e, i) => {
         const event = {
           style: {
@@ -206,13 +249,58 @@ export class NgxCalendarDayViewComponent implements OnInit, AfterViewInit {
           //      |---------------------|
           // |-------------------------------|
 
-          event.style.height = `${24 * 2 * width}px`;
+          event.style.height = `${this.hourSchemas.length * 2 * width}px`;
           event.startsBeforeWeek = false;
           event.endsAfterWeek = false;
         }
 
         return event;
+      })
+      // 再次過濾出在這hour區間裡面的事件們
+      .filter(e => e.style.height !== '0px')
+      // 重新綁定left的順序
+      .map((e, i) => {
+        e.style.left = `${i * 110}px`;
+        return e;
       });
+  }
+
+  bindDayEventWidth(): void {
+    // 崇軒大神版本
+    // let tempWidth = 0;
+    // for (let index = 0; index < this.dayEvents.length; index++) {
+    //   tempWidth = tempWidth + index * 10;
+    // }
+
+    setTimeout(() => {
+      // 灰塵版本 (僅供參考XD)
+      const tempWidth = this.dayEvents.length ? this.dayEvents.map((x, i) => i * 10).reduce((a, b) => a + b) : 0;
+
+      if ((document.body.offsetWidth - 100) < (100 * this.dayEvents.length) + tempWidth) {
+
+        this.bars.forEach(
+          (item, index) => {
+            item.nativeElement.style.width = `${(100 * this.dayEvents.length) + tempWidth}px`;
+          }
+        );
+      }
+    }, 0);
+  }
+
+  prev(): void {
+    this.nstr.setDate(this.nstr.getDate() - 1);
+    this.ngOnInit();
+  }
+
+  next(): void {
+    this.nstr.setDate(this.nstr.getDate() + 1);
+    this.ngOnInit();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.nstr || changes.start || changes.end) {
+      this.ngOnInit();
+    }
   }
 
 }
