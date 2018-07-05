@@ -21,9 +21,10 @@ export class NgxCalendarWeekViewComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.setWeekDays();
+    this.setWeekEvents();
   }
 
-  setWeekDays() {
+  setWeekDays(): void {
     const today = new Date();
     const nstrDay = this.nstr.getDay();
     const startDate = new Date(this.nstr.getTime());
@@ -45,11 +46,9 @@ export class NgxCalendarWeekViewComponent implements OnInit, OnChanges {
         isToday: date.toDateString() === today.toDateString()
       } as CalendarWeekDay);
     }
-
-    this.setWeekEvents();
   }
 
-  setWeekEvents() {
+  setWeekEvents(): void {
     const firstWeekDay = this.weekDays[0];
     const firstdate = new Date(firstWeekDay.year, firstWeekDay.month, firstWeekDay.day);
     const firstday = firstdate.getDay();
@@ -106,19 +105,19 @@ export class NgxCalendarWeekViewComponent implements OnInit, OnChanges {
       });
   }
 
-  prev() {
+  prev(): void {
     this.nstr.setDate(this.nstr.getDate() - 7);
-    this.setWeekDays();
+    this.ngOnInit();
   }
 
-  next() {
+  next(): void {
     this.nstr.setDate(this.nstr.getDate() + 7);
-    this.setWeekDays();
+    this.ngOnInit();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.nstr || changes.events) {
-      this.setWeekDays();
+      this.ngOnInit();
     }
   }
 }
