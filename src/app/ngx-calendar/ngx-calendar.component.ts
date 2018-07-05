@@ -6,6 +6,7 @@ import { PopUpService } from './@core/components';
 import { NgxCalendarMonthPopupComponent } from './month/ngx-calendar-month-popup/ngx-calendar-month-popup.component';
 import { NgxCalendarMonthViewComponent } from './month/ngx-calendar-month-view';
 import { NgxCalendarWeekViewComponent } from './week/ngx-calendar-week-view';
+import { NgxCalendarDayViewComponent } from './day/ngx-calendar-day-view';
 
 @Component({
   selector: 'ngx-calendar',
@@ -16,6 +17,7 @@ export class NgxCalendarComponent implements OnInit {
   @Input() weekNames: string[] = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
   @Input() yearName = '年';
   @Input() monthName = '月';
+  @Input() dayName = '日';
   @Input() events: CalendarEvent[] = [];
   @Input() nstr = new Date();
   @Output() open: EventEmitter<any> = new EventEmitter();
@@ -34,13 +36,24 @@ export class NgxCalendarComponent implements OnInit {
   get ynow() { return this.nstr.getFullYear(); }
   get mnow() { return this.nstr.getMonth(); }
   get dnow() { return this.nstr.getDate(); }
-  get monDetail() { return `${this.ynow} ${this.yearName} ${this.mnow + 1} ${this.monthName}`; }
+  get monDetail() {
+    let result = `${this.ynow} ${this.yearName} ${this.mnow + 1} ${this.monthName}`;
+
+    if (this.viewMode === CalendarViewMode.day) {
+      result = `${result} ${this.dnow} ${this.dayName}`;
+    }
+
+    return result;
+  }
 
   @ViewChild(NgxCalendarMonthViewComponent)
   private monthComponent: NgxCalendarMonthViewComponent;
 
   @ViewChild(NgxCalendarWeekViewComponent)
   private weekComponent: NgxCalendarWeekViewComponent;
+
+  @ViewChild(NgxCalendarDayViewComponent)
+  private dayComponent: NgxCalendarDayViewComponent;
 
   private monthPopupComponent = this._factory.resolveComponentFactory(NgxCalendarMonthPopupComponent);
 
@@ -59,6 +72,9 @@ export class NgxCalendarComponent implements OnInit {
       case CalendarViewMode.week:
         this.weekComponent.prev();
         break;
+      case CalendarViewMode.day:
+        this.dayComponent.prev();
+        break;
     }
   }
 
@@ -69,6 +85,9 @@ export class NgxCalendarComponent implements OnInit {
         break;
       case CalendarViewMode.week:
         this.weekComponent.next();
+        break;
+      case CalendarViewMode.day:
+        this.dayComponent.next();
         break;
     }
   }
