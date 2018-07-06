@@ -90,7 +90,9 @@
     }
   }
   .view-block {
-    height: calc(100% - 80px);
+    // scroll bar 會爆走
+    // height: calc(100% - 80px);
+    height: calc(100% - 82px);
     overflow-y: auto;
   }
 
