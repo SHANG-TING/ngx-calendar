@@ -5,6 +5,8 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  position: relative;
+  overflow: hidden;
   .header {
     height: 50px;
     display: flex;
@@ -32,13 +34,61 @@
       }
     }
   }
-
+  .type-buttom {
+    position: absolute;
+    right: 0;
+    list-style: none;
+    bottom: 0;
+    margin: 0 0 30px 0;
+    text-align: right;
+    padding: 0;
+    .open-menu {
+      cursor: pointer;
+      width: 50px;
+      background: #7ef3cb;
+      border-radius: 30px 0 0 30px;
+    }
+    .button {
+      cursor: pointer;
+      border: 0;
+      padding: .5em 1.5em;
+      color: black;
+      line-height: 40px;
+      width: 100px;
+      transition: all .2s linear;
+      &.month {
+        background: #7ef3cb;
+      }
+      &.week {
+        width: 80px;
+        background: #ffd353;
+      }
+      &.day {
+        width: 60px;
+        background: #de5757;
+      }
+      &:hover {
+        z-index: 1;
+        transform: scale(1.1);
+        color: white;
+        &.month {
+          background: #42b991;
+        }
+        &.week {
+          width: 80px;
+          background: #a98623;
+        }
+        &.day {
+          background: #af1d1d;
+        }
+      }
+    }
+  }
   .legend {
     width: 100%;
     height: 30px;
     line-height: 30px;
   }
-
   &.black {
     background: #4A4A4A;
     .header {
@@ -95,10 +145,7 @@
     height: calc(100% - 82px);
     overflow-y: auto;
   }
-
 }
-
-
 
 .entry {
   position: relative;

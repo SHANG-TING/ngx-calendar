@@ -7,11 +7,31 @@ import { NgxCalendarMonthPopupComponent } from './month/ngx-calendar-month-popup
 import { NgxCalendarMonthViewComponent } from './month/ngx-calendar-month-view';
 import { NgxCalendarWeekViewComponent } from './week/ngx-calendar-week-view';
 import { NgxCalendarDayViewComponent } from './day/ngx-calendar-day-view';
+import { trigger, transition, style, animate, state } from '@angular/animations';
 
 @Component({
   selector: 'ngx-calendar',
   templateUrl: './ngx-calendar.component.html',
-  styleUrls: ['./ngx-calendar.component.scss']
+  styleUrls: ['./ngx-calendar.component.scss'],
+  animations: [
+    trigger('flyInOut', [
+      state('Close', style({
+        transform: 'translateX(calc(100% - 55px))'
+      })),
+      transition('Open => Close', [
+        style({
+          transform: 'translateX(0)'
+        }),
+        animate('0.5s ease-in')
+      ]),
+      transition('Close => Open', [
+        style({
+          transform: 'translateX(calc(100% - 55px))'
+        }),
+        animate('0.5s ease-in')
+      ])
+    ])
+  ]
 })
 export class NgxCalendarComponent implements OnInit {
   @Input() weekNames: string[] = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
@@ -56,6 +76,8 @@ export class NgxCalendarComponent implements OnInit {
   private dayComponent: NgxCalendarDayViewComponent;
 
   private monthPopupComponent = this._factory.resolveComponentFactory(NgxCalendarMonthPopupComponent);
+
+  legendOpen = 'Close';
 
   constructor(
     private _pop: PopUpService,
@@ -114,6 +136,10 @@ export class NgxCalendarComponent implements OnInit {
 
   chaneMode(mode: any): void {
     this.viewMode = mode;
+  }
+
+  legendToggle() {
+    this.legendOpen = this.legendOpen === 'Open' ? 'Close' : 'Open';
   }
 
 }
