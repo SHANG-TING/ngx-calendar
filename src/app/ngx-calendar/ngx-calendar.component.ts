@@ -1,5 +1,5 @@
 import {
-  Component, OnInit, Input, Output, EventEmitter, ComponentFactoryResolver, ViewChild
+  Component, OnInit, Input, Output, EventEmitter, ComponentFactoryResolver, ViewChild, AfterViewInit
 } from '@angular/core';
 import { CalendarEvent, CalendarViewMode } from './@core/models';
 import { PopUpService } from './@core/components';
@@ -33,7 +33,8 @@ import { trigger, transition, style, animate, state } from '@angular/animations'
     ])
   ]
 })
-export class NgxCalendarComponent implements OnInit {
+export class NgxCalendarComponent implements OnInit, AfterViewInit {
+
   @Input() weekNames: string[] = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
   @Input() yearName = '年';
   @Input() monthName = '月';
@@ -83,10 +84,13 @@ export class NgxCalendarComponent implements OnInit {
     private _pop: PopUpService,
     private _factory: ComponentFactoryResolver) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
   }
 
-  prev() {
+  ngAfterViewInit(): void {
+  }
+
+  prev(): void {
     switch (this.viewMode) {
       case CalendarViewMode.month:
         this.monthComponent.prev();
@@ -100,7 +104,7 @@ export class NgxCalendarComponent implements OnInit {
     }
   }
 
-  next() {
+  next(): void {
     switch (this.viewMode) {
       case CalendarViewMode.month:
         this.monthComponent.next();
@@ -114,11 +118,11 @@ export class NgxCalendarComponent implements OnInit {
     }
   }
 
-  openEvent(event: CalendarEvent) {
+  openEvent(event: CalendarEvent): void {
     this.open.emit(event);
   }
 
-  openSelector() {
+  openSelector(): void {
     this._pop.open(this.monthPopupComponent, {
       disableTitle: true,
       disableCloseButton: true,
@@ -130,15 +134,11 @@ export class NgxCalendarComponent implements OnInit {
     });
   }
 
-  getSize() {
-    return this.size;
-  }
-
   chaneMode(mode: any): void {
     this.viewMode = mode;
   }
 
-  legendToggle() {
+  legendToggle(): void {
     this.legendOpen = this.legendOpen === 'Open' ? 'Close' : 'Open';
   }
 
