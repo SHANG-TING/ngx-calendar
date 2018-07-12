@@ -332,18 +332,12 @@
 }
 
 .details.in {
-  -webkit-animation: moveFromTopFade .5s ease both;
-  -moz-animation: moveFromTopFade .5s ease both;
   animation: moveFromTopFade .5s ease both;
 }
 
 .details.out {
-  -webkit-animation: moveToTopFade .5s ease both;
-  -moz-animation: moveToTopFade .5s ease both;
   animation: moveToTopFade .5s ease both;
   .events {
-    -webkit-animation: fadeOutShrink .4s ease both;
-    -moz-animation: fadeOutShink .4s ease both;
     animation: fadeOutShink .4s ease both;
   }
 }
@@ -369,17 +363,11 @@
 }
 
 .events.in {
-  -webkit-animation: fadeIn .3s ease both;
-  -moz-animation: fadeIn .3s ease both;
   animation: fadeIn .3s ease both;
-  -webkit-animation-delay: .3s;
-  -moz-animation-delay: .3s;
   animation-delay: .3s;
 }
 
 .events.out {
-  -webkit-animation: fadeOut .3s ease both;
-  -moz-animation: fadeOut .3s ease both;
   animation: fadeOut .3s ease both;
 }
 
