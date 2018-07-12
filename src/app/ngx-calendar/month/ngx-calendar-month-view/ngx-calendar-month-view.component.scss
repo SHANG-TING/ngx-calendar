@@ -1,7 +1,9 @@
+/* https://angular.io/guide/component-styles */
 :host {
   display: block;
-}/* Animations are cool!  */
+}
 
+/* Animations are cool!  */
 @-webkit-keyframes moveFromTopFade {
   from {
     opacity: .3;
