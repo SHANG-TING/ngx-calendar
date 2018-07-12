@@ -212,7 +212,7 @@ export class NgxCalendarDayViewComponent implements OnInit, OnChanges {
             top: '0px',
             height: '0px',
             left: `${i * 110}px`,
-            background: e.color.toString()
+            // background: e.color.toString()
           },
           startsBeforeWeek: true,
           endsAfterWeek: true,
