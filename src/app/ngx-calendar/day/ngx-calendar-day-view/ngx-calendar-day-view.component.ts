@@ -19,6 +19,8 @@ export class NgxCalendarDayViewComponent implements AfterViewInit, OnChanges {
   @Input() end = '24:00';
   @Input() split = 30;
 
+  elmWidth = 110;
+
   @ViewChildren('bar') bars: QueryList<ElementRef>;
 
   get firstDate() {
@@ -127,7 +129,7 @@ export class NgxCalendarDayViewComponent implements AfterViewInit, OnChanges {
           style: {
             top: '0px',
             height: '0px',
-            left: `${i * 110}px`,
+            left: `${i * this.elmWidth}px`,
             // background: e.color.toString()
           },
           startsBeforeWeek: true,
@@ -176,7 +178,7 @@ export class NgxCalendarDayViewComponent implements AfterViewInit, OnChanges {
       .filter(e => e.style.height !== '0px')
       // 重新綁定left的順序
       .map((e, i) => {
-        e.style.left = `${i * 110}px`;
+        e.style.left = `${i * this.elmWidth}px`;
         return e;
       });
   }
@@ -208,8 +210,10 @@ export class NgxCalendarDayViewComponent implements AfterViewInit, OnChanges {
     const elm = $event.srcElement as HTMLElement;
     if (elm.scrollLeft === 0) {
       console.log('start');
+      // this.prev();
     } else if (elm.scrollLeft === elm.scrollWidth - elm.clientWidth) {
       console.log('end');
+      // this.next();
     }
   }
 
