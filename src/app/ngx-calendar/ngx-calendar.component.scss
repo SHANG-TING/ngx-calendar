@@ -1,9 +1,4 @@
 .content {
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
   user-select: none;
   position: relative;
   overflow: hidden;
@@ -161,29 +156,35 @@
     width: 5px;
     top: 12px;
     left: 14px;
+    &.blue {
+      background: rgba(156, 202, 235, 1);
+    }
+    &.orange {
+      background: rgba(247, 167, 0, 1);
+    }
+    &.green {
+      background: rgba(153, 198, 109, 1);
+    }
+    &.yellow {
+      background: rgba(249, 233, 0, 1);
+    }
   }
 }
 
-.entry.blue {
+.mask {
+  position: absolute;
+  overflow: hidden;
+  width: 110%;
+  height: 100%;
+  right: 0;
   &:after {
-    background: rgba(156, 202, 235, 1);
-  }
-}
-
-.entry.orange {
-  &:after {
-    background: rgba(247, 167, 0, 1);
-  }
-}
-
-.entry.green {
-  &:after {
-    background: rgba(153, 198, 109, 1);
-  }
-}
-
-.entry.yellow {
-  &:after {
-    background: rgba(249, 233, 0, 1);
+    content: '';
+    position: absolute;
+    top: -40%;
+    right: 110%;
+    width: 30px;
+    height: 200%;
+    background: rgba(white, .3);
+    transform: rotate(20deg);
   }
 }
