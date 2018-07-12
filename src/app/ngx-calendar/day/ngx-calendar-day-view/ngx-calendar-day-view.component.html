@@ -12,7 +12,9 @@
 
 
     <!-- events -->
-    <div *ngFor="let dayEvent of dayEvents" class="bar" [ngStyle]="dayEvent.style" [ngClass]="dayEvent.data.color">
+    <div *ngFor="let dayEvent of dayEvents" class="bar" [ngStyle]="dayEvent.style" [ngClass]="dayEvent.data.color"
+      [class.cal-starts-within-day]="dayEvent.startsBeforeWeek"
+      [class.cal-ends-within-day]="dayEvent.endsAfterWeek">
       <span>
           {{ dayEvent.data.title }}
       </span>
