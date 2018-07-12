@@ -65,13 +65,23 @@
   width: 100px;
   position: absolute;
   color: #007bff;
+  padding: 5px;
 
   &.orange {
     background-color: #ffc681;
-    border-color: rgb(173, 33, 33);
+    border: 1px solid rgb(173, 33, 33);
   }
   &.blue {
     background-color: #c4e7ff;
-    border-color: #0834e3;
+    border: 1px solid #1e90ff;
+  }
+
+  &.cal-starts-within-day {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+  }
+  &.cal-ends-within-day {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
   }
 }
