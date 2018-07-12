@@ -1,4 +1,6 @@
-/* Animations are cool!  */
+:host {
+  display: block;
+}/* Animations are cool!  */
 
 @-webkit-keyframes moveFromTopFade {
   from {
