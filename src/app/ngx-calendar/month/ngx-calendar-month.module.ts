@@ -4,14 +4,14 @@ import { NgxCalendarMonthViewComponent } from './ngx-calendar-month-view';
 import { NgxCalendarMonthPopupComponent } from './ngx-calendar-month-popup';
 import { PopUpModule } from '../@core/components';
 
-import * as Hammer from 'hammerjs';
 import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
+import { DIRECTION_ALL } from 'hammerjs';
 
-  export class HammerConfig extends HammerGestureConfig {
-    overrides = <any>{
-      'swipe': { direction: Hammer.DIRECTION_ALL }
-    };
-  }
+export class HammerConfig extends HammerGestureConfig {
+  overrides = <any>{
+    'swipe': { direction: DIRECTION_ALL }
+  };
+}
 
 const COMPONENTS = [
   NgxCalendarMonthViewComponent

@@ -4,12 +4,12 @@
       {{ hourSchema.name }}
     </div>
   </div>
-  <div class="strip">
+  <div class="strip" (scroll)="onScroll($event)" #scrollElm
+    [style.overflow-x]="hasScroll ? 'auto' : 'inherit'">
     <section *ngFor="let hourSchema of hourSchemas; let index = index;" class="hour" #bar>
       <div class="line"></div>
       <div class="line"></div>
     </section>
-
 
     <!-- events -->
     <div *ngFor="let dayEvent of dayEvents" class="bar" [ngStyle]="dayEvent.style" [ngClass]="dayEvent.data.color"

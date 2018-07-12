@@ -202,13 +202,11 @@
 }
 
 .month.new {
-  -webkit-animation: fadeIn 1s ease-out;
+  animation: fadeIn 1s ease-out;
   opacity: 1;
 }
 
 .month.in.next {
-  -webkit-animation: moveFromTopFadeMonth .4s ease-out;
-  -moz-animation: moveFromTopFadeMonth .4s ease-out;
   animation: moveFromTopFadeMonth .4s ease-out;
   opacity: 1;
 }
@@ -365,7 +363,6 @@
 
 .events {
   height: 120px;
-  overflow-y: auto;
   padding: 7px 0;
   overflow-y: auto;
   overflow-x: hidden;

@@ -1,12 +1,16 @@
-import { Component, OnInit, Input, QueryList, ViewChildren, ElementRef, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, QueryList, ViewChildren, ElementRef, OnChanges, SimpleChanges, ViewChild, AfterViewInit } from '@angular/core';
 import { CalendarEvent } from '../../@core/models';
+import { HOUR_SCHEMAS } from './data';
 
 @Component({
   selector: 'ngx-calendar-day-view',
   templateUrl: './ngx-calendar-day-view.component.html',
   styleUrls: ['./ngx-calendar-day-view.component.scss']
 })
-export class NgxCalendarDayViewComponent implements OnInit, OnChanges {
+export class NgxCalendarDayViewComponent implements AfterViewInit, OnChanges {
+  @ViewChild('scrollElm') scrollElm: ElementRef;
+
+  hasScroll = false;
 
   @Input() className = 'black';
   @Input() events: CalendarEvent[] = [];
@@ -62,114 +66,26 @@ export class NgxCalendarDayViewComponent implements OnInit, OnChanges {
     return date;
   }
 
-  dayEvents: any[] = [
-    // {
-    //   style: {
-    //     top: '30px',
-    //     height: '180px',
-    //     background: 'yellow'
-    //   },
-    //   data: {}
-    // }, {
-    //   style: {
-    //     top: '60px',
-    //     height: '180px',
-    //     left: '110px',
-    //     background: 'blue'
-    //   },
-    //   data: {}
-    // }, {
-    //   style: {
-    //     top: '30px',
-    //     height: '180px',
-    //     left: '220px',
-    //     background: 'red'
-    //   },
-    //   data: {}
-    // },
-  ];
+  dayEvents: any[] = [];
 
-  hourSchemas: any[] = [
-    {
-      name: '12 AM'
-    },
-    {
-      name: '01 AM'
-    },
-    {
-      name: '02 AM'
-    },
-    {
-      name: '03 AM'
-    },
-    {
-      name: '04 AM'
-    },
-    {
-      name: '05 AM'
-    },
-    {
-      name: '06 AM'
-    },
-    {
-      name: '07 AM'
-    },
-    {
-      name: '08 AM'
-    },
-    {
-      name: '09 AM'
-    },
-    {
-      name: '10 AM'
-    },
-    {
-      name: '11 AM'
-    },
-    {
-      name: '12 AM'
-    },
-    {
-      name: '01 PM'
-    },
-    {
-      name: '02 PM'
-    },
-    {
-      name: '03 PM'
-    },
-    {
-      name: '04 PM'
-    },
-    {
-      name: '05 PM'
-    },
-    {
-      name: '06 PM'
-    },
-    {
-      name: '07 PM'
-    },
-    {
-      name: '08 PM'
-    },
-    {
-      name: '09 PM'
-    },
-    {
-      name: '10 PM'
-    },
-    {
-      name: '11 PM'
-    }
-  ];
+  hourSchemas: any[] = HOUR_SCHEMAS;
 
   constructor() { }
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
+    this.initView();
+  }
+
+  initView(): void {
     this.setHourSchemas();
     this.setDayEvent();
     this.bindDayEventWidth();
+
+    setTimeout(() => {
+      const elm = this.scrollElm.nativeElement as HTMLElement;
+      this.hasScroll = elm.scrollWidth > elm.clientWidth;
+      console.log(this.hasScroll);
+    }, 0);
   }
 
   setHourSchemas(): void {
@@ -287,20 +203,57 @@ export class NgxCalendarDayViewComponent implements OnInit, OnChanges {
     }, 0);
   }
 
+  onScroll($event: Event) {
+    $event.preventDefault();
+    const elm = $event.srcElement as HTMLElement;
+    if (elm.scrollLeft === 0) {
+      console.log('start');
+    } else if (elm.scrollLeft === elm.scrollWidth - elm.clientWidth) {
+      console.log('end');
+    }
+  }
+
   prev(): void {
     this.nstr.setDate(this.nstr.getDate() - 1);
-    this.ngOnInit();
+    this.initView();
   }
 
   next(): void {
     this.nstr.setDate(this.nstr.getDate() + 1);
-    this.ngOnInit();
+    this.initView();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.nstr || changes.start || changes.end) {
-      this.ngOnInit();
+      this.initView();
     }
   }
 
 }
+
+
+
+    // {
+    //   style: {
+    //     top: '30px',
+    //     height: '180px',
+    //     background: 'yellow'
+    //   },
+    //   data: {}
+    // }, {
+    //   style: {
+    //     top: '60px',
+    //     height: '180px',
+    //     left: '110px',
+    //     background: 'blue'
+    //   },
+    //   data: {}
+    // }, {
+    //   style: {
+    //     top: '30px',
+    //     height: '180px',
+    //     left: '220px',
+    //     background: 'red'
+    //   },
+    //   data: {}
+    // },
