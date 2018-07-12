@@ -24,10 +24,10 @@
 
     </div>
   </header>
-  <div *ngIf="mode === 'Year'" class="container">
+  <div *ngIf="mode === 'Year'" class="container" (swipeleft)="nextYearRange()" (swiperight)="prevYearRange()">
     <div class="box year" *ngFor="let year of years; let i = index;" (click)="selectYear(year)">{{ year }}</div>
   </div>
-  <div *ngIf="mode === 'Month'" class="container">
+  <div *ngIf="mode === 'Month'" class="container" (swipeup)="backToYearSelector()">
     <div class="box" *ngFor="let month of months; let i = index;" (click)="selectMonth(month)">{{ month + 1 }}</div>
   </div>
 </div>
