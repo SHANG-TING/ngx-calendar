@@ -325,10 +325,8 @@
 .details {
   position: relative;
   width: 100%;
-  height: 120px;
   margin-top: 5px;
   border-radius: 4px;
-  overflow-y: auto;
 }
 
 .details.in {
@@ -362,7 +360,8 @@
 }
 
 .events {
-  // min-height: 75px;
+  height: 120px;
+  overflow-y: auto;
   padding: 7px 0;
   overflow-y: auto;
   overflow-x: hidden;
