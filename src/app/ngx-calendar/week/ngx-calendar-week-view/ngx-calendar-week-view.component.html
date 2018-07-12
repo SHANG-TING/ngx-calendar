@@ -15,14 +15,14 @@
       <div class="cal-event-container cal-starts-within-week cal-ends-within-week " [style.width]="weekEvent.width" [style.left]="weekEvent.left"
         [class.cal-starts-within-week]="weekEvent.startsBeforeWeek" [class.cal-ends-within-week]="weekEvent.endsAfterWeek">
         <div class="cal-event" [ngClass]="weekEvent.color">
-          <span class="cal-event-actions ">
+          <!-- <span class="cal-event-actions ">
             <a class="cal-event-action " href="javascript:;">
               <i class="fa fa-fw fa-pencil"></i>
             </a>
             <a class="cal-event-action " href="javascript:;">
               <i class="fa fa-fw fa-times"></i>
             </a>
-          </span>
+          </span> -->
           <a class="cal-event-title " [attr.href]="weekEvent.url" target="_blank">{{ weekEvent.title }}</a>
         </div>
       </div>
