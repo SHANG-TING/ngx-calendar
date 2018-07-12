@@ -1,4 +1,4 @@
-<div class="content" [ngClass]="className" [ngStyle]="getSize()">
+<div class="content" [ngClass]="className" [ngStyle]="size" >
   <div class="header">
     <span class="header-button" (click)="prev()">
       <div class="button left"></div>
@@ -10,7 +10,7 @@
       <div class="button right"></div>
     </span>
   </div>
-  <div class="view-block" [ngSwitch]="viewMode">
+  <div class="view-block" [ngSwitch]="viewMode"  (swipeleft)="next()" (swiperight)="prev()"  >
 
     <ngx-calendar-month-view [className]="className" *ngSwitchCase="'month'" [weekNames]="weekNames" [yearName]="yearName" [monthName]="monthName"
       [events]="events" [nstr]="nstr" (open)="openEvent($event)"></ngx-calendar-month-view>
