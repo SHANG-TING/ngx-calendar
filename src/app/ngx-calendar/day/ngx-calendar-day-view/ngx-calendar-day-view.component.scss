@@ -64,4 +64,14 @@
 .bar {
   width: 100px;
   position: absolute;
+  color: #007bff;
+
+  &.orange {
+    background-color: #ffc681;
+    border-color: rgb(173, 33, 33);
+  }
+  &.blue {
+    background-color: #c4e7ff;
+    border-color: #0834e3;
+  }
 }
