@@ -8,10 +8,10 @@
 
       <ng-container *ngIf="mode === 'Year'; else Month">
 
-        <button class="header-button" (click)="nextYearRange()">
+        <button class="header-button" (click)="prevYearRange()">
           <div class="button left"></div>
         </button>
-        <button class="header-button" *ngIf="mode === 'Year'" (click)="prevYearRange()">
+        <button class="header-button" *ngIf="mode === 'Year'" (click)="nextYearRange()">
           <div class="button right"></div>
         </button>
       </ng-container>
