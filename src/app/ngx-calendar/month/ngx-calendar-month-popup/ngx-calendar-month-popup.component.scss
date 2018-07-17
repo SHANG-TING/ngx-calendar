@@ -1,3 +1,4 @@
+$box-color:rgb(79, 75, 75);
 .wrapper {
   &.black {
     background-color: #5e5b5b;
@@ -20,7 +21,7 @@
       }
     }
     .box {
-      background-color: rgb(79, 75, 75);
+      background-color: $box-color;
       color: white;
     }
   }
@@ -53,8 +54,6 @@
 
 .wrapper {
   width: 300px;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
   .header {
     display: flex;
@@ -115,10 +114,18 @@ header a.next {
   height: 60px;
   margin: 0 10px 10px 0;
   text-align: center;
-  -webkit-transition: all 1.0s ease;
-  -moz-transition: all 1.0s ease;
   transition: all 1.0s ease;
   cursor: pointer;
+  &.day {
+    float: none;
+    display: inline-block;
+    width: 30px;
+    height: auto;
+    padding: 5px;
+    &.n-month {
+      background-color: lighten($box-color, 20%)
+    }
+  }
 }
 
 .wrapper .box::before {
