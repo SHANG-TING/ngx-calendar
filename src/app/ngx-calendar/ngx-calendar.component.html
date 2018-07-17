@@ -23,17 +23,17 @@
 
   <ul class="type-buttom" [@flyInOut]="legendOpen">
     <li>
-      <button class="button day" type="button" [disabled]="viewMode === 'day'" (click)="chaneMode('day')">day</button>
+      <button class="button day" type="button" [disabled]="viewMode === 'day'" (click)="chaneMode('day')">日</button>
     </li>
 
     <li>
-      <button class="button week" type="button" [disabled]="viewMode === 'week'" (click)="chaneMode('week')">week</button>
+      <button class="button week" type="button" [disabled]="viewMode === 'week'" (click)="chaneMode('week')">周</button>
     </li>
 
     <li>
       <div style="display: flex;">
         <span class="open-menu" (click)="legendToggle()"></span>
-        <button class="button month" type="button" [disabled]="viewMode === 'month'" (click)="chaneMode('month')">month</button>
+        <button class="button month" type="button" [disabled]="viewMode === 'month'" (click)="chaneMode('month')">月</button>
       </div>
     </li>
   </ul>
