@@ -1,6 +1,7 @@
 /* https://angular.io/guide/component-styles */
 
 $animation-time:.5s;
+$max-height:5000px;
 :host {
   display: block;
 }
@@ -10,26 +11,6 @@ $animation-time:.5s;
   &.new {
     animation: fadeIn 1s ease-out;
     opacity: 1;
-  }
-  &.in {
-    &.prev {
-      animation: moveFromBottomFadeMonth .4s ease-out;
-      opacity: 1;
-    }
-    &.next {
-      animation: moveFromTopFadeMonth .4s ease-out;
-      opacity: 1;
-    }
-  }
-  &.out {
-    &.prev {
-      animation: moveToBottomFadeMonth .4s ease-in;
-      opacity: 1;
-    }
-    &.next {
-      animation: moveToTopFadeMonth .4s ease-in;
-      opacity: 1;
-    }
   }
 }
 
@@ -67,16 +48,26 @@ $animation-time:.5s;
 .details {
   display: none;
   position: relative;
+  max-height: $max-height;
   width: 100%;
   margin-top: 5px;
   border-radius: 4px;
   &.in {
     display: block;
-    animation: moveFromTopFade $animation-time cubic-bezier(1, .05, .95, -0.13);
+    animation: moveFromTopFade $animation-time cubic-bezier(1, 0, 1, 0);
     .event {
       animation: fadeIn .3s ease both;
       animation-delay: .3s;
     }
+  }
+  &.out {
+    display: block;
+    z-index: -1;
+    .event {
+      animation: fadeIn .3s ease both;
+    }
+    max-height: 0;
+    transition: all $animation-time cubic-bezier(0, 1, 0, 1);
   }
 }
 
@@ -147,35 +138,7 @@ $animation-time:.5s;
     max-height: 0px;
   }
   100% {
-    max-height: 9999px;
-  }
-}
-
-@keyframes moveToTopFadeMonth {
-  100% {
-    opacity: 0;
-    -moz-transform: translateY(-30%);
-  }
-}
-
-@keyframes moveFromTopFadeMonth {
-  0% {
-    opacity: 0;
-    -moz-transform: translateY(30%);
-  }
-}
-
-@keyframes moveToBottomFadeMonth {
-  100% {
-    opacity: 0;
-    transform: translateY(30%);
-  }
-}
-
-@keyframes moveFromBottomFadeMonth {
-  0% {
-    opacity: 0;
-    transform: translateY(-30%);
+    max-height: $max-height;
   }
 }
 
@@ -188,14 +151,6 @@ $animation-time:.5s;
 @keyframes fadeOut {
   100% {
     opacity: 0;
-  }
-}
-
-@keyframes fadeOutShink {
-  100% {
-    opacity: 0;
-    padding: 0px;
-    height: 0px;
   }
 }
 
