@@ -23,12 +23,16 @@ export interface CalendarEvent {
 
 export interface CalendarElmDetial<T = number> {
   style: {
-    top: T;
-    height: T;
-    left: T;
+    top?: T;
+    height?: T;
+    left?: T;
+    width?: T;
+    color?: string
   };
   startsBeforeWeek: boolean;
   endsAfterWeek: boolean;
+  title?: string;
+  url?: string;
   data: CalendarEvent;
 }
 
