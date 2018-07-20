@@ -1,6 +1,8 @@
-import { Component, Input, QueryList, ViewChildren, ElementRef, OnChanges, SimpleChanges,
-   ViewChild, AfterViewInit, EventEmitter, Output } from '@angular/core';
-import { CalendarEvent } from '../../@core/models';
+import {
+  Component, Input, QueryList, ViewChildren, ElementRef, OnChanges, SimpleChanges,
+  ViewChild, AfterViewInit, EventEmitter, Output
+} from '@angular/core';
+import { CalendarEvent, CalendarElmDetial } from '../../@core/models';
 import { HOUR_SCHEMAS } from './data';
 
 @Component({
@@ -71,7 +73,7 @@ export class NgxCalendarDayViewComponent implements AfterViewInit, OnChanges {
     return date;
   }
 
-  dayEvents: any[] = [];
+  dayEvents: CalendarElmDetial<string>[] = [];
 
   hourSchemas: any[] = HOUR_SCHEMAS;
 
@@ -119,70 +121,73 @@ export class NgxCalendarDayViewComponent implements AfterViewInit, OnChanges {
 
     this.dayEvents = this.events
       // 先過濾出會經過這一天的事件們
-      .filter(e => {
+      .filter((e: CalendarEvent) => {
         return (e.start >= firstdate && e.start < lastdate) ||
           (firstdate >= e.start && firstdate <= e.end) ||
           (firstdate >= e.start && lastdate < e.end);
       })
       // 根據開始時間做排序
-      .sort((e1, e2) => e1.start.getTime() - e2.start.getTime())
+      .sort((e1: CalendarEvent, e2: CalendarEvent) => e1.start.getTime() - e2.start.getTime())
       // 轉換為畫面上需要綁定的值
-      .map((e, i) => {
-        const event = {
+      .map((e: CalendarEvent, i: number) => {
+        const elmDetial: CalendarElmDetial = {
           style: {
-            top: '0px',
-            height: '0px',
-            left: `${i * this.elmWidth}px`,
+            top: 0,
+            height: 0,
+            left: i * this.elmWidth,
             // background: e.color.toString()
           },
           startsBeforeWeek: true,
           endsAfterWeek: true,
           data: e
         };
+        // if event first date is bigger than firstdate
+        if (e.start >= firstdate) {
+          if (e.end < lastdate) {
 
-        if (e.start >= firstdate && e.end < lastdate) {
+            //      |---------------------|
+            //            |---------|
 
-          //      |---------------------|
-          //            |---------|
+            elmDetial.style.top = getPixelForDiffSplit(e.start, firstdate) * width;
+            elmDetial.style.height = getPixelForDiffSplit(e.end, e.start) * width;
 
-          event.style.top = `${getPixelForDiffSplit(e.start, firstdate) * width}px`;
-          event.style.height = `${getPixelForDiffSplit(e.end, e.start) * width}px`;
+          } else if (e.start < lastdate && e.end >= lastdate) {
 
-        } else if (e.start < firstdate && (firstdate <= e.end && e.end < lastdate)) {
+            //      |---------------------|
+            //                |--------------------|
 
-          //      |---------------------|
-          // |----------------|
+            elmDetial.style.top = getPixelForDiffSplit(e.start, firstdate) * width;
+            elmDetial.style.height = getPixelForDiffSplit(lastdate, e.start) * width;
+            elmDetial.endsAfterWeek = false;
 
-          event.style.height = `${getPixelForDiffSplit(e.end, firstdate) * width}px`;
-          event.startsBeforeWeek = false;
-
-        } else if ((e.start >= firstdate && e.start < lastdate) && e.end >= lastdate) {
-
-          //      |---------------------|
-          //                |--------------------|
-
-          event.style.top = `${getPixelForDiffSplit(e.start, firstdate) * width}px`;
-          event.style.height = `${getPixelForDiffSplit(lastdate, e.start) * width}px`;
-          event.endsAfterWeek = false;
-
-        } else if (e.start <= firstdate && lastdate < e.end) {
-
-          //      |---------------------|
-          // |-------------------------------|
-
-          event.style.height = `${this.hourSchemas.length * 2 * width}px`;
-          event.startsBeforeWeek = false;
-          event.endsAfterWeek = false;
+          }
+        } else if (e.start <= firstdate) {
+          // if event first date is bigger than firstdate
+          if (lastdate < e.end) {
+            elmDetial.style.height = this.hourSchemas.length * 2 * width;
+            elmDetial.startsBeforeWeek = false;
+            elmDetial.endsAfterWeek = false;
+          } else if (firstdate <= e.end && e.end < lastdate) {
+            elmDetial.style.height = getPixelForDiffSplit(e.end, firstdate) * width;
+            elmDetial.startsBeforeWeek = false;
+          }
         }
 
-        return event;
+        return elmDetial;
       })
       // 再次過濾出在這hour區間裡面的事件們
-      .filter(e => e.style.height !== '0px')
+      .filter((e: CalendarElmDetial) => e.style.height !== 0)
       // 重新綁定left的順序
-      .map((e, i) => {
-        e.style.left = `${i * this.elmWidth}px`;
-        return e;
+      .map((e: CalendarElmDetial, i) => {
+        e.style.left = i * this.elmWidth;
+        return {
+          ...e,
+          style: {
+            top: `${e.style.top}px`,
+            height: `${e.style.height}px`,
+            left: `${e.style.left}px`,
+          }
+        };
       });
   }
 

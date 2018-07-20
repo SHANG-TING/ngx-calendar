@@ -21,6 +21,17 @@ export interface CalendarEvent {
   url?: string;
 }
 
+export interface CalendarElmDetial<T = number> {
+  style: {
+    top: T;
+    height: T;
+    left: T;
+  };
+  startsBeforeWeek: boolean;
+  endsAfterWeek: boolean;
+  data: CalendarEvent;
+}
+
 export interface CalendarWeekDay {
   date: Date;
   year: number;
