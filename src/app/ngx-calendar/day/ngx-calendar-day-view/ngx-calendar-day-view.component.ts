@@ -36,10 +36,10 @@ export class NgxCalendarDayViewComponent implements AfterViewInit, OnChanges {
       const hour = Number(time[0]);
       const minute = Number(time[1]);
 
-      if (hour !== undefined || hour !== NaN) {
+      if (hour + 1) {
         date.setHours(hour);
 
-        if (minute !== undefined || minute !== NaN) {
+        if (minute + 1) {
           date.setMinutes(minute);
         }
       }
