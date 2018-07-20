@@ -46,7 +46,7 @@
       <div class="box" *ngFor="let month of months; let i = index;" (click)="selectMonth(month)">{{ month + 1 }}</div>
     </div>
 
-    <div *ngSwitchCase="'Day'" class="container">
+    <div *ngSwitchCase="'Day'" class="container" (swipeup)="backToMonthSelector()">
       <div *ngFor="let week of calendarData; let i = index;">
         <ng-container *ngFor="let day of week.days; let day_index = index;" >
           <div class="box day" [class.n-month]="day.other" (click)="selectDay(day.date)">{{ day.number }}</div>
