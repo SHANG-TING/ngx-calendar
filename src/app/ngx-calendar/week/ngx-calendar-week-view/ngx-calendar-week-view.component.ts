@@ -22,6 +22,10 @@ export class NgxCalendarWeekViewComponent implements OnInit, OnChanges {
   constructor() { }
 
   ngOnInit(): void {
+    this.initValue();
+  }
+
+  private initValue() {
     this.setWeekDays();
     this.setWeekEvents();
   }
@@ -110,8 +114,8 @@ export class NgxCalendarWeekViewComponent implements OnInit, OnChanges {
         return {
           ...event,
           style: {
-            width: `${event.style.width / 7 * 100}%`,
-            left: `${event.style.left / 7 * 100}%`,
+            width: `${(event.style.width / 7) * 100}%`,
+            left: `${(event.style.left / 7) * 100}%`,
             color: e.color,
           },
         };
@@ -120,12 +124,12 @@ export class NgxCalendarWeekViewComponent implements OnInit, OnChanges {
 
   prev(): void {
     this.nstr.setDate(this.nstr.getDate() - 7);
-    this.ngOnInit();
+    this.initValue();
   }
 
   next(): void {
     this.nstr.setDate(this.nstr.getDate() + 7);
-    this.ngOnInit();
+    this.initValue();
   }
 
   openEvent(event): void {
@@ -134,7 +138,7 @@ export class NgxCalendarWeekViewComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.nstr || changes.events) {
-      this.ngOnInit();
+      this.initValue();
     }
   }
 }
