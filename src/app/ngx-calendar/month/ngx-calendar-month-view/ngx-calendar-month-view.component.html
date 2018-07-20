@@ -10,18 +10,16 @@
         </ng-container>
       </div>
     </div>
-    <div class="details" [ngClass]="{ 'in': week.selectedDay, 'out': !week.selectedDay }">
-      <div class="arrow-container" *ngIf="week.selectedDay">
+    <div class="details" *ngIf="week.selectedDay"  [ngClass]="{ 'in': week.selectedDay }">
+      <div class="arrow-container">
         <div class="fill" [ngStyle]="week.style"></div>
         <div class="arrow"></div>
       </div>
-      <div class="events" [ngClass]="{ 'in': week.selectedDay, 'out': !week.selectedDay }" >
-        <ng-container *ngIf="week.selectedDay">
-          <div class="event" *ngFor="let event of week.selectedDay.events;" (click)="openEvent(event)">
-            <div class="event-category" [ngClass]="event.color"></div>
-            <span>{{ event.title }}</span>
-          </div>
-        </ng-container>
+      <div class="events">
+        <div class="event" *ngFor="let event of week.selectedDay.events;" (click)="openEvent(event)">
+          <div class="event-category" [ngClass]="event.color"></div>
+          <span>{{ event.title }}</span>
+        </div>
       </div>
     </div>
   </div>

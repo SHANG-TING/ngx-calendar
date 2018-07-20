@@ -5,7 +5,7 @@ import { NgxCalendarService } from '../../ngx-calendar.service';
 @Component({
   selector: 'ngx-calendar-month-view',
   templateUrl: './ngx-calendar-month-view.component.html',
-  styleUrls: ['./ngx-calendar-month-view.component.scss']
+  styleUrls: ['./ngx-calendar-month-view.component.scss', './color.scss']
 })
 export class NgxCalendarMonthViewComponent implements OnChanges {
 
