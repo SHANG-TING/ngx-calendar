@@ -15,9 +15,9 @@
     <ngx-calendar-month-view [className]="className" *ngSwitchCase="'month'" [weekNames]="weekNames" [yearName]="yearName" [monthName]="monthName"
       [events]="events" [nstr]="nstr" (open)="openEvent($event)"></ngx-calendar-month-view>
 
-    <ngx-calendar-week-view [className]="className" *ngSwitchCase="'week'" [events]="events" [nstr]="nstr"></ngx-calendar-week-view>
+    <ngx-calendar-week-view [className]="className" *ngSwitchCase="'week'" [events]="events" [nstr]="nstr" (open)="openEvent($event)"></ngx-calendar-week-view>
 
-    <ngx-calendar-day-view [className]="className" *ngSwitchCase="'day'" [events]="events" [nstr]="nstr" start="10:00" end="20:00"></ngx-calendar-day-view>
+    <ngx-calendar-day-view [className]="className" *ngSwitchCase="'day'" [events]="events" [nstr]="nstr" start="10:00" end="20:00" (open)="openEvent($event)"></ngx-calendar-day-view>
 
   </div>
 

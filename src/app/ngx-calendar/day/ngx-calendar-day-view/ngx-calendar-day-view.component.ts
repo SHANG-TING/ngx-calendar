@@ -1,4 +1,5 @@
-import { Component, Input, QueryList, ViewChildren, ElementRef, OnChanges, SimpleChanges, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, Input, QueryList, ViewChildren, ElementRef, OnChanges, SimpleChanges,
+   ViewChild, AfterViewInit, EventEmitter, Output } from '@angular/core';
 import { CalendarEvent } from '../../@core/models';
 import { HOUR_SCHEMAS } from './data';
 
@@ -18,6 +19,8 @@ export class NgxCalendarDayViewComponent implements AfterViewInit, OnChanges {
   @Input() start = '00:00';
   @Input() end = '24:00';
   @Input() split = 30;
+
+  @Output() open: EventEmitter<any> = new EventEmitter();
 
   elmWidth = 110;
 
@@ -225,6 +228,10 @@ export class NgxCalendarDayViewComponent implements AfterViewInit, OnChanges {
   next(): void {
     this.nstr.setDate(this.nstr.getDate() + 1);
     this.initView();
+  }
+
+  openEvent(event): void {
+    this.open.emit(event);
   }
 
   ngOnChanges(changes: SimpleChanges): void {

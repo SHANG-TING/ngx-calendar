@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, Input, SimpleChanges } from '@angular/core';
+import { Component, OnInit, OnChanges, Input, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { CalendarEvent, CalendarWeekDay } from '../../@core/models';
 
 @Component({
@@ -13,6 +13,8 @@ export class NgxCalendarWeekViewComponent implements OnInit, OnChanges {
   @Input() weekNames: string[] = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
   @Input() events: CalendarEvent[] = [];
   @Input() nstr = new Date();
+
+  @Output() open: EventEmitter<any> = new EventEmitter();
 
   weekDays: CalendarWeekDay[] = [];
   weekEvents: any[] = [];
@@ -73,7 +75,8 @@ export class NgxCalendarWeekViewComponent implements OnInit, OnChanges {
           endsAfterWeek: true,
           title: e.title,
           color: e.color,
-          url: e.url
+          url: e.url,
+          data: e
         };
 
         if (e.start >= firstdate && e.end < lastdate) {
@@ -113,6 +116,10 @@ export class NgxCalendarWeekViewComponent implements OnInit, OnChanges {
   next(): void {
     this.nstr.setDate(this.nstr.getDate() + 7);
     this.ngOnInit();
+  }
+
+  openEvent(event): void {
+    this.open.emit(event);
   }
 
   ngOnChanges(changes: SimpleChanges): void {

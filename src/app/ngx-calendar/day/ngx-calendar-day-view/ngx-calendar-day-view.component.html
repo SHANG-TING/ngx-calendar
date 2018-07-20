@@ -15,9 +15,9 @@
     <div *ngFor="let dayEvent of dayEvents" class="bar" [ngStyle]="dayEvent.style" [ngClass]="dayEvent.data.color"
       [class.cal-starts-within-day]="dayEvent.startsBeforeWeek"
       [class.cal-ends-within-day]="dayEvent.endsAfterWeek">
-      <span>
+        <span (click)="openEvent(dayEvent.data)">
           {{ dayEvent.data.title }}
-      </span>
+        </span>
     </div>
      <!--<div style="background: green;
     height: 90px;

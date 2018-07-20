@@ -23,7 +23,7 @@
               <i class="fa fa-fw fa-times"></i>
             </a>
           </span> -->
-          <a class="cal-event-title " [attr.href]="weekEvent.url" target="_blank">{{ weekEvent.title }}</a>
+          <a class="cal-event-title " href="javascript: void(0)" (click)="openEvent(weekEvent.data)">{{ weekEvent.title }}</a>
         </div>
       </div>
     </div>
