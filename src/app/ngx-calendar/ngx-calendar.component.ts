@@ -7,30 +7,14 @@ import { NgxCalendarMonthPopupComponent } from './month/ngx-calendar-month-popup
 import { NgxCalendarMonthViewComponent } from './month/ngx-calendar-month-view';
 import { NgxCalendarWeekViewComponent } from './week/ngx-calendar-week-view';
 import { NgxCalendarDayViewComponent } from './day/ngx-calendar-day-view';
-import { trigger, transition, style, animate, state } from '@angular/animations';
+import { animateFactory } from './@core/animation';
 
 @Component({
   selector: 'ngx-calendar',
   templateUrl: './ngx-calendar.component.html',
   styleUrls: ['./ngx-calendar.component.scss'],
   animations: [
-    trigger('flyInOut', [
-      state('Close', style({
-        transform: 'translateX(calc(100% - 55px))'
-      })),
-      transition('Open => Close', [
-        style({
-          transform: 'translateX(0)'
-        }),
-        animate('0.5s ease-in')
-      ]),
-      transition('Close => Open', [
-        style({
-          transform: 'translateX(calc(100% - 55px))'
-        }),
-        animate('0.5s ease-in')
-      ])
-    ])
+    animateFactory()
   ]
 })
 export class NgxCalendarComponent implements OnInit, AfterViewInit {
@@ -78,7 +62,7 @@ export class NgxCalendarComponent implements OnInit, AfterViewInit {
 
   private monthPopupComponent = this._factory.resolveComponentFactory(NgxCalendarMonthPopupComponent);
 
-  legendOpen = 'Close';
+  legendOpen = 'flyOut';
 
   constructor(
     private _pop: PopUpService,
@@ -139,7 +123,7 @@ export class NgxCalendarComponent implements OnInit, AfterViewInit {
   }
 
   legendToggle(): void {
-    this.legendOpen = this.legendOpen === 'Open' ? 'Close' : 'Open';
+    this.legendOpen = this.legendOpen === 'flyIn' ? 'flyOut' : 'flyIn';
   }
 
 }
