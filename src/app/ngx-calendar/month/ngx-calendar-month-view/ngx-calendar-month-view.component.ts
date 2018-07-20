@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges, Output, EventEmitter, HostListener } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { CalendarWeek, CalendarDay, CalendarEvent } from '../../@core/models';
 import { NgxCalendarService } from '../../ngx-calendar.service';
 
@@ -18,24 +18,9 @@ export class NgxCalendarMonthViewComponent implements OnChanges {
 
   @Output() open: EventEmitter<any> = new EventEmitter();
 
-  /**
-   * 現在選的dayElm
-   */
-  nowDayElm;
-  /**
-   * 現在選的week
-   */
-  nowWeek;
-
   calendarData = this._service.getCalendar(this.nstr, this.ynow, this.mnow, this.dnow, this.events);
 
-  @HostListener('window:resize', ['$event'])
-  private onResize(event) {
-    // 為了隨著視窗大小變更時，去移動三角形的位置。
-    if (this.nowWeek && this.nowDayElm) {
-      this.nowWeek.style.left = `${this.nowDayElm.offsetLeft + this.nowDayElm.offsetWidth / 2}px`;
-    }
-  }
+  private eachPresent = 100 / 14;
 
   get ynow() { return this.nstr.getFullYear(); }
   get mnow() { return this.nstr.getMonth(); }
@@ -53,20 +38,23 @@ export class NgxCalendarMonthViewComponent implements OnChanges {
     this.calendarData = this._service.getCalendar(this.nstr, this.ynow, this.mnow, this.dnow, this.events);
   }
 
-  showEventList(week: CalendarWeek, day: CalendarDay, dayElm: HTMLElement) {
+  showEventList(week: CalendarWeek, day: CalendarDay) {
     if (day.events.length) {
       if (week.selectedDay && week.selectedDay === day) {
-        this.nowDayElm = this.nowWeek = undefined;
         week.selectedDay = undefined;
       } else {
         this.calendarData.forEach(w => {
           w.selectedDay = undefined;
         });
 
-        this.nowWeek = week;
-        this.nowDayElm = dayElm;
         week.selectedDay = day;
-        week.style.left = `${dayElm.offsetLeft + dayElm.offsetWidth / 2}px`;
+
+        const present = (day.name * 2 + 1) * this.eachPresent;
+        week.style = {
+          'flex': `1 1 ${present}%`,
+          'max-width': `${present}%`,
+          'min-width': `${present}%`
+        };
       }
     }
   }
