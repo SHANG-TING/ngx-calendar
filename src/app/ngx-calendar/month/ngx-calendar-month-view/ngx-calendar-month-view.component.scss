@@ -1,235 +1,157 @@
 /* https://angular.io/guide/component-styles */
+
+$animation-time:.5s;
+$max-height:5000px;
 :host {
   display: block;
 }
 
-/* Animations are cool!  */
-@-webkit-keyframes moveFromTopFade {
-  from {
-    opacity: .3;
-    height: 0px;
-    margin-top: 0px;
-    -webkit-transform: translateY(-100%);
+.month {
+  opacity: 0;
+  &.new {
+    animation: fadeIn 1s ease-out;
+    opacity: 1;
   }
 }
 
-@-moz-keyframes moveFromTopFade {
-  from {
-    height: 0px;
-    margin-top: 0px;
-    -moz-transform: translateY(-100%);
+.day {
+  display: inline-block;
+  width: calc(100% / 7);
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
+  .day-events {
+    list-style: none;
+    margin-top: 3px;
+    text-align: center;
+    min-height: 12px;
+    line-height: 6px;
+    overflow: hidden;
+    span {
+      display: inline-block;
+      width: 5px;
+      height: 5px;
+      margin: 0 1px;
+    }
+  }
+  .day-name {
+    font-size: 9px;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+    letter-spacing: .7px;
+  }
+  .day-number {
+    font-size: 24px;
   }
 }
+
+.details {
+  display: none;
+  position: relative;
+  max-height: $max-height;
+  width: 100%;
+  margin-top: 5px;
+  border-radius: 4px;
+  &.in {
+    display: block;
+    animation: moveFromTopFade $animation-time cubic-bezier(1, 0, 1, 0);
+    .event {
+      animation: fadeIn .3s ease both;
+      animation-delay: .3s;
+    }
+  }
+  &.out {
+    display: block;
+    z-index: -1;
+    .event {
+      animation: fadeIn .3s ease both;
+    }
+    max-height: 0;
+    transition: all $animation-time cubic-bezier(0, 1, 0, 1);
+  }
+}
+
+.arrow-container {
+  width: 100%;
+  display: flex;
+  .fill {
+    transition: all 0.3s ease;
+  }
+  .arrow {
+    transform: translateX(-2.5px) translateY(-5px);
+    width: 0px;
+    height: 0px;
+    border-style: solid;
+    border-width: 0 5px 5px 5px;
+    border-color: transparent transparent rgba(164, 164, 164, 1) transparent;
+  }
+}
+
+.events {
+  min-height: 120px;
+  padding: 7px 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.event {
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: .5px;
+  padding: 2px 16px;
+  vertical-align: top;
+  display: flex;
+  span {
+    display: inline-block;
+    padding: 0 0 0 7px;
+    &:hover {
+      color: yellow;
+      font-size: 120%;
+    }
+    &:active {
+      color: red;
+    }
+  }
+  &.empty {
+    color: #eee;
+  }
+}
+
+.event-category {
+  height: 10px;
+  width: 10px;
+  display: inline-block;
+  margin: 6px 5px 0;
+  vertical-align: top;
+}
+
+@media screen and (max-width: 320px) {
+  .day {
+    padding: 5px;
+  }
+}
+
+/* Animations are cool!  */
 
 @keyframes moveFromTopFade {
-  from {
-    height: 0px;
-    margin-top: 0px;
-    transform: translateY(-100%);
+  0% {
+    max-height: 0px;
   }
-}
-
-@-webkit-keyframes moveToTopFade {
-  to {
-    opacity: .3;
-    height: 0px;
-    margin-top: 0px;
-    opacity: 0.3;
-    -webkit-transform: translateY(-100%);
-  }
-}
-
-@-moz-keyframes moveToTopFade {
-  to {
-    height: 0px;
-    -moz-transform: translateY(-100%);
-  }
-}
-
-@keyframes moveToTopFade {
-  to {
-    height: 0px;
-    transform: translateY(-100%);
-  }
-}
-
-@-webkit-keyframes moveToTopFadeMonth {
-  to {
-    opacity: 0;
-    -webkit-transform: translateY(-30%) scale(.95);
-  }
-}
-
-@-moz-keyframes moveToTopFadeMonth {
-  to {
-    opacity: 0;
-    -moz-transform: translateY(-30%);
-  }
-}
-
-@keyframes moveToTopFadeMonth {
-  to {
-    opacity: 0;
-    -moz-transform: translateY(-30%);
-  }
-}
-
-@-webkit-keyframes moveFromTopFadeMonth {
-  from {
-    opacity: 0;
-    -webkit-transform: translateY(30%) scale(.95);
-  }
-}
-
-@-moz-keyframes moveFromTopFadeMonth {
-  from {
-    opacity: 0;
-    -moz-transform: translateY(30%);
-  }
-}
-
-@keyframes moveFromTopFadeMonth {
-  from {
-    opacity: 0;
-    -moz-transform: translateY(30%);
-  }
-}
-
-@-webkit-keyframes moveToBottomFadeMonth {
-  to {
-    opacity: 0;
-    -webkit-transform: translateY(30%) scale(.95);
-  }
-}
-
-@-moz-keyframes moveToBottomFadeMonth {
-  to {
-    opacity: 0;
-    -webkit-transform: translateY(30%);
-  }
-}
-
-@keyframes moveToBottomFadeMonth {
-  to {
-    opacity: 0;
-    -webkit-transform: translateY(30%);
-  }
-}
-
-@-webkit-keyframes moveFromBottomFadeMonth {
-  from {
-    opacity: 0;
-    -webkit-transform: translateY(-30%) scale(.95);
-  }
-}
-
-@-moz-keyframes moveFromBottomFadeMonth {
-  from {
-    opacity: 0;
-    -webkit-transform: translateY(-30%);
-  }
-}
-
-@keyframes moveFromBottomFadeMonth {
-  from {
-    opacity: 0;
-    -webkit-transform: translateY(-30%);
-  }
-}
-
-@-webkit-keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-}
-
-@-moz-keyframes fadeIn {
-  from {
-    opacity: 0;
+  100% {
+    max-height: $max-height;
   }
 }
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-}
-
-@-webkit-keyframes fadeOut {
-  to {
-    opacity: 0;
-  }
-}
-
-@-moz-keyframes fadeOut {
-  to {
+  0% {
     opacity: 0;
   }
 }
 
 @keyframes fadeOut {
-  to {
+  100% {
     opacity: 0;
   }
-}
-
-@-webkit-keyframes fadeOutShink {
-  to {
-    opacity: 0;
-    padding: 0px;
-    height: 0px;
-  }
-}
-
-@-moz-keyframes fadeOutShink {
-  to {
-    opacity: 0;
-    padding: 0px;
-    height: 0px;
-  }
-}
-
-@keyframes fadeOutShink {
-  to {
-    opacity: 0;
-    padding: 0px;
-    height: 0px;
-  }
-}
-
-.month {
-  opacity: 0;
-}
-
-.month.new {
-  animation: fadeIn 1s ease-out;
-  opacity: 1;
-}
-
-.month.in.next {
-  animation: moveFromTopFadeMonth .4s ease-out;
-  opacity: 1;
-}
-
-.month.out.next {
-  -webkit-animation: moveToTopFadeMonth .4s ease-in;
-  -moz-animation: moveToTopFadeMonth .4s ease-in;
-  animation: moveToTopFadeMonth .4s ease-in;
-  opacity: 1;
-}
-
-.month.in.prev {
-  -webkit-animation: moveFromBottomFadeMonth .4s ease-out;
-  -moz-animation: moveFromBottomFadeMonth .4s ease-out;
-  animation: moveFromBottomFadeMonth .4s ease-out;
-  opacity: 1;
-}
-
-.month.out.prev {
-  -webkit-animation: moveToBottomFadeMonth .4s ease-in;
-  -moz-animation: moveToBottomFadeMonth .4s ease-in;
-  animation: moveToBottomFadeMonth .4s ease-in;
-  opacity: 1;
 }
 
 .black {
@@ -274,137 +196,5 @@
   }
   .details {
     background: #dcffc7;
-  }
-}
-
-.day {
-  display: inline-block;
-  width: calc(100% / 7);
-  padding: 10px;
-  text-align: center;
-  cursor: pointer;
-  .day-events {
-    list-style: none;
-    margin-top: 3px;
-    text-align: center;
-    min-height: 12px;
-    line-height: 6px;
-    overflow: hidden;
-    span {
-      display: inline-block;
-      width: 5px;
-      height: 5px;
-      margin: 0 1px;
-    }
-  }
-  .day-name {
-    font-size: 9px;
-    text-transform: uppercase;
-    margin-bottom: 5px;
-    letter-spacing: .7px;
-  }
-  .day-number {
-    font-size: 24px;
-  }
-}
-
-.blue {
-  background: rgba(156, 202, 235, 1);
-}
-
-.orange {
-  background: rgba(247, 167, 0, 1);
-}
-
-.green {
-  background: rgba(153, 198, 109, 1);
-}
-
-.yellow {
-  background: rgba(249, 233, 0, 1);
-}
-
-.details {
-  position: relative;
-  width: 100%;
-  margin-top: 5px;
-  border-radius: 4px;
-}
-
-.details.in {
-  animation: moveFromTopFade .5s ease both;
-}
-
-.details.out {
-  animation: moveToTopFade .5s ease both;
-  .events {
-    animation: fadeOutShink .4s ease both;
-  }
-}
-
-.arrow {
-  position: absolute;
-  top: -5px;
-  left: 50%;
-  margin-left: -2px;
-  width: 0px;
-  height: 0px;
-  border-style: solid;
-  border-width: 0 5px 5px 5px;
-  border-color: transparent transparent rgba(164, 164, 164, 1) transparent;
-  transition: all 0.3s ease;
-}
-
-.events {
-  height: 120px;
-  padding: 7px 0;
-  overflow-y: auto;
-  overflow-x: hidden;
-}
-
-.events.in {
-  animation: fadeIn .3s ease both;
-  animation-delay: .3s;
-}
-
-.events.out {
-  animation: fadeOut .3s ease both;
-}
-
-.event {
-  font-size: 16px;
-  line-height: 22px;
-  letter-spacing: .5px;
-  padding: 2px 16px;
-  vertical-align: top;
-  display: flex;
-  span {
-    display: inline-block;
-    padding: 0 0 0 7px;
-    &:hover {
-      color: yellow;
-      font-size: 120%;
-    }
-    &:active {
-      color: red;
-    }
-  }
-}
-
-.event.empty {
-  color: #eee;
-}
-
-.event-category {
-  height: 10px;
-  width: 10px;
-  display: inline-block;
-  margin: 6px 5px 0;
-  vertical-align: top;
-}
-
-@media screen and (max-width: 320px) {
-  .day {
-    padding: 5px;
   }
 }

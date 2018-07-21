@@ -1,5 +1,5 @@
 import { Component, OnInit, OnChanges, Input, SimpleChanges, Output, EventEmitter } from '@angular/core';
-import { CalendarEvent, CalendarWeekDay } from '../../@core/models';
+import { CalendarEvent, CalendarWeekDay, CalendarElmDetial } from '../../@core/models';
 
 @Component({
   selector: 'ngx-calendar-week-view',
@@ -17,11 +17,15 @@ export class NgxCalendarWeekViewComponent implements OnInit, OnChanges {
   @Output() open: EventEmitter<any> = new EventEmitter();
 
   weekDays: CalendarWeekDay[] = [];
-  weekEvents: any[] = [];
+  weekEvents: CalendarElmDetial<string>[] = [];
 
   constructor() { }
 
   ngOnInit(): void {
+    this.initValue();
+  }
+
+  private initValue() {
     this.setWeekDays();
     this.setWeekEvents();
   }
@@ -68,54 +72,64 @@ export class NgxCalendarWeekViewComponent implements OnInit, OnChanges {
       })
       .sort((e1, e2) => e1.start.getTime() - e2.start.getTime())
       .map(e => {
-        const event = {
-          width: (1 / 7) * 100 + '%',
-          left: (e.start.getDay() - firstday) / 7 * 100 + '%',
+        const event: CalendarElmDetial<number> = {
+          style: {
+            width: 7,
+            left: (e.start.getDay() - firstday),
+            color: e.color,
+          },
           startsBeforeWeek: true,
           endsAfterWeek: true,
           title: e.title,
-          color: e.color,
           url: e.url,
           data: e
         };
 
         if (e.start >= firstdate && e.end < lastdate) {
 
-          event.width = ((e.end.getDay() - e.start.getDay() + 1) / 7) * 100 + '%';
-          event.left = ((e.start.getDay() - firstday) / 7) * 100 + '%';
+          event.style.width = e.end.getDay() - e.start.getDay() + 1;
+          event.style.left = e.start.getDay() - firstday;
 
         } else if (e.start < firstdate && (firstdate <= e.end && e.end < lastdate)) {
 
-          event.width = ((e.end.getDay() - firstday + 1) / 7) * 100 + '%';
-          event.left = 0 + '%';
+          event.style.width = e.end.getDay() - firstday + 1;
+          event.style.left = 0;
           event.startsBeforeWeek = false;
 
         } else if ((e.start >= firstdate && e.start < lastdate) && e.end >= lastdate) {
 
-          event.width = ((lastday - e.start.getDay() + 1) / 7) * 100 + '%';
-          event.left = ((e.start.getDay() - firstday) / 7) * 100 + '%';
+          event.style.width = lastday - e.start.getDay() + 1;
+          event.style.left = e.start.getDay() - firstday;
           event.endsAfterWeek = false;
 
         } else if (e.start <= firstdate && lastdate < e.end) {
 
-          event.width = '100%';
-          event.left = '0%';
+          event.style.width = 7;
+          event.style.left = 0;
           event.startsBeforeWeek = false;
           event.endsAfterWeek = false;
         }
 
-        return event;
+
+        return {
+          ...event,
+          style: {
+            width: `${(event.style.width / 7) * 100}%`,
+            left: `${(event.style.left / 7) * 100}%`,
+            color: e.color,
+          },
+        };
       });
   }
 
   prev(): void {
     this.nstr.setDate(this.nstr.getDate() - 7);
-    this.ngOnInit();
+    this.initValue();
   }
 
   next(): void {
     this.nstr.setDate(this.nstr.getDate() + 7);
-    this.ngOnInit();
+    this.initValue();
   }
 
   openEvent(event): void {
@@ -124,7 +138,7 @@ export class NgxCalendarWeekViewComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.nstr || changes.events) {
-      this.ngOnInit();
+      this.initValue();
     }
   }
 }
