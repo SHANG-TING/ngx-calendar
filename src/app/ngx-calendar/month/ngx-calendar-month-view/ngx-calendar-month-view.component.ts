@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { CalendarWeek, CalendarDay, CalendarEvent } from '../../@core/models';
-import { NgxCalendarService } from '../../ngx-calendar.service';
+import { getCalendar } from '../utils';
 
 @Component({
   selector: 'ngx-calendar-month-view',
@@ -18,7 +18,7 @@ export class NgxCalendarMonthViewComponent implements OnChanges {
 
   @Output() open: EventEmitter<any> = new EventEmitter();
 
-  calendarData = this._service.getCalendar(this.nstr, this.ynow, this.mnow, this.dnow, this.events);
+  calendarData = getCalendar(this.nstr, this.ynow, this.mnow, this.dnow, this.events);
 
   private eachPresent = 100 / 14;
 
@@ -26,16 +26,16 @@ export class NgxCalendarMonthViewComponent implements OnChanges {
   get mnow() { return this.nstr.getMonth(); }
   get dnow() { return this.nstr.getDate(); }
 
-  constructor(private _service: NgxCalendarService) { }
+  constructor() { }
 
   prev() {
     this.nstr.setMonth(this.nstr.getMonth() - 1);
-    this.calendarData = this._service.getCalendar(this.nstr, this.ynow, this.mnow, this.dnow, this.events);
+    this.calendarData = getCalendar(this.nstr, this.ynow, this.mnow, this.dnow, this.events);
   }
 
   next() {
     this.nstr.setMonth(this.nstr.getMonth() + 1);
-    this.calendarData = this._service.getCalendar(this.nstr, this.ynow, this.mnow, this.dnow, this.events);
+    this.calendarData = getCalendar(this.nstr, this.ynow, this.mnow, this.dnow, this.events);
   }
 
   showEventList(week: CalendarWeek, day: CalendarDay) {
@@ -69,7 +69,7 @@ export class NgxCalendarMonthViewComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.events || changes.nstr) {
-      this.calendarData = this._service.getCalendar(this.nstr, this.ynow, this.mnow, this.dnow, this.events);
+      this.calendarData = getCalendar(this.nstr, this.ynow, this.mnow, this.dnow, this.events);
     }
   }
 
