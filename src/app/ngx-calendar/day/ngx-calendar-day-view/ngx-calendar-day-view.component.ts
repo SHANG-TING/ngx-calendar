@@ -91,7 +91,7 @@ export class NgxCalendarDayViewComponent implements AfterViewInit, OnChanges {
     setTimeout(() => {
       const elm = this.scrollElm.nativeElement as HTMLElement;
       this.hasScroll = elm.scrollWidth > elm.clientWidth;
-      console.log(this.hasScroll);
+      // console.log(this.hasScroll);
     }, 0);
   }
 
