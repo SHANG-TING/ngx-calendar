@@ -2,9 +2,15 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { Subject } from 'rxjs';
 import { POPUP_TOKEN, PopUpRef } from '../../@core/components';
 import { NgxCalendarService } from '../../ngx-calendar.service';
+import { CalendarViewMode } from '../../@core/models';
 
 export enum CalendarSelectorMode {
   Year = 'Year', Month = 'Month', Day = 'Day'
+}
+
+export interface CalendarSelectorData {
+  theme?: string;
+  containerViewMode?: CalendarViewMode;
 }
 
 @Component({
@@ -13,7 +19,7 @@ export enum CalendarSelectorMode {
   styleUrls: ['./ngx-calendar-month-popup.component.scss']
 })
 export class NgxCalendarMonthPopupComponent implements OnInit, PopUpRef {
-  theme;
+  popupData: CalendarSelectorData = {};
   mode = CalendarSelectorMode.Year;
   minYear = 2016;
   selectedYear: number;
@@ -27,7 +33,7 @@ export class NgxCalendarMonthPopupComponent implements OnInit, PopUpRef {
 
   public popupOutputSender = new Subject();
   constructor(@Inject(POPUP_TOKEN) private data, private _service: NgxCalendarService) {
-    this.theme = data;
+    this.popupData = data;
   }
 
   ngOnInit() {
@@ -48,11 +54,14 @@ export class NgxCalendarMonthPopupComponent implements OnInit, PopUpRef {
 
   selectMonth(month) {
     this.selectedMonth = month;
-    this.mode = CalendarSelectorMode.Day;
-    // this.popupOutputSender.next(new Date(this.selectedYear, this.selectedMonth, 1));
-    this.calendarData =  this._service.getCalendar(new Date(this.selectedYear, this.selectedMonth, 1),
-      this.selectedYear, this.selectedMonth, 1, []);
-      console.log(this.calendarData);
+
+    if (this.popupData.containerViewMode === CalendarViewMode.day) {
+      this.mode = CalendarSelectorMode.Day;
+      this.calendarData =  this._service.getCalendar(new Date(this.selectedYear, this.selectedMonth, 1),
+        this.selectedYear, this.selectedMonth, 1, []);
+    } else {
+      this.popupOutputSender.next(new Date(this.selectedYear, this.selectedMonth, 1));
+    }
   }
 
   selectDay(day) {

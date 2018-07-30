@@ -110,7 +110,7 @@ export class NgxCalendarComponent implements OnInit, AfterViewInit {
     this._pop.open(this.monthPopupComponent, {
       disableTitle: true,
       disableCloseButton: true,
-      data: this.className,
+      data: { theme: this.className, containerViewMode: this.viewMode},
     }).subscribe(selectedDate => {
       if (selectedDate) {
         this.nstr = selectedDate;
