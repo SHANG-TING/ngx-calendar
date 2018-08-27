@@ -1,6 +1,6 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NgxCalendarDayViewComponent } from './ngx-calendar-day-view';
+import { NgxCalendarDayViewComponent } from './ngx-calendar-day-view/ngx-calendar-day-view.component';
 
 const COMPONENTS = [
   NgxCalendarDayViewComponent

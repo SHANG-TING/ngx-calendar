@@ -1,17 +1,16 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NgxCalendarWeekViewComponent } from './ngx-calendar-week-view';
-
-const COMPONENTS = [
-  NgxCalendarWeekViewComponent
-];
+import { NgxCalendarWeekViewComponent } from './ngx-calendar-week-view/ngx-calendar-week-view.component';
 
 @NgModule({
   imports: [
     CommonModule
   ],
-  declarations: [COMPONENTS],
-  exports: [COMPONENTS],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  declarations: [
+    NgxCalendarWeekViewComponent
+  ],
+  exports: [
+    NgxCalendarWeekViewComponent
+  ]
 })
 export class NgxCalendarWeekModule { }

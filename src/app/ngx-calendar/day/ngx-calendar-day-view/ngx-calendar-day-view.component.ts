@@ -2,7 +2,7 @@ import {
   Component, Input, QueryList, ViewChildren, ElementRef, OnChanges, SimpleChanges,
   ViewChild, AfterViewInit, EventEmitter, Output
 } from '@angular/core';
-import { CalendarEvent, CalendarElmDetial } from '../../@core/models';
+import { CalendarEvent, CalendarElmDetial } from '../../ngx-calendar.model';
 import { HOUR_SCHEMAS } from './data';
 
 @Component({

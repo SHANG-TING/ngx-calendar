@@ -1,23 +1,24 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgxCalendarComponent } from './ngx-calendar.component';
-import { NgxCalendarMonthModule } from './month';
-import { NgxCalendarWeekModule } from './week';
-import { NgxCalendarDayModule } from './day';
-
-const COMPONENTS = [
-  NgxCalendarComponent
-];
+import { NgxCalendarMonthModule } from './month/ngx-calendar-month.module';
+import { NgxCalendarWeekModule } from './week/ngx-calendar-week.module';
+import { NgxCalendarDayModule } from './day/ngx-calendar-day.module';
+import { NgxRxModalModule } from 'ngx-rx-modal';
 
 @NgModule({
   imports: [
     CommonModule,
+    NgxRxModalModule,
     NgxCalendarMonthModule,
     NgxCalendarWeekModule,
     NgxCalendarDayModule
   ],
-  declarations: [COMPONENTS],
-  exports: [COMPONENTS],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  declarations: [
+    NgxCalendarComponent
+  ],
+  exports: [
+    NgxCalendarComponent
+  ]
 })
 export class NgxCalendarModule { }

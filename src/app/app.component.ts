@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CalendarEvent, colors } from './ngx-calendar/@core/models';
+import { CalendarEvent, colors } from './ngx-calendar/ngx-calendar.model';
 
 @Component({
   selector: 'app-root',

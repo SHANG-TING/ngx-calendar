@@ -1,23 +1,44 @@
 import {
-  Component, OnInit, Input, Output, EventEmitter, ComponentFactoryResolver, ViewChild, AfterViewInit
+  Component, Input, Output, EventEmitter, ComponentFactoryResolver, ViewChild
 } from '@angular/core';
-import { CalendarEvent, CalendarViewMode } from './@core/models';
-import { PopUpService } from './@core/components';
 import { NgxCalendarMonthPopupComponent } from './month/ngx-calendar-month-popup/ngx-calendar-month-popup.component';
-import { NgxCalendarMonthViewComponent } from './month/ngx-calendar-month-view';
-import { NgxCalendarWeekViewComponent } from './week/ngx-calendar-week-view';
-import { NgxCalendarDayViewComponent } from './day/ngx-calendar-day-view';
-import { animateFactory } from './@core/animation';
+import { NgxCalendarMonthViewComponent } from './month/ngx-calendar-month-view/ngx-calendar-month-view.component';
+import { NgxCalendarWeekViewComponent } from './week/ngx-calendar-week-view/ngx-calendar-week-view.component';
+import { NgxCalendarDayViewComponent } from './day/ngx-calendar-day-view/ngx-calendar-day-view.component';
+import { CalendarViewMode, CalendarEvent } from './ngx-calendar.model';
+import { NgxRxModalService } from 'ngx-rx-modal';
+import { trigger, state, style, transition, animate } from '@angular/animations';
+
+const time = '150ms linear';
 
 @Component({
   selector: 'ngx-calendar',
   templateUrl: './ngx-calendar.component.html',
   styleUrls: ['./ngx-calendar.component.scss'],
   animations: [
-    animateFactory()
+    trigger('animate', [
+      state('flyOut', style({
+        transform: 'translateX(calc(100% - 55px))'
+      })),
+      state('flyIn', style({
+        transform: 'translateX(0)'
+      })),
+      transition('flyOut => flyIn', [
+        style({
+          transform: 'translateX(calc(100% - 55px))'
+        }),
+        animate(time)
+      ]),
+      transition('flyIn => flyOut', [
+        style({
+          transform: 'translateX(0)'
+        }),
+        animate(time)
+      ])
+    ])
   ]
 })
-export class NgxCalendarComponent implements OnInit, AfterViewInit {
+export class NgxCalendarComponent {
 
   @Input() weekNames: string[] = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
   @Input() yearName = '年';
@@ -51,6 +72,8 @@ export class NgxCalendarComponent implements OnInit, AfterViewInit {
     return result;
   }
 
+  legendOpen = 'flyOut';
+
   @ViewChild(NgxCalendarMonthViewComponent)
   private monthComponent: NgxCalendarMonthViewComponent;
 
@@ -62,17 +85,9 @@ export class NgxCalendarComponent implements OnInit, AfterViewInit {
 
   private monthPopupComponent = this._factory.resolveComponentFactory(NgxCalendarMonthPopupComponent);
 
-  legendOpen = 'flyOut';
-
   constructor(
-    private _pop: PopUpService,
+    private _model: NgxRxModalService,
     private _factory: ComponentFactoryResolver) { }
-
-  ngOnInit(): void {
-  }
-
-  ngAfterViewInit(): void {
-  }
 
   prev(): void {
     switch (this.viewMode) {
@@ -107,14 +122,13 @@ export class NgxCalendarComponent implements OnInit, AfterViewInit {
   }
 
   openSelector($event: MouseEvent): void {
-    this._pop.open(this.monthPopupComponent, {
-      disableTitle: true,
+    this._model.open(this.monthPopupComponent, {
       disableCloseButton: true,
       panelStyle: {
         top: `${$event.pageY}px`,
-        margin: 0
+        padding: 0
       },
-      data: { theme: this.className, containerViewMode: this.viewMode},
+      data: { theme: this.className, containerViewMode: this.viewMode },
     }).subscribe(selectedDate => {
       if (selectedDate) {
         this.nstr = selectedDate;

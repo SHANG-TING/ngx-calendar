@@ -1,4 +1,4 @@
-import { CalendarDay, CalendarEvent, CalendarWeek } from '../@core/models';
+import { CalendarWeek, CalendarDay, CalendarEvent } from '../ngx-calendar.model';
 
 /** 判斷是否為閏年 */
 export function is_leap(year) {

@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
-import { CalendarWeek, CalendarDay, CalendarEvent } from '../../@core/models';
+import { CalendarWeek, CalendarDay, CalendarEvent } from '../../ngx-calendar.model';
 import { getCalendar } from '../utils';
 
 @Component({

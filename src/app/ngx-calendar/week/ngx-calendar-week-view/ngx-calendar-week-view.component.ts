@@ -1,5 +1,6 @@
 import { Component, OnInit, OnChanges, Input, SimpleChanges, Output, EventEmitter } from '@angular/core';
-import { CalendarEvent, CalendarWeekDay, CalendarElmDetial } from '../../@core/models';
+
+import { CalendarEvent, CalendarWeekDay, CalendarElmDetial } from '../../ngx-calendar.model';
 
 @Component({
   selector: 'ngx-calendar-week-view',
