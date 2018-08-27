@@ -14,7 +14,7 @@ export interface CalendarSelectorData {
 }
 
 @Component({
-  selector: 'app-ngx-calendar-month-popup',
+  selector: 'ngx-calendar-month-popup',
   templateUrl: './ngx-calendar-month-popup.component.html',
   styleUrls: ['./ngx-calendar-month-popup.component.scss']
 })
