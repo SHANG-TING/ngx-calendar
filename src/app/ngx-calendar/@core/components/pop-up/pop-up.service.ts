@@ -8,7 +8,7 @@ import {
   TemplateRef,
   Type,
 } from '@angular/core';
-import { of } from 'rxjs';
+import { of, Observable } from 'rxjs';
 import { map, switchMap, take } from 'rxjs/operators';
 
 import { CdkService } from '../../service';
@@ -25,7 +25,7 @@ export class PopUpService {
 
   open(
     component: TemplateRef<any> | ComponentFactory<any>
-    , config: PopUpConfig = {}) {
+    , config: PopUpConfig = {}): Observable<any> {
 
     return of(null).pipe(
       switchMap(() => {
