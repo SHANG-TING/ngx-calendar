@@ -17,7 +17,7 @@
 
     <ngx-calendar-week-view [className]="className" *ngSwitchCase="'week'" [events]="events" [nstr]="nstr" (open)="openEvent($event)"></ngx-calendar-week-view>
 
-    <ngx-calendar-day-view [className]="className" *ngSwitchCase="'day'" [events]="events" [nstr]="nstr" start="10:00" end="20:00" (open)="openEvent($event)"></ngx-calendar-day-view>
+    <ngx-calendar-day-view [className]="className" *ngSwitchCase="'day'" [events]="events" [nstr]="nstr" start="9:00" end="23:00" (open)="openEvent($event)"></ngx-calendar-day-view>
 
   </div>
 
@@ -39,7 +39,8 @@
   </ul>
 
   <div class="legend">
-    <span class="entry orange">課程</span>
-    <span class="entry blue">海訓</span>
+    <span class="entry orange">學科</span>
+    <span class="entry blue">Basic 術科</span>
+    <span class="entry green">L1 術科</span>
   </div>
 </div>

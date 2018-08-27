@@ -5,7 +5,9 @@
     </div>
   </div>
   <div class="strip" (scroll)="onScroll($event)" #scrollElm
-    [style.overflow-x]="hasScroll ? 'auto' : 'inherit'">
+    [style.overflow-x]="hasScroll ? 'auto' : 'inherit'"
+    [style.overflow-y]="!hasScroll ? 'auto' : 'inherit'"
+    >
     <section *ngFor="let hourSchema of hourSchemas; let index = index;" class="hour" #bar>
       <div class="line"></div>
       <div class="line"></div>
