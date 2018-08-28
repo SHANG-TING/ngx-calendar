@@ -3,15 +3,9 @@ import { Subject } from 'rxjs';
 import { getCalendar } from '../utils';
 import { NgxRxModalRef, NGX_RX_MODAL_TOKEN } from 'ngx-rx-modal';
 import { CalendarViewMode } from '../../ngx-calendar.model';
+import { CalendarSelectorData, CalendarSelectorMode } from './ngx-calendar-month-popup.model';
 
-export enum CalendarSelectorMode {
-  Year = 'Year', Month = 'Month', Day = 'Day'
-}
 
-export interface CalendarSelectorData {
-  theme?: string;
-  containerViewMode?: CalendarViewMode;
-}
 
 @Component({
   selector: 'ngx-calendar-month-popup',
