@@ -13,11 +13,16 @@ export interface CalendarDay {
   isToday?: boolean;
 }
 
+export interface CalendarEventCategory {
+  color: string;
+  name: string;
+}
+
 export interface CalendarEvent {
   start: Date;
   end: Date;
   title: string;
-  color: colors;
+  color: string;
   url?: string;
 }
 
@@ -27,7 +32,7 @@ export interface CalendarElmDetial<T = number> {
     height?: T;
     left?: T;
     width?: T;
-    color?: string
+    color?: string;
   };
   startsBeforeWeek: boolean;
   endsAfterWeek: boolean;
@@ -44,15 +49,8 @@ export interface CalendarWeekDay {
   isToday: boolean;
 }
 
-export enum colors {
-  orange = 'orange',
-  green = 'green',
-  blue = 'blue',
-  yellow = 'yellow'
-}
-
 export enum CalendarViewMode {
   month = 'month',
   week = 'week',
-  day = 'day'
+  day = 'day',
 }

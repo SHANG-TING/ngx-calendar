@@ -7,9 +7,11 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
+// import { NgxRxModalService } from 'ngx-rx-modal';
 import { NgxCalendarDayViewComponent } from './day/ngx-calendar-day-view/ngx-calendar-day-view.component';
+// import { NgxCalendarMonthPopupComponent } from './month/ngx-calendar-month-popup/ngx-calendar-month-popup.component';
 import { NgxCalendarMonthViewComponent } from './month/ngx-calendar-month-view/ngx-calendar-month-view.component';
-import { CalendarEvent, CalendarViewMode } from './ngx-calendar.model';
+import { CalendarEvent, CalendarEventCategory, CalendarViewMode } from './ngx-calendar.model';
 import { NgxCalendarWeekViewComponent } from './week/ngx-calendar-week-view/ngx-calendar-week-view.component';
 
 const time = '150ms linear';
@@ -48,24 +50,29 @@ const time = '150ms linear';
   ],
 })
 export class NgxCalendarComponent {
-  @Input() weekNames: string[] = [
-    '星期日',
-    '星期一',
-    '星期二',
-    '星期三',
-    '星期四',
-    '星期五',
-    '星期六',
-  ];
-  @Input() yearName = '年';
-  @Input() monthName = '月';
-  @Input() dayName = '日';
-  @Input() events: CalendarEvent[] = [];
-  @Input() nstr = new Date();
-  @Output() open: EventEmitter<any> = new EventEmitter();
+  @Input()
+  weekNames: string[] = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+  @Input()
+  yearName = '年';
+  @Input()
+  monthName = '月';
+  @Input()
+  dayName = '日';
+  @Input()
+  eventCategorys: CalendarEventCategory[] = [];
+  @Input()
+  weeklyEvents: CalendarEvent[] = [];
+  @Input()
+  events: CalendarEvent[] = [];
+  @Input()
+  nstr = new Date();
+  @Output()
+  open: EventEmitter<any> = new EventEmitter();
 
-  @Input() className = 'black';
-  @Input() size = {
+  @Input()
+  className = 'black';
+  @Input()
+  size = {
     width: '100vw',
     height: '100vh',
   };
@@ -105,7 +112,11 @@ export class NgxCalendarComponent {
   @ViewChild(NgxCalendarDayViewComponent)
   private dayComponent: NgxCalendarDayViewComponent;
 
-  constructor(private _factory: ComponentFactoryResolver) {}
+  // private monthPopupComponent = this._factory.resolveComponentFactory(
+  //   NgxCalendarMonthPopupComponent,
+  // );
+
+  constructor(/*private _model: NgxRxModalService, */ private _factory: ComponentFactoryResolver) {}
 
   prev(): void {
     switch (this.viewMode) {
@@ -139,7 +150,21 @@ export class NgxCalendarComponent {
     this.open.emit(event);
   }
 
-  openSelector($event: MouseEvent): void {}
+  openSelector($event: MouseEvent): void {
+    // this._model
+    //   .open(this.monthPopupComponent, {
+    //     disableCloseButton: true,
+    //     panelStyle: {
+    //       top: `${$event.offsetY}px`,
+    //     },
+    //     data: { theme: this.className, containerViewMode: this.viewMode },
+    //   })
+    //   .subscribe(selectedDate => {
+    //     if (selectedDate) {
+    //       this.nstr = selectedDate;
+    //     }
+    //   });
+  }
 
   chaneMode(mode: any): void {
     this.viewMode = mode;

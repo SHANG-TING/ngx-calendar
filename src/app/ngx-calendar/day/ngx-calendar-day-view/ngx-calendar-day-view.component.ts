@@ -1,32 +1,47 @@
 import {
-  Component, Input, QueryList, ViewChildren, ElementRef, OnChanges, SimpleChanges,
-  ViewChild, AfterViewInit, EventEmitter, Output
+  AfterViewInit,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  QueryList,
+  SimpleChanges,
+  ViewChildren,
 } from '@angular/core';
-import { CalendarEvent, CalendarElmDetial } from '../../ngx-calendar.model';
+import { getMutipleEvents } from '../../../ngx-calendar/month/utils';
+import { CalendarElmDetial, CalendarEvent } from '../../ngx-calendar.model';
 import { HOUR_SCHEMAS } from './data';
 
 @Component({
   selector: 'ngx-calendar-day-view',
   templateUrl: './ngx-calendar-day-view.component.html',
-  styleUrls: ['./ngx-calendar-day-view.component.scss']
+  styleUrls: ['./ngx-calendar-day-view.component.scss'],
 })
 export class NgxCalendarDayViewComponent implements AfterViewInit, OnChanges {
-  @ViewChild('scrollElm') scrollElm: ElementRef;
+  @Input()
+  className = 'black';
+  @Input()
+  weeklyEvents: CalendarEvent[] = [];
+  @Input()
+  events: CalendarEvent[] = [];
+  @Input()
+  nstr = new Date(2018, 6, 16);
+  @Input()
+  start = '00:00';
+  @Input()
+  end = '24:00';
+  @Input()
+  split = 30;
 
-  hasScroll = false;
-
-  @Input() className = 'black';
-  @Input() events: CalendarEvent[] = [];
-  @Input() nstr = new Date(2018, 6, 16);
-  @Input() start = '00:00';
-  @Input() end = '24:00';
-  @Input() split = 30;
-
-  @Output() open: EventEmitter<any> = new EventEmitter();
+  @Output()
+  open: EventEmitter<any> = new EventEmitter();
 
   elmWidth = 110;
 
-  @ViewChildren('bar') bars: QueryList<ElementRef>;
+  @ViewChildren('bar')
+  bars: QueryList<ElementRef>;
 
   get firstDate() {
     const date = new Date(this.nstr.getFullYear(), this.nstr.getMonth(), this.nstr.getDate());
@@ -65,7 +80,7 @@ export class NgxCalendarDayViewComponent implements AfterViewInit, OnChanges {
       }
     }
 
-    if ((Number(date) - Number(this.firstDate)) <= 0) {
+    if (Number(date) - Number(this.firstDate) <= 0) {
       date.setHours(24);
       date.setMinutes(0);
     }
@@ -77,7 +92,7 @@ export class NgxCalendarDayViewComponent implements AfterViewInit, OnChanges {
 
   hourSchemas: any[] = HOUR_SCHEMAS;
 
-  constructor() { }
+  constructor() {}
 
   ngAfterViewInit(): void {
     this.initView();
@@ -87,16 +102,10 @@ export class NgxCalendarDayViewComponent implements AfterViewInit, OnChanges {
     this.setHourSchemas();
     this.setDayEvent();
     this.bindDayEventWidth();
-
-    setTimeout(() => {
-      const elm = this.scrollElm.nativeElement as HTMLElement;
-      this.hasScroll = elm.scrollWidth > elm.clientWidth;
-      // console.log(this.hasScroll);
-    }, 0);
   }
 
   setHourSchemas(): void {
-    const diffMs = (Number(this.lastDate) - Number(this.firstDate));
+    const diffMs = Number(this.lastDate) - Number(this.firstDate);
     const diffHrs = Math.ceil(diffMs / 3600000); // hours
     // const diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000); // minutes
     const firstHour = this.firstDate.getHours();
@@ -105,7 +114,7 @@ export class NgxCalendarDayViewComponent implements AfterViewInit, OnChanges {
 
     for (let i = firstHour; i < firstHour + diffHrs; i++) {
       this.hourSchemas.push({
-        name: `${('0' + i).substr(-2)} ${i > 12 ? 'PM' : 'AM'}`
+        name: `${('0' + i).substr(-2)} ${i > 12 ? 'PM' : 'AM'}`,
       });
     }
   }
@@ -115,16 +124,21 @@ export class NgxCalendarDayViewComponent implements AfterViewInit, OnChanges {
     const firstdate = this.firstDate;
     const lastdate = this.lastDate;
     const getPixelForDiffSplit = (end, start) => {
-      const diffMs = (end.getTime() - start.getTime());
+      const diffMs = end.getTime() - start.getTime();
       return (diffMs % 86400000) / (this.split * 60 * 1000);
     };
 
     this.dayEvents = this.events
+      .concat(
+        ...this.weeklyEvents.map(getMutipleEvents(this.nstr.getFullYear(), this.nstr.getMonth())),
+      )
       // 先過濾出會經過這一天的事件們
       .filter((e: CalendarEvent) => {
-        return (e.start >= firstdate && e.start < lastdate) ||
+        return (
+          (e.start >= firstdate && e.start < lastdate) ||
           (firstdate >= e.start && firstdate <= e.end) ||
-          (firstdate >= e.start && lastdate < e.end);
+          (firstdate >= e.start && lastdate < e.end)
+        );
       })
       // 根據開始時間做排序
       .sort((e1: CalendarEvent, e2: CalendarEvent) => e1.start.getTime() - e2.start.getTime())
@@ -139,27 +153,23 @@ export class NgxCalendarDayViewComponent implements AfterViewInit, OnChanges {
           },
           startsBeforeWeek: true,
           endsAfterWeek: true,
-          data: e
+          data: e,
         };
         // if event first date is bigger than firstdate
         if (e.start >= firstdate) {
           if (e.end < lastdate) {
-
             //      |---------------------|
             //            |---------|
 
             elmDetial.style.top = getPixelForDiffSplit(e.start, firstdate) * width;
             elmDetial.style.height = getPixelForDiffSplit(e.end, e.start) * width;
-
           } else if (e.start < lastdate && e.end >= lastdate) {
-
             //      |---------------------|
             //                |--------------------|
 
             elmDetial.style.top = getPixelForDiffSplit(e.start, firstdate) * width;
             elmDetial.style.height = getPixelForDiffSplit(lastdate, e.start) * width;
             elmDetial.endsAfterWeek = false;
-
           }
         } else if (e.start <= firstdate) {
           // if event first date is bigger than firstdate
@@ -186,7 +196,8 @@ export class NgxCalendarDayViewComponent implements AfterViewInit, OnChanges {
             top: `${e.style.top}px`,
             height: `${e.style.height}px`,
             left: `${e.style.left}px`,
-          }
+            background: `${e.data.color}`,
+          },
         };
       });
   }
@@ -200,29 +211,16 @@ export class NgxCalendarDayViewComponent implements AfterViewInit, OnChanges {
 
     setTimeout(() => {
       // 灰塵版本 (僅供參考XD)
-      const tempWidth = this.dayEvents.length ? this.dayEvents.map((x, i) => i * 10).reduce((a, b) => a + b) : 0;
+      const tempWidth = this.dayEvents.length
+        ? this.dayEvents.map((x, i) => i * 10).reduce((a, b) => a + b)
+        : 0;
 
-      if ((document.body.offsetWidth - 100) < (100 * this.dayEvents.length) + tempWidth) {
-
-        this.bars.forEach(
-          (item, index) => {
-            item.nativeElement.style.width = `${(100 * this.dayEvents.length) + tempWidth}px`;
-          }
-        );
+      if (document.body.offsetWidth - 100 < 100 * this.dayEvents.length + tempWidth) {
+        this.bars.forEach((item, index) => {
+          item.nativeElement.style.width = `${100 * this.dayEvents.length + tempWidth}px`;
+        });
       }
     }, 0);
-  }
-
-  onScroll($event: Event) {
-    $event.preventDefault();
-    const elm = $event.srcElement as HTMLElement;
-    if (elm.scrollLeft === 0) {
-      console.log('start');
-      // this.prev();
-    } else if (elm.scrollLeft === elm.scrollWidth - elm.clientWidth) {
-      console.log('end');
-      // this.next();
-    }
   }
 
   prev(): void {
@@ -244,32 +242,4 @@ export class NgxCalendarDayViewComponent implements AfterViewInit, OnChanges {
       this.initView();
     }
   }
-
 }
-
-
-
-    // {
-    //   style: {
-    //     top: '30px',
-    //     height: '180px',
-    //     background: 'yellow'
-    //   },
-    //   data: {}
-    // }, {
-    //   style: {
-    //     top: '60px',
-    //     height: '180px',
-    //     left: '110px',
-    //     background: 'blue'
-    //   },
-    //   data: {}
-    // }, {
-    //   style: {
-    //     top: '30px',
-    //     height: '180px',
-    //     left: '220px',
-    //     background: 'red'
-    //   },
-    //   data: {}
-    // },
