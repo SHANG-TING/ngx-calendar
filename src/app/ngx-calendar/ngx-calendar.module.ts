@@ -1,29 +1,13 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { NgxCalendarDayModule } from './day/ngx-calendar-day.module';
+import { NgxCalendarMonthModule } from './month/ngx-calendar-month.module';
 import { NgxCalendarComponent } from './ngx-calendar.component';
-import { PopUpModule } from './@core/components';
-import { NgxCalendarWeekComponent } from './week';
-import { NgxCalendarMonthPopupComponent } from './month/ngx-calendar-month-popup/ngx-calendar-month-popup.component';
-
-const COMPONENTS = [
-  NgxCalendarComponent,
-  NgxCalendarWeekComponent
-];
-
-const POPUP_COMPONENTS = [
-  NgxCalendarMonthPopupComponent
-];
+import { NgxCalendarWeekModule } from './week/ngx-calendar-week.module';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    PopUpModule
-  ],
-  declarations: [COMPONENTS, POPUP_COMPONENTS],
-  exports: [COMPONENTS],
-  entryComponents: [
-    POPUP_COMPONENTS
-  ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  imports: [CommonModule, NgxCalendarMonthModule, NgxCalendarWeekModule, NgxCalendarDayModule],
+  declarations: [NgxCalendarComponent],
+  exports: [NgxCalendarComponent],
 })
-export class NgxCalendarModule { }
+export class NgxCalendarModule {}

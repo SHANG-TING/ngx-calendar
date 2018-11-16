@@ -1,0 +1,109 @@
+:host {
+  display: block;
+}
+
+.black {
+  .cal-day-headers {
+    background: #4A4A4A;
+  }
+  .cal-header {
+    border-right: 1px solid #e1e1e1;
+    border-bottom: 1px solid #e1e1e1;
+    color: white;
+    &.cal-today {
+      background-color: #467298;
+    }
+  }
+}
+
+.white {
+  .cal-day-headers {
+    background: white;
+  }
+  .cal-header {
+    border-right: 1px solid #e1e1e1;
+    border-bottom: 1px solid #e1e1e1;
+    &.cal-today {
+      background-color: #d7ecff;
+    }
+  }
+}
+
+.cal-week-view {
+  height: calc(100% - 30px);
+  overflow-y: auto;
+  .cal-day-headers {
+    display: flex;
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+    .cal-header {
+      flex: 1;
+      text-align: center;
+      padding: 5px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      height: 50px;
+    }
+  }
+  .action-block {
+    padding-top: 50px;
+  }
+  .cal-event {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .cal-events-row {
+    position: relative;
+    height: 33px;
+  }
+  .cal-event-container {
+    display: inline-block;
+    position: absolute;
+  }
+  .cal-ends-within-week .cal-event {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+  .cal-starts-within-week .cal-event {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+  }
+  .cal-event {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .cal-event {
+    padding: 0 10px;
+    font-size: 12px;
+    margin-left: 2px;
+    margin-right: 2px;
+    height: 30px;
+    line-height: 30px;
+    background-color: #d1e8ff;
+    border: 1px solid #1e90ff;
+    color: #1e90ff;
+    &.orange {
+      background-color: #ffc681;
+      border-color: rgb(173, 33, 33);
+    }
+    &.blue {
+      background-color: #c4e7ff;
+      border-color: #0834e3;
+    }
+  }
+}
+
+a {
+  color: #007bff;
+  text-decoration: none;
+  background-color: transparent;
+  -webkit-text-decoration-skip: objects;
+}
+
+.cal-week-view .cal-event-title:link {
+  color: currentColor;
+}

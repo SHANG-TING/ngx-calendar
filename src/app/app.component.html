@@ -1,5 +1,29 @@
 <!--The content below is only a placeholder and can be replaced.-->
+<!-- <div style="background: green;height: 200px;">
 
-<ngx-calendar [events]="events" (open)="onOpenEvent($event)"></ngx-calendar>
+</div>
+<div  style="width: 50%">
+
+</div>
+
+<div style="background: green;height: 200px;"> -->
+
+<div>
+  <ngx-calendar [className]="theme" [events]="events" (open)="onOpenEvent($event)"></ngx-calendar>
+</div>
+
+<!-- <div style="
+
+position: fixed;
+width: 40px;
+height: 100px;
+bottom: 30px;
+right: 0;
+background: blueviolet;
+
+">
+  <button (click)="addEvent()">add</button>
+  <button (click)="changeTheme()">{{ theme }}</button>
+</div> -->
 
 <!-- <ngx-calendar-week></ngx-calendar-week> -->

@@ -1,111 +1,151 @@
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import {
-  Component, OnInit, Input, ElementRef, OnChanges, SimpleChanges,
-  Output, EventEmitter, HostListener, ComponentFactoryResolver
+  Component,
+  ComponentFactoryResolver,
+  EventEmitter,
+  Input,
+  Output,
+  ViewChild,
 } from '@angular/core';
-import { CalendarWeek, CalendarDay, CalendarEvent, colors } from './@core/models';
-import { NgxCalendarService } from './ngx-calendar.service';
-import { PopUpService } from './@core/components';
-import { NgxCalendarMonthPopupComponent } from './month/ngx-calendar-month-popup/ngx-calendar-month-popup.component';
+import { NgxCalendarDayViewComponent } from './day/ngx-calendar-day-view/ngx-calendar-day-view.component';
+import { NgxCalendarMonthViewComponent } from './month/ngx-calendar-month-view/ngx-calendar-month-view.component';
+import { CalendarEvent, CalendarViewMode } from './ngx-calendar.model';
+import { NgxCalendarWeekViewComponent } from './week/ngx-calendar-week-view/ngx-calendar-week-view.component';
+
+const time = '150ms linear';
 
 @Component({
   selector: 'ngx-calendar',
   templateUrl: './ngx-calendar.component.html',
-  styleUrls: ['./ngx-calendar.component.css']
+  styleUrls: ['./ngx-calendar.component.scss'],
+  animations: [
+    trigger('animate', [
+      state(
+        'flyOut',
+        style({
+          transform: 'translateX(calc(100% - 55px))',
+        }),
+      ),
+      state(
+        'flyIn',
+        style({
+          transform: 'translateX(0)',
+        }),
+      ),
+      transition('flyOut => flyIn', [
+        style({
+          transform: 'translateX(calc(100% - 55px))',
+        }),
+        animate(time),
+      ]),
+      transition('flyIn => flyOut', [
+        style({
+          transform: 'translateX(0)',
+        }),
+        animate(time),
+      ]),
+    ]),
+  ],
 })
-export class NgxCalendarComponent implements OnInit, OnChanges {
-  @Input() weekNames: string[] = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+export class NgxCalendarComponent {
+  @Input() weekNames: string[] = [
+    '星期日',
+    '星期一',
+    '星期二',
+    '星期三',
+    '星期四',
+    '星期五',
+    '星期六',
+  ];
   @Input() yearName = '年';
   @Input() monthName = '月';
+  @Input() dayName = '日';
   @Input() events: CalendarEvent[] = [];
   @Input() nstr = new Date();
   @Output() open: EventEmitter<any> = new EventEmitter();
 
-  /**
-   * 現在選的dayElm
-   */
-  nowDayElm;
-  /**
-   * 現在選的week
-   */
-  nowWeek;
+  @Input() className = 'black';
+  @Input() size = {
+    width: '100vw',
+    height: '100vh',
+  };
 
-  calendarData = this._service.getCalendar(this.nstr, this.ynow, this.mnow, this.dnow, this.events);
-  component = this._factory.resolveComponentFactory(NgxCalendarMonthPopupComponent);
+  /**
+   * 顯示模式
+   */
+  viewMode: CalendarViewMode = CalendarViewMode.month;
 
-  @HostListener('window:resize', ['$event'])
-  private onResize(event) {
-    // 為了隨著視窗大小變更時，去移動三角形的位置。
-    if (this.nowWeek && this.nowDayElm) {
-      this.nowWeek.style.left = `${this.nowDayElm.offsetLeft + this.nowDayElm.offsetWidth / 2}px`;
+  get ynow() {
+    return this.nstr.getFullYear();
+  }
+  get mnow() {
+    return this.nstr.getMonth();
+  }
+  get dnow() {
+    return this.nstr.getDate();
+  }
+  get monDetail() {
+    let result = `${this.ynow} ${this.yearName} ${this.mnow + 1} ${this.monthName}`;
+
+    if (this.viewMode === CalendarViewMode.day) {
+      result = `${result} ${this.dnow} ${this.dayName}`;
+    }
+
+    return result;
+  }
+
+  legendOpen = 'flyOut';
+
+  @ViewChild(NgxCalendarMonthViewComponent)
+  private monthComponent: NgxCalendarMonthViewComponent;
+
+  @ViewChild(NgxCalendarWeekViewComponent)
+  private weekComponent: NgxCalendarWeekViewComponent;
+
+  @ViewChild(NgxCalendarDayViewComponent)
+  private dayComponent: NgxCalendarDayViewComponent;
+
+  constructor(private _factory: ComponentFactoryResolver) {}
+
+  prev(): void {
+    switch (this.viewMode) {
+      case CalendarViewMode.month:
+        this.monthComponent.prev();
+        break;
+      case CalendarViewMode.week:
+        this.weekComponent.prev();
+        break;
+      case CalendarViewMode.day:
+        this.dayComponent.prev();
+        break;
     }
   }
 
-  get ynow() { return this.nstr.getFullYear(); }
-  get mnow() { return this.nstr.getMonth(); }
-  get dnow() { return this.nstr.getDate(); }
-  get monDetail() { return `${this.ynow} ${this.yearName} ${this.mnow + 1} ${this.monthName}`; }
-
-  constructor(
-    private _service: NgxCalendarService,
-    private _pop: PopUpService,
-    private _factory: ComponentFactoryResolver) { }
-
-  ngOnInit() {
-  }
-
-  prev() {
-    this.nstr.setMonth(this.nstr.getMonth() - 1);
-    this.calendarData = this._service.getCalendar(this.nstr, this.ynow, this.mnow, this.dnow, this.events);
-  }
-
-  next() {
-    this.nstr.setMonth(this.nstr.getMonth() + 1);
-    this.calendarData = this._service.getCalendar(this.nstr, this.ynow, this.mnow, this.dnow, this.events);
-  }
-
-  showEventList(week: CalendarWeek, day: CalendarDay, dayElm: HTMLElement) {
-    if (day.events.length) {
-      if (week.selectedDay && week.selectedDay === day) {
-        this.nowDayElm = this.nowWeek = undefined;
-        week.selectedDay = undefined;
-      } else {
-        this.calendarData.forEach(w => {
-          w.selectedDay = undefined;
-        });
-
-        this.nowWeek = week;
-        this.nowDayElm = dayElm;
-        week.selectedDay = day;
-        week.style.left = `${dayElm.offsetLeft + dayElm.offsetWidth / 2}px`;
-      }
+  next(): void {
+    switch (this.viewMode) {
+      case CalendarViewMode.month:
+        this.monthComponent.next();
+        break;
+      case CalendarViewMode.week:
+        this.weekComponent.next();
+        break;
+      case CalendarViewMode.day:
+        this.dayComponent.next();
+        break;
     }
   }
 
-  openEvent(event: CalendarEvent) {
+  openEvent(event: CalendarEvent): void {
     this.open.emit(event);
   }
 
-  openSelector() {
-    this._pop.open(this.component, {
-      disableTitle: true,
-      disableCloseButton: true,
-      data: {},
-    }).subscribe(selectedDate => {
-      if (selectedDate) {
-        this.nstr = selectedDate;
-        this.calendarData = this._service.getCalendar(this.nstr, this.ynow, this.mnow, this.dnow, this.events);
-      }
-    });
+  openSelector($event: MouseEvent): void {}
+
+  chaneMode(mode: any): void {
+    this.viewMode = mode;
   }
 
-  trackByFn(index, item) {
-    return index;
+  legendToggle(): void {
+    this.legendOpen = this.legendOpen === 'flyIn' ? 'flyOut' : 'flyIn';
   }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes.events) {
-      this.calendarData = this._service.getCalendar(this.nstr, this.ynow, this.mnow, this.dnow, this.events);
-    }
-  }
-
 }

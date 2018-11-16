@@ -1,0 +1,44 @@
+<div [ngClass]="className" class="content">
+  <div class="title">
+    <div class="hour name" *ngFor="let hourSchema of hourSchemas">
+      {{ hourSchema.name }}
+    </div>
+  </div>
+  <div class="strip" (scroll)="onScroll($event)" #scrollElm
+    [style.overflow-x]="hasScroll ? 'auto' : 'inherit'"
+    [style.overflow-y]="!hasScroll ? 'auto' : 'inherit'"
+    >
+    <section *ngFor="let hourSchema of hourSchemas; let index = index;" class="hour" #bar>
+      <div class="line"></div>
+      <div class="line"></div>
+    </section>
+
+    <!-- events -->
+    <div *ngFor="let dayEvent of dayEvents" class="bar" [ngStyle]="dayEvent.style" [ngClass]="dayEvent.data.color"
+      [class.cal-starts-within-day]="dayEvent.startsBeforeWeek"
+      [class.cal-ends-within-day]="dayEvent.endsAfterWeek">
+        <span (click)="openEvent(dayEvent.data)">
+          {{ dayEvent.data.title }}
+        </span>
+    </div>
+     <!--<div style="background: green;
+    height: 90px;
+    width: 100px;
+    position: absolute;
+    top: 180px;
+    left: 100px;">
+    </div>
+    <div style="background: pink;
+    height: 120px;
+    width: 100px;
+    position: absolute;
+    top: 180px;left: 200px;">
+    </div>
+    <div style="background: paleturquoise;
+    height: 210px;
+    width: 100px;
+    position: absolute;
+    top: 180px;left: 300px;">
+    </div> -->
+  </div>
+</div>

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CalendarEvent, colors } from './ngx-calendar/@core/models';
+import { CalendarEvent, colors } from './ngx-calendar/ngx-calendar.model';
 
 @Component({
   selector: 'app-root',
@@ -7,129 +7,78 @@ import { CalendarEvent, colors } from './ngx-calendar/@core/models';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  theme = 'black';
   title = 'app';
   events: CalendarEvent[] = [
     {
-      title: '上班(5月第一個禮拜)',
-      start: new Date(2018, 3, 30),
-      end: new Date(2018, 4, 3),
-      color: colors.orange
-    } as CalendarEvent,
+        title: '學科',
+        start: new Date(2018, 7, 6, 18, 30),
+        end: new Date(2018, 7, 6, 21, 0),
+        color: colors.orange,
+        url: 'https://docs.google.com/forms/d/e/1FAIpQLSchC4AadufooQ_wR7krQk9ys2nsPmekq0qj22ZodxPT9Dlxjw/viewform'
+    },
     {
-      title: '上班(5月第二個禮拜)',
-      start: new Date(2018, 4, 7),
-      end: new Date(2018, 4, 11),
-      color: colors.orange
-    } as CalendarEvent,
+        title: '學科',
+        start: new Date(2018, 7, 4, 9, 30),
+        end: new Date(2018, 7, 4, 12, 0),
+        color: colors.orange,
+        url: 'https://docs.google.com/forms/d/e/1FAIpQLSchC4AadufooQ_wR7krQk9ys2nsPmekq0qj22ZodxPT9Dlxjw/viewform'
+    },
     {
-      title: '下午打慢速壘球比賽',
-      start: new Date(2018, 4, 12),
-      color: colors.blue
-    } as CalendarEvent,
+        title: '學科',
+        start: new Date(2018, 7, 13, 18, 30),
+        end: new Date(2018, 7, 13, 21, 0),
+        color: colors.orange,
+        url: 'https://docs.google.com/forms/d/e/1FAIpQLSchC4AadufooQ_wR7krQk9ys2nsPmekq0qj22ZodxPT9Dlxjw/viewform'
+    },
     {
-      title: '早上9點和丞恩去威秀影城看復仇者聯盟3',
-      start: new Date(2018, 3, 29),
-      color: colors.yellow
-    } as CalendarEvent,
+        title: '學科',
+        start: new Date(2018, 7, 11, 9, 30),
+        end: new Date(2018, 7, 11, 12, 0),
+        color: colors.orange,
+        url: 'https://docs.google.com/forms/d/e/1FAIpQLSchC4AadufooQ_wR7krQk9ys2nsPmekq0qj22ZodxPT9Dlxjw/viewform'
+    },
     {
-      title: '晚上和銘峰還有丞恩一起去吃台北橋的披薩',
-      start: new Date(2018, 4, 9),
-      color: colors.yellow
-    } as CalendarEvent,
+        title: '學科',
+        start: new Date(2018, 7, 20, 18, 30),
+        end: new Date(2018, 7, 20, 21, 0),
+        color: colors.orange,
+        url: 'https://docs.google.com/forms/d/e/1FAIpQLSchC4AadufooQ_wR7krQk9ys2nsPmekq0qj22ZodxPT9Dlxjw/viewform'
+    },
     {
-      title: '晚上和銘峰還有丞恩一起去吃台北橋的披薩',
-      start: new Date(2018, 4, 9),
-      color: colors.yellow
-    } as CalendarEvent,
+        title: '學科',
+        start: new Date(2018, 7, 18, 9, 30),
+        end: new Date(2018, 7, 18, 12, 0),
+        color: colors.orange,
+        url: 'https://docs.google.com/forms/d/e/1FAIpQLSchC4AadufooQ_wR7krQk9ys2nsPmekq0qj22ZodxPT9Dlxjw/viewform'
+    },
     {
-      title: '晚上和銘峰還有丞恩一起去吃台北橋的披薩',
-      start: new Date(2018, 4, 9),
-      color: colors.yellow
-    } as CalendarEvent,
+        title: '學科',
+        start: new Date(2018, 7, 27, 18, 30),
+        end: new Date(2018, 7, 28, 21, 0),
+        color: colors.orange,
+        url: 'https://docs.google.com/forms/d/e/1FAIpQLSchC4AadufooQ_wR7krQk9ys2nsPmekq0qj22ZodxPT9Dlxjw/viewform'
+    },
     {
-      title: '晚上和銘峰還有丞恩一起去吃台北橋的披薩',
-      start: new Date(2018, 4, 9),
-      color: colors.yellow
-    } as CalendarEvent,
-    {
-      title: '晚上和銘峰還有丞恩一起去吃台北橋的披薩',
-      start: new Date(2018, 4, 9),
-      color: colors.yellow
-    } as CalendarEvent,
-    {
-      title: '晚上和銘峰還有丞恩一起去吃台北橋的披薩',
-      start: new Date(2018, 4, 9),
-      color: colors.yellow
-    } as CalendarEvent,
-    {
-      title: '晚上和銘峰還有丞恩一起去吃台北橋的披薩',
-      start: new Date(2018, 4, 9),
-      color: colors.yellow
-    } as CalendarEvent,
-    {
-      title: '晚上和銘峰還有丞恩一起去吃台北橋的披薩',
-      start: new Date(2018, 4, 9),
-      color: colors.yellow
-    } as CalendarEvent,
-    {
-      title: '晚上和銘峰還有丞恩一起去吃台北橋的披薩',
-      start: new Date(2018, 4, 9),
-      color: colors.yellow
-    } as CalendarEvent,
-    {
-      title: '晚上和銘峰還有丞恩一起去吃台北橋的披薩',
-      start: new Date(2018, 4, 9),
-      color: colors.yellow
-    } as CalendarEvent,
-    {
-      title: '晚上和銘峰還有丞恩一起去吃台北橋的披薩',
-      start: new Date(2018, 4, 9),
-      color: colors.yellow
-    } as CalendarEvent,
-    {
-      title: '晚上和銘峰還有丞恩一起去吃台北橋的披薩',
-      start: new Date(2018, 4, 9),
-      color: colors.yellow
-    } as CalendarEvent,
-    {
-      title: '晚上和銘峰還有丞恩一起去吃台北橋的披薩',
-      start: new Date(2018, 4, 9),
-      color: colors.yellow
-    } as CalendarEvent,
-    {
-      title: '晚上和銘峰還有丞恩一起去吃台北橋的披薩',
-      start: new Date(2018, 4, 9),
-      color: colors.yellow
-    } as CalendarEvent,
-    {
-      title: '晚上和銘峰還有丞恩一起去吃台北橋的披薩',
-      start: new Date(2018, 4, 9),
-      color: colors.yellow
-    } as CalendarEvent,
-    {
-      title: '晚上和銘峰還有丞恩一起去吃台北橋的披薩',
-      start: new Date(2018, 6, 9),
-      color: colors.yellow
-    } as CalendarEvent,
-    {
-      title: '晚上和銘峰還有丞恩一起去吃台北橋的披薩',
-      start: new Date(2018, 6, 9),
-      color: colors.yellow
-    } as CalendarEvent,
-    {
-      title: 'Angular線上讀書會',
-      start: new Date(2018, 4, 8),
-      color: colors.green
-    } as CalendarEvent,
-    {
-      title: '和有舜去澎湖參加100km自行車挑戰賽',
-      start: new Date(2018, 4, 3),
-      end: new Date(2018, 4, 6),
-      color: colors.green
-    } as CalendarEvent
-  ];
+        title: '學科',
+        start: new Date(2018, 7, 25, 9, 30),
+        end: new Date(2018, 7, 25, 12, 0),
+        color: colors.orange,
+        url: 'https://docs.google.com/forms/d/e/1FAIpQLSchC4AadufooQ_wR7krQk9ys2nsPmekq0qj22ZodxPT9Dlxjw/viewform'
+    }];
 
-  onOpenEvent($event) {
-    alert(JSON.stringify($event));
+  addEvent() {
+    const newEvents = this.events.slice();
+    newEvents.push(this.events[0]);
+    this.events = newEvents;
+  }
+
+  onOpenEvent($event: CalendarEvent) {
+    // alert(JSON.stringify($event));
+    window.open($event.url);
+  }
+
+  changeTheme() {
+    this.theme = this.theme === 'black' ? 'white' : 'black';
   }
 }

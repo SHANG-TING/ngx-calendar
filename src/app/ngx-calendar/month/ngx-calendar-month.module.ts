@@ -1,16 +1,25 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NgxCalendarMonthViewComponent } from './';
+import { NgModule } from '@angular/core';
+import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
+import { DIRECTION_ALL } from 'hammerjs';
+import { NgxCalendarMonthViewComponent } from './ngx-calendar-month-view/ngx-calendar-month-view.component';
 
-const COMPONENTS = [
-  NgxCalendarMonthViewComponent
-];
+export class HammerConfig extends HammerGestureConfig {
+  overrides = <any>{
+    swipe: { direction: DIRECTION_ALL },
+  };
+}
 
 @NgModule({
-  imports: [
-    CommonModule
+  imports: [CommonModule],
+  declarations: [NgxCalendarMonthViewComponent],
+  exports: [NgxCalendarMonthViewComponent],
+  entryComponents: [],
+  providers: [
+    {
+      provide: HAMMER_GESTURE_CONFIG,
+      useClass: HammerConfig,
+    },
   ],
-  declarations: [COMPONENTS],
-  exports: [COMPONENTS]
 })
-export class NgxCalendarMonthModule { }
+export class NgxCalendarMonthModule {}
