@@ -1,13 +1,16 @@
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import {
-  Component, Input, Output, EventEmitter, ComponentFactoryResolver, ViewChild
+  Component,
+  ComponentFactoryResolver,
+  EventEmitter,
+  Input,
+  Output,
+  ViewChild,
 } from '@angular/core';
-import { NgxCalendarMonthPopupComponent } from './month/ngx-calendar-month-popup/ngx-calendar-month-popup.component';
-import { NgxCalendarMonthViewComponent } from './month/ngx-calendar-month-view/ngx-calendar-month-view.component';
-import { NgxCalendarWeekViewComponent } from './week/ngx-calendar-week-view/ngx-calendar-week-view.component';
 import { NgxCalendarDayViewComponent } from './day/ngx-calendar-day-view/ngx-calendar-day-view.component';
-import { CalendarViewMode, CalendarEvent } from './ngx-calendar.model';
-import { NgxRxModalService } from 'ngx-rx-modal';
-import { trigger, state, style, transition, animate } from '@angular/animations';
+import { NgxCalendarMonthViewComponent } from './month/ngx-calendar-month-view/ngx-calendar-month-view.component';
+import { CalendarEvent, CalendarViewMode } from './ngx-calendar.model';
+import { NgxCalendarWeekViewComponent } from './week/ngx-calendar-week-view/ngx-calendar-week-view.component';
 
 const time = '150ms linear';
 
@@ -17,30 +20,43 @@ const time = '150ms linear';
   styleUrls: ['./ngx-calendar.component.scss'],
   animations: [
     trigger('animate', [
-      state('flyOut', style({
-        transform: 'translateX(calc(100% - 55px))'
-      })),
-      state('flyIn', style({
-        transform: 'translateX(0)'
-      })),
+      state(
+        'flyOut',
+        style({
+          transform: 'translateX(calc(100% - 55px))',
+        }),
+      ),
+      state(
+        'flyIn',
+        style({
+          transform: 'translateX(0)',
+        }),
+      ),
       transition('flyOut => flyIn', [
         style({
-          transform: 'translateX(calc(100% - 55px))'
+          transform: 'translateX(calc(100% - 55px))',
         }),
-        animate(time)
+        animate(time),
       ]),
       transition('flyIn => flyOut', [
         style({
-          transform: 'translateX(0)'
+          transform: 'translateX(0)',
         }),
-        animate(time)
-      ])
-    ])
-  ]
+        animate(time),
+      ]),
+    ]),
+  ],
 })
 export class NgxCalendarComponent {
-
-  @Input() weekNames: string[] = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+  @Input() weekNames: string[] = [
+    '星期日',
+    '星期一',
+    '星期二',
+    '星期三',
+    '星期四',
+    '星期五',
+    '星期六',
+  ];
   @Input() yearName = '年';
   @Input() monthName = '月';
   @Input() dayName = '日';
@@ -51,7 +67,7 @@ export class NgxCalendarComponent {
   @Input() className = 'black';
   @Input() size = {
     width: '100vw',
-    height: '100vh'
+    height: '100vh',
   };
 
   /**
@@ -59,9 +75,15 @@ export class NgxCalendarComponent {
    */
   viewMode: CalendarViewMode = CalendarViewMode.month;
 
-  get ynow() { return this.nstr.getFullYear(); }
-  get mnow() { return this.nstr.getMonth(); }
-  get dnow() { return this.nstr.getDate(); }
+  get ynow() {
+    return this.nstr.getFullYear();
+  }
+  get mnow() {
+    return this.nstr.getMonth();
+  }
+  get dnow() {
+    return this.nstr.getDate();
+  }
   get monDetail() {
     let result = `${this.ynow} ${this.yearName} ${this.mnow + 1} ${this.monthName}`;
 
@@ -83,11 +105,7 @@ export class NgxCalendarComponent {
   @ViewChild(NgxCalendarDayViewComponent)
   private dayComponent: NgxCalendarDayViewComponent;
 
-  private monthPopupComponent = this._factory.resolveComponentFactory(NgxCalendarMonthPopupComponent);
-
-  constructor(
-    private _model: NgxRxModalService,
-    private _factory: ComponentFactoryResolver) { }
+  constructor(private _factory: ComponentFactoryResolver) {}
 
   prev(): void {
     switch (this.viewMode) {
@@ -121,20 +139,7 @@ export class NgxCalendarComponent {
     this.open.emit(event);
   }
 
-  openSelector($event: MouseEvent): void {
-    this._model.open(this.monthPopupComponent, {
-      disableCloseButton: true,
-      panelStyle: {
-        top: `${$event.pageY}px`,
-        padding: 0
-      },
-      data: { theme: this.className, containerViewMode: this.viewMode },
-    }).subscribe(selectedDate => {
-      if (selectedDate) {
-        this.nstr = selectedDate;
-      }
-    });
-  }
+  openSelector($event: MouseEvent): void {}
 
   chaneMode(mode: any): void {
     this.viewMode = mode;
@@ -143,5 +148,4 @@ export class NgxCalendarComponent {
   legendToggle(): void {
     this.legendOpen = this.legendOpen === 'flyIn' ? 'flyOut' : 'flyIn';
   }
-
 }

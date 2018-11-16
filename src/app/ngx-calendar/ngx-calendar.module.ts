@@ -1,24 +1,13 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NgxCalendarComponent } from './ngx-calendar.component';
-import { NgxCalendarMonthModule } from './month/ngx-calendar-month.module';
-import { NgxCalendarWeekModule } from './week/ngx-calendar-week.module';
+import { NgModule } from '@angular/core';
 import { NgxCalendarDayModule } from './day/ngx-calendar-day.module';
-import { NgxRxModalModule } from 'ngx-rx-modal';
+import { NgxCalendarMonthModule } from './month/ngx-calendar-month.module';
+import { NgxCalendarComponent } from './ngx-calendar.component';
+import { NgxCalendarWeekModule } from './week/ngx-calendar-week.module';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    NgxRxModalModule,
-    NgxCalendarMonthModule,
-    NgxCalendarWeekModule,
-    NgxCalendarDayModule
-  ],
-  declarations: [
-    NgxCalendarComponent
-  ],
-  exports: [
-    NgxCalendarComponent
-  ]
+  imports: [CommonModule, NgxCalendarMonthModule, NgxCalendarWeekModule, NgxCalendarDayModule],
+  declarations: [NgxCalendarComponent],
+  exports: [NgxCalendarComponent],
 })
-export class NgxCalendarModule { }
+export class NgxCalendarModule {}
