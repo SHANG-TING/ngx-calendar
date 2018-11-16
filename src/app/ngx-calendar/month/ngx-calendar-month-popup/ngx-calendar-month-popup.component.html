@@ -1,0 +1,60 @@
+<div class="wrapper" [ngClass]="popupData.theme">
+  <header class="header">
+
+    <div class="title" [ngSwitch]="mode">
+      <span *ngSwitchCase="'Year'">{{ minYear }} ~ {{ minYear + 24 }}年</span>
+      <span *ngSwitchCase="'Month'">{{ selectedYear }}年</span>
+      <span *ngSwitchCase="'Day'">{{ selectedYear }}年 {{ selectedMonth  + 1 }}月</span>
+    </div>
+
+
+    <ng-container [ngSwitch]="mode">
+
+      <div class="button-block" *ngSwitchCase="'Year'">
+
+        <button class="header-button" (click)="prevYearRange()">
+          <div class="button left"></div>
+        </button>
+        <button class="header-button" (click)="nextYearRange()">
+          <div class="button right"></div>
+        </button>
+
+      </div>
+
+      <div class="button-block" *ngSwitchCase="'Month'">
+        <button class="header-button" (click)="backToYearSelector()">
+          ▲
+        </button>
+      </div>
+
+      <div class="button-block" *ngSwitchCase="'Day'">
+        <button class="header-button" (click)="backToMonthSelector()">
+          ▲
+        </button>
+      </div>
+
+    </ng-container>
+
+  </header>
+  <ng-container [ngSwitch]="mode">
+
+    <div *ngSwitchCase="'Year'" class="container" (swipeleft)="nextYearRange()" (swiperight)="prevYearRange()">
+      <div class="box year" *ngFor="let year of years; let i = index;" (click)="selectYear(year)">{{ year }}</div>
+    </div>
+
+    <div *ngSwitchCase="'Month'" class="container" (swipeup)="backToYearSelector()">
+      <div class="box" *ngFor="let month of months; let i = index;" (click)="selectMonth(month)">{{ month + 1 }}</div>
+    </div>
+
+    <div *ngSwitchCase="'Day'" class="container" (swipeup)="backToMonthSelector()">
+      <div *ngFor="let week of calendarData; let i = index;">
+        <ng-container *ngFor="let day of week.days; let day_index = index;" >
+          <div class="box day" [class.n-month]="day.other" (click)="selectDay(day.date)">{{ day.number }}</div>
+        </ng-container>
+      </div>
+    </div>
+
+  </ng-container>
+
+
+</div>
