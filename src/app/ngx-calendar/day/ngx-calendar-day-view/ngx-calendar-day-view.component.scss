@@ -1,18 +1,23 @@
 :host {
   display: block;
+  overflow-y: scroll;
+  max-height: 85vh;
 }
 
 .black {
   .hour {
     .line {
       border-bottom: thin dashed #888f90;
+
       &:hover {
         background: wheat;
       }
     }
+
     &.name {
       color: white;
     }
+
     &:nth-child(odd) {
       background: #6f6e6e;
     }
@@ -23,10 +28,12 @@
   .hour {
     .line {
       border-bottom: thin dashed black;
+
       &:hover {
         background: wheat;
       }
     }
+
     &:nth-child(odd) {
       background: #fbeeee;
     }
@@ -36,23 +43,29 @@
 .content {
   display: flex;
   margin-bottom: 30px;
+
   .title {
     width: 100px;
     flex: 0 0 100px;
   }
+
   .strip {
     position: relative;
     width: 100%;
   }
+
   .hour {
     height: 60px;
+
     &.name {
       line-height: 60px;
       text-align: center;
     }
+
     .line {
       height: 30px;
       display: flex;
+
       .active {
         width: 100px;
         height: 100%;
@@ -65,22 +78,17 @@
 }
 
 .bar {
+  border: 1px solid #1e90ff;
   width: 100px;
   position: absolute;
-  color: #007bff;
+  color: white;
   padding: 5px;
-  &.orange {
-    background-color: #ffc681;
-    border: 1px solid rgb(173, 33, 33);
-  }
-  &.blue {
-    background-color: #c4e7ff;
-    border: 1px solid #1e90ff;
-  }
+
   &.cal-starts-within-day {
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
   }
+
   &.cal-ends-within-day {
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;

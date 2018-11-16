@@ -1,11 +1,18 @@
-import { CalendarWeek, CalendarDay, CalendarEvent } from '../ngx-calendar.model';
+import { CalendarDay, CalendarEvent, CalendarWeek } from '../ngx-calendar.model';
 
 /** 判斷是否為閏年 */
 export function is_leap(year) {
-  return (year % 100 === 0 ? (year % 400 === 0 ? 1 : 0) : (year % 4 === 0 ? 1 : 0));
+  return year % 100 === 0 ? (year % 400 === 0 ? 1 : 0) : year % 4 === 0 ? 1 : 0;
 }
 
-export function getCalendar(nstr: Date, ynow: number, mnow: number, dnow: number, events: CalendarEvent[]): Array<CalendarWeek> {
+export function getCalendar(
+  nstr: Date,
+  ynow: number,
+  mnow: number,
+  dnow: number,
+  events: CalendarEvent[],
+  weeklyEvents: CalendarEvent[] = [],
+): Array<CalendarWeek> {
   // 今天
   const today = new Date();
   // 當月第一天
@@ -16,15 +23,18 @@ export function getCalendar(nstr: Date, ynow: number, mnow: number, dnow: number
   const m_days = new Array(31, 28 + is_leap(ynow), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
   // 當前月天數+第一天是星期幾的數值 獲得 表格行數
   const tr_str = Math.ceil((m_days[mnow] + firstday) / 7);
+  // 每周事件
+  const mutileEvents = events.concat(...weeklyEvents.map(getMutipleEvents(ynow, mnow)));
   // 結果
-  const calendar: Array<CalendarWeek> = [];
+  const calendar: CalendarWeek[] = [];
 
   let i, k, idx, date_str;
 
   // 表格的行
   for (i = 0; i < tr_str; i++) {
     const week: CalendarWeek = {
-      days: [], style: {}
+      days: [],
+      style: {},
     };
 
     // 表格每行的單元格
@@ -36,7 +46,8 @@ export function getCalendar(nstr: Date, ynow: number, mnow: number, dnow: number
 
       let calendarDay: CalendarDay;
 
-      if (date_str <= 0) { // 過濾無效日期（小於等於零的）
+      if (date_str <= 0) {
+        // 過濾無效日期（小於等於零的）
         // 取當月第一天
         const mPrev = new Date(ynow, mnow, 1);
         // 將日期-1為上個月的最後一天，隨著上個月天數變化
@@ -44,8 +55,8 @@ export function getCalendar(nstr: Date, ynow: number, mnow: number, dnow: number
         // 設定日期
         // date_str = mPrev.getDate();
         calendarDay = { date: mPrev, other: true };
-
-      } else if (date_str > m_days[mnow]) { // 過濾無效日期（大於月總天數的）
+      } else if (date_str > m_days[mnow]) {
+        // 過濾無效日期（大於月總天數的）
         // 取當月第一天
         const mNext = new Date(ynow, mnow, 1);
         // 取下個月第一天
@@ -59,36 +70,76 @@ export function getCalendar(nstr: Date, ynow: number, mnow: number, dnow: number
         calendarDay = { date: new Date(ynow, mnow, date_str) };
       }
 
-      calendarDay.events = events.filter(event => contain(event, calendarDay.date));
+      calendarDay.events = mutileEvents.filter(event => contain(event, calendarDay.date));
       calendarDay.name = calendarDay.date.getDay();
       calendarDay.number = calendarDay.date.getDate();
-      calendarDay.isToday = calendarDay.date.getFullYear() === today.getFullYear()
-        && calendarDay.date.getMonth() === today.getMonth()
-        && calendarDay.date.getDate() === today.getDate();
+      calendarDay.isToday =
+        calendarDay.date.getFullYear() === today.getFullYear() &&
+        calendarDay.date.getMonth() === today.getMonth() &&
+        calendarDay.date.getDate() === today.getDate();
 
       week.days.push(calendarDay);
     }
 
     calendar.push(week);
   }
+
   return calendar;
 }
 
 export function contain(event: CalendarEvent, date: Date): boolean {
   if (event.start && event.end) {
-    const start = new Date(event.start.getFullYear(), event.start.getMonth(), event.start.getDate());
+    const start = new Date(
+      event.start.getFullYear(),
+      event.start.getMonth(),
+      event.start.getDate(),
+    );
     const end = new Date(event.end.getFullYear(), event.end.getMonth(), event.end.getDate());
     end.setDate(end.getDate() + 1);
 
-    return start.getTime() <= date.getTime()
-      && end.getTime() > date.getTime();
+    return start.getTime() <= date.getTime() && end.getTime() > date.getTime();
   }
 
   if (event.start) {
-    return event.start.getFullYear() === date.getFullYear()
-      && event.start.getMonth() === date.getMonth()
-      && event.start.getDate() === date.getDate();
+    return (
+      event.start.getFullYear() === date.getFullYear() &&
+      event.start.getMonth() === date.getMonth() &&
+      event.start.getDate() === date.getDate()
+    );
   }
 
   return false;
+}
+
+export function getMutipleEvents(ynow: number, mnow: number) {
+  return (event: CalendarEvent) => {
+    const start = event.start;
+    const distance = event.end.getTime() - event.start.getTime();
+    const currentDay = start.getDay();
+    const firstDate = new Date(ynow, mnow, 1);
+    const firstDay = firstDate.getDay();
+    const secondDate = new Date(ynow, mnow + 1, 1);
+    const result: Date[] = [];
+
+    let newDate = new Date(firstDate.setDate(firstDate.getDate() + (currentDay - firstDay)));
+
+    newDate.setHours(start.getHours());
+    newDate.setMinutes(start.getMinutes());
+    newDate.setSeconds(start.getSeconds());
+    newDate.setMilliseconds(start.getMilliseconds());
+
+    result.push(new Date(newDate.getTime()));
+
+    while (newDate < secondDate) {
+      newDate = new Date(newDate.setDate(newDate.getDate() + 7));
+      result.push(new Date(newDate.getTime()));
+    }
+
+    return result.map(x => {
+      const ce = Object.assign({}, event);
+      ce.start = new Date(x.getTime());
+      ce.end = new Date(x.setTime(x.getTime() + distance));
+      return ce;
+    });
+  };
 }

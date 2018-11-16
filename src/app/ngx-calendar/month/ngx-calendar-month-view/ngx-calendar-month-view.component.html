@@ -1,25 +1,34 @@
-<div class="month new" [ngClass]="className">
-  <div class="week" *ngFor="let week of calendarData; trackBy: trackByFn; let week_index = index;">
-    <div class="day" *ngFor="let day of week.days; trackBy: trackByFn; let day_index = index;"
-      [ngClass]="{ other: day.other, today: day.isToday }"
-      (click)="showEventList(week, day)">
+<div class="month new"
+     [ngClass]="className">
+  <div class="week"
+       *ngFor="let week of calendarData; trackBy: trackByFn; let week_index = index;">
+    <div class="day"
+         *ngFor="let day of week.days; trackBy: trackByFn; let day_index = index;"
+         [ngClass]="{ other: day.other, today: day.isToday }"
+         (click)="showEventList(week, day)">
       <div class="day-name">{{ weekNames[day.name] }}</div>
       <div class="day-number">{{ day.number }}</div>
       <div class="day-events">
         <ng-container *ngFor="let event of day.events;">
-          <span [ngClass]="event.color"></span>
+          <span [style.background]="event.color"></span>
         </ng-container>
       </div>
     </div>
-    <div class="details" [ngClass]="{ 'in': week.selectedDay, 'out': !week.selectedDay }">
-      <div class="arrow-container" *ngIf="week.selectedDay">
-        <div class="fill" [ngStyle]="week.style"></div>
+    <div class="details"
+         [ngClass]="{ 'in': week.selectedDay, 'out': !week.selectedDay }">
+      <div class="arrow-container"
+           *ngIf="week.selectedDay">
+        <div class="fill"
+             [ngStyle]="week.style"></div>
         <div class="arrow"></div>
       </div>
       <div class="events">
         <ng-container *ngIf="week.selectedDay">
-          <div class="event" *ngFor="let event of week.selectedDay.events;" (click)="openEvent(event)">
-            <div class="event-category" [ngClass]="event.color"></div>
+          <div class="event"
+               *ngFor="let event of week.selectedDay.events;"
+               (click)="openEvent(event)">
+            <div class="event-category"
+                 [style.background]="event.color"></div>
             <span>{{ event.title }}</span>
           </div>
         </ng-container>

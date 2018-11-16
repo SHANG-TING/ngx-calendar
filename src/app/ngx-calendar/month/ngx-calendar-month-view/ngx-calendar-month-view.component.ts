@@ -1,41 +1,76 @@
-import { Component, Input, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
-import { CalendarWeek, CalendarDay, CalendarEvent } from '../../ngx-calendar.model';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { CalendarDay, CalendarEvent, CalendarWeek } from '../../ngx-calendar.model';
 import { getCalendar } from '../utils';
 
 @Component({
   selector: 'ngx-calendar-month-view',
   templateUrl: './ngx-calendar-month-view.component.html',
-  styleUrls: ['./ngx-calendar-month-view.component.scss', './color.scss']
+  styleUrls: ['./ngx-calendar-month-view.component.scss', './color.scss'],
 })
 export class NgxCalendarMonthViewComponent implements OnChanges {
+  @Input()
+  className = 'black';
+  @Input()
+  weekNames: string[] = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+  @Input()
+  yearName = '年';
+  @Input()
+  monthName = '月';
+  @Input()
+  weeklyEvents: CalendarEvent[] = [];
+  @Input()
+  events: CalendarEvent[] = [];
+  @Input()
+  nstr = new Date();
 
-  @Input() className = 'black';
-  @Input() weekNames: string[] = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
-  @Input() yearName = '年';
-  @Input() monthName = '月';
-  @Input() events: CalendarEvent[] = [];
-  @Input() nstr = new Date();
+  @Output()
+  open: EventEmitter<any> = new EventEmitter();
 
-  @Output() open: EventEmitter<any> = new EventEmitter();
-
-  calendarData = getCalendar(this.nstr, this.ynow, this.mnow, this.dnow, this.events);
+  calendarData = getCalendar(
+    this.nstr,
+    this.ynow,
+    this.mnow,
+    this.dnow,
+    this.events,
+    this.weeklyEvents,
+  );
 
   private eachPresent = 100 / 14;
 
-  get ynow() { return this.nstr.getFullYear(); }
-  get mnow() { return this.nstr.getMonth(); }
-  get dnow() { return this.nstr.getDate(); }
+  get ynow() {
+    return this.nstr.getFullYear();
+  }
+  get mnow() {
+    return this.nstr.getMonth();
+  }
+  get dnow() {
+    return this.nstr.getDate();
+  }
 
-  constructor() { }
+  constructor() {}
 
   prev() {
     this.nstr.setMonth(this.nstr.getMonth() - 1);
-    this.calendarData = getCalendar(this.nstr, this.ynow, this.mnow, this.dnow, this.events);
+    this.calendarData = getCalendar(
+      this.nstr,
+      this.ynow,
+      this.mnow,
+      this.dnow,
+      this.events,
+      this.weeklyEvents,
+    );
   }
 
   next() {
     this.nstr.setMonth(this.nstr.getMonth() + 1);
-    this.calendarData = getCalendar(this.nstr, this.ynow, this.mnow, this.dnow, this.events);
+    this.calendarData = getCalendar(
+      this.nstr,
+      this.ynow,
+      this.mnow,
+      this.dnow,
+      this.events,
+      this.weeklyEvents,
+    );
   }
 
   showEventList(week: CalendarWeek, day: CalendarDay) {
@@ -51,9 +86,9 @@ export class NgxCalendarMonthViewComponent implements OnChanges {
 
         const present = (day.name * 2 + 1) * this.eachPresent;
         week.style = {
-          'flex': `1 1 ${present}%`,
+          flex: `1 1 ${present}%`,
           'max-width': `${present}%`,
-          'min-width': `${present}%`
+          'min-width': `${present}%`,
         };
       }
     }
@@ -69,8 +104,14 @@ export class NgxCalendarMonthViewComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.events || changes.nstr) {
-      this.calendarData = getCalendar(this.nstr, this.ynow, this.mnow, this.dnow, this.events);
+      this.calendarData = getCalendar(
+        this.nstr,
+        this.ynow,
+        this.mnow,
+        this.dnow,
+        this.events,
+        this.weeklyEvents,
+      );
     }
   }
-
 }

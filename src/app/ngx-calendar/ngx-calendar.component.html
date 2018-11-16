@@ -1,4 +1,4 @@
-<div class="content" [ngClass]="className" [ngStyle]="size" >
+<div class="content" [ngClass]="className" [ngStyle]="size">
   <div class="header">
     <span class="header-button" (click)="prev()">
       <div class="button left"></div>
@@ -10,14 +10,16 @@
       <div class="button right"></div>
     </span>
   </div>
-  <div class="view-block" [ngSwitch]="viewMode"  (swipeleft)="next()" (swiperight)="prev()"  >
+  <div class="view-block" [ngSwitch]="viewMode" (swipeleft)="next()" (swiperight)="prev()">
 
-    <ngx-calendar-month-view [className]="className" *ngSwitchCase="'month'" [weekNames]="weekNames" [yearName]="yearName" [monthName]="monthName"
-      [events]="events" [nstr]="nstr" (open)="openEvent($event)"></ngx-calendar-month-view>
+    <ngx-calendar-month-view [className]="className" *ngSwitchCase="'month'" [weekNames]="weekNames" [yearName]="yearName"
+      [monthName]="monthName" [events]="events" [weeklyEvents]="weeklyEvents" [nstr]="nstr" (open)="openEvent($event)"></ngx-calendar-month-view>
 
-    <ngx-calendar-week-view [className]="className" *ngSwitchCase="'week'" [events]="events" [nstr]="nstr" (open)="openEvent($event)"></ngx-calendar-week-view>
+    <ngx-calendar-week-view [className]="className" *ngSwitchCase="'week'" [events]="events" [weeklyEvents]="weeklyEvents"
+      [nstr]="nstr" (open)="openEvent($event)"></ngx-calendar-week-view>
 
-    <ngx-calendar-day-view [className]="className" *ngSwitchCase="'day'" [events]="events" [nstr]="nstr" start="9:00" end="23:00" (open)="openEvent($event)"></ngx-calendar-day-view>
+    <ngx-calendar-day-view [className]="className" *ngSwitchCase="'day'" [events]="events" [weeklyEvents]="weeklyEvents"
+      [nstr]="nstr" start="9:00" end="23:00" (open)="openEvent($event)"></ngx-calendar-day-view>
 
   </div>
 
@@ -39,8 +41,9 @@
   </ul>
 
   <div class="legend">
-    <span class="entry orange">學科</span>
-    <span class="entry blue">Basic 術科</span>
-    <span class="entry green">L1 術科</span>
+    <span class="entry" *ngFor="let category of eventCategorys">
+      {{ category.name }}
+      <span class="icon" [style.background]="category.color"></span>
+    </span>
   </div>
 </div>

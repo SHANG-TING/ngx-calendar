@@ -12,9 +12,14 @@ export class HammerConfig extends HammerGestureConfig {
 
 @NgModule({
   imports: [CommonModule],
-  declarations: [NgxCalendarMonthViewComponent],
+  declarations: [
+    NgxCalendarMonthViewComponent,
+    // NgxCalendarMonthPopupComponent
+  ],
   exports: [NgxCalendarMonthViewComponent],
-  entryComponents: [],
+  entryComponents: [
+    // NgxCalendarMonthPopupComponent
+  ],
   providers: [
     {
       provide: HAMMER_GESTURE_CONFIG,
