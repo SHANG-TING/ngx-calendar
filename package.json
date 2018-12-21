@@ -22,6 +22,7 @@
     "@angular/platform-browser": "^7.0.4",
     "@angular/platform-browser-dynamic": "^7.0.4",
     "@angular/router": "^7.0.4",
+    "@nghedgehog/core": "0.0.1",
     "@types/hammerjs": "^2.0.35",
     "core-js": "^2.5.4",
     "hammerjs": "^2.0.8",
