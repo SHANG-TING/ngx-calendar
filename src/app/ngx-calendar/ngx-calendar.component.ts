@@ -7,9 +7,9 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-// import { NgxRxModalService } from 'ngx-rx-modal';
+import { NgxRxModalService } from 'ngx-rx-modal';
 import { NgxCalendarDayViewComponent } from './day/ngx-calendar-day-view/ngx-calendar-day-view.component';
-// import { NgxCalendarMonthPopupComponent } from './month/ngx-calendar-month-popup/ngx-calendar-month-popup.component';
+import { NgxCalendarMonthPopupComponent } from './month/ngx-calendar-month-popup/ngx-calendar-month-popup.component';
 import { NgxCalendarMonthViewComponent } from './month/ngx-calendar-month-view/ngx-calendar-month-view.component';
 import { CalendarEvent, CalendarEventCategory, CalendarViewMode } from './ngx-calendar.model';
 import { NgxCalendarWeekViewComponent } from './week/ngx-calendar-week-view/ngx-calendar-week-view.component';
@@ -112,11 +112,11 @@ export class NgxCalendarComponent {
   @ViewChild(NgxCalendarDayViewComponent)
   private dayComponent: NgxCalendarDayViewComponent;
 
-  // private monthPopupComponent = this._factory.resolveComponentFactory(
-  //   NgxCalendarMonthPopupComponent,
-  // );
+  private monthPopupComponent = this._factory.resolveComponentFactory(
+    NgxCalendarMonthPopupComponent,
+  );
 
-  constructor(/*private _model: NgxRxModalService, */ private _factory: ComponentFactoryResolver) {}
+  constructor(private _model: NgxRxModalService, private _factory: ComponentFactoryResolver) {}
 
   prev(): void {
     switch (this.viewMode) {
@@ -151,19 +151,19 @@ export class NgxCalendarComponent {
   }
 
   openSelector($event: MouseEvent): void {
-    // this._model
-    //   .open(this.monthPopupComponent, {
-    //     disableCloseButton: true,
-    //     panelStyle: {
-    //       top: `${$event.offsetY}px`,
-    //     },
-    //     data: { theme: this.className, containerViewMode: this.viewMode },
-    //   })
-    //   .subscribe(selectedDate => {
-    //     if (selectedDate) {
-    //       this.nstr = selectedDate;
-    //     }
-    //   });
+    this._model
+      .open(this.monthPopupComponent, {
+        disableCloseButton: true,
+        panelStyle: {
+          top: `${$event.offsetY}px`,
+        },
+        data: { theme: this.className, containerViewMode: this.viewMode },
+      })
+      .subscribe(selectedDate => {
+        if (selectedDate) {
+          this.nstr = selectedDate;
+        }
+      });
   }
 
   chaneMode(mode: any): void {
