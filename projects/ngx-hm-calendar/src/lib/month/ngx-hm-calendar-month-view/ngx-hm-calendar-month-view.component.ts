@@ -1,13 +1,13 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
-import { CalendarDay, CalendarEvent, CalendarWeek } from '../../ngx-calendar.model';
+import { CalendarDay, CalendarEvent, CalendarWeek } from '../../ngx-hm-calendar.model';
 import { getCalendar } from '../utils';
 
 @Component({
-  selector: 'ngx-calendar-month-view',
-  templateUrl: './ngx-calendar-month-view.component.html',
-  styleUrls: ['./ngx-calendar-month-view.component.scss', './color.scss'],
+  selector: 'ngx-hm-calendar-month-view',
+  templateUrl: './ngx-hm-calendar-month-view.component.html',
+  styleUrls: ['./ngx-hm-calendar-month-view.component.scss', './color.scss'],
 })
-export class NgxCalendarMonthViewComponent implements OnChanges {
+export class NgxHmCalendarMonthViewComponent implements OnChanges {
   @Input()
   className = 'black';
   @Input()
