@@ -28,6 +28,12 @@
       ],
       "@nghedgehog/ngx-calendar/*": [
         "dist/nghedgehog/ngx-calendar/*"
+      ],
+      "ngx-hm-calendar": [
+        "dist/ngx-hm-calendar"
+      ],
+      "ngx-hm-calendar/*": [
+        "dist/ngx-hm-calendar/*"
       ]
     }
   }

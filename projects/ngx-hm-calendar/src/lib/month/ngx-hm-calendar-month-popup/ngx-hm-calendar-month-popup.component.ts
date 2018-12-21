@@ -1,16 +1,16 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { NgxRxModalRef, NGX_RX_MODAL_TOKEN } from 'ngx-rx-modal';
 import { Subject } from 'rxjs';
-import { CalendarViewMode } from '../../ngx-calendar.model';
+import { CalendarViewMode } from '../../ngx-hm-calendar.model';
 import { getCalendar } from '../utils';
-import { CalendarSelectorData, CalendarSelectorMode } from './ngx-calendar-month-popup.model';
+import { CalendarSelectorData, CalendarSelectorMode } from './ngx-hm-calendar-month-popup.model';
 
 @Component({
-  selector: 'ngx-calendar-month-popup',
-  templateUrl: './ngx-calendar-month-popup.component.html',
-  styleUrls: ['./ngx-calendar-month-popup.component.scss'],
+  selector: 'ngx-hm-calendar-month-popup',
+  templateUrl: './ngx-hm-calendar-month-popup.component.html',
+  styleUrls: ['./ngx-hm-calendar-month-popup.component.scss'],
 })
-export class NgxCalendarMonthPopupComponent implements OnInit, NgxRxModalRef {
+export class NgxHmCalendarMonthPopupComponent implements OnInit, NgxRxModalRef {
   popupData: CalendarSelectorData = {};
   mode = CalendarSelectorMode.Year;
   minYear = 2016;

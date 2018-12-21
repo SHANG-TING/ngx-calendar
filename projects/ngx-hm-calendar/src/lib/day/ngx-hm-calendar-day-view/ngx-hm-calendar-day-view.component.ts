@@ -10,16 +10,16 @@ import {
   SimpleChanges,
   ViewChildren,
 } from '@angular/core';
-import { getMutipleEvents } from '../../../ngx-calendar/month/utils';
-import { CalendarElmDetial, CalendarEvent } from '../../ngx-calendar.model';
+import { getMutipleEvents } from '../../month/utils';
+import { CalendarElmDetial, CalendarEvent } from '../../ngx-hm-calendar.model';
 import { HOUR_SCHEMAS } from './data';
 
 @Component({
-  selector: 'ngx-calendar-day-view',
-  templateUrl: './ngx-calendar-day-view.component.html',
-  styleUrls: ['./ngx-calendar-day-view.component.scss'],
+  selector: 'ngx-hm-calendar-day-view',
+  templateUrl: './ngx-hm-calendar-day-view.component.html',
+  styleUrls: ['./ngx-hm-calendar-day-view.component.scss'],
 })
-export class NgxCalendarDayViewComponent implements AfterViewInit, OnChanges {
+export class NgxHmCalendarDayViewComponent implements AfterViewInit, OnChanges {
   @Input()
   className = 'black';
   @Input()
