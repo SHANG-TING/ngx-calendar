@@ -7,15 +7,15 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { getMutipleEvents } from '../../../ngx-calendar/month/utils';
-import { CalendarElmDetial, CalendarEvent, CalendarWeekDay } from '../../ngx-calendar.model';
+import { getMutipleEvents } from '../../month/utils';
+import { CalendarElmDetial, CalendarEvent, CalendarWeekDay } from '../../ngx-hm-calendar.model';
 
 @Component({
-  selector: 'ngx-calendar-week-view',
-  templateUrl: './ngx-calendar-week-view.component.html',
-  styleUrls: ['./ngx-calendar-week-view.component.scss'],
+  selector: 'ngx-hm-calendar-week-view',
+  templateUrl: './ngx-hm-calendar-week-view.component.html',
+  styleUrls: ['./ngx-hm-calendar-week-view.component.scss'],
 })
-export class NgxCalendarWeekViewComponent implements OnInit, OnChanges {
+export class NgxHmCalendarWeekViewComponent implements OnInit, OnChanges {
   @Input()
   className = 'black';
   @Input()

@@ -8,18 +8,18 @@ import {
   ViewChild,
 } from '@angular/core';
 import { NgxRxModalService } from 'ngx-rx-modal';
-import { NgxCalendarDayViewComponent } from './day/ngx-calendar-day-view/ngx-calendar-day-view.component';
-import { NgxCalendarMonthPopupComponent } from './month/ngx-calendar-month-popup/ngx-calendar-month-popup.component';
-import { NgxCalendarMonthViewComponent } from './month/ngx-calendar-month-view/ngx-calendar-month-view.component';
-import { CalendarEvent, CalendarEventCategory, CalendarViewMode } from './ngx-calendar.model';
-import { NgxCalendarWeekViewComponent } from './week/ngx-calendar-week-view/ngx-calendar-week-view.component';
+import { NgxHmCalendarDayViewComponent } from './day/ngx-hm-calendar-day-view';
+import { NgxHmCalendarMonthPopupComponent } from './month/ngx-hm-calendar-month-popup';
+import { NgxHmCalendarMonthViewComponent } from './month/ngx-hm-calendar-month-view';
+import { CalendarEvent, CalendarEventCategory, CalendarViewMode } from './ngx-hm-calendar.model';
+import { NgxHmCalendarWeekViewComponent } from './week/ngx-hm-calendar-week-view';
 
 const time = '150ms linear';
 
 @Component({
-  selector: 'ngx-calendar',
-  templateUrl: './ngx-calendar.component.html',
-  styleUrls: ['./ngx-calendar.component.scss'],
+  selector: 'ngx-hm-calendar',
+  templateUrl: './ngx-hm-calendar.component.html',
+  styleUrls: ['./ngx-hm-calendar.component.scss'],
   animations: [
     trigger('animate', [
       state(
@@ -49,7 +49,7 @@ const time = '150ms linear';
     ]),
   ],
 })
-export class NgxCalendarComponent {
+export class NgxHmCalendarComponent {
   @Input()
   weekNames: string[] = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
   @Input()
@@ -103,17 +103,17 @@ export class NgxCalendarComponent {
 
   legendOpen = 'flyOut';
 
-  @ViewChild(NgxCalendarMonthViewComponent)
-  private monthComponent: NgxCalendarMonthViewComponent;
+  @ViewChild(NgxHmCalendarMonthViewComponent)
+  private monthComponent: NgxHmCalendarMonthViewComponent;
 
-  @ViewChild(NgxCalendarWeekViewComponent)
-  private weekComponent: NgxCalendarWeekViewComponent;
+  @ViewChild(NgxHmCalendarWeekViewComponent)
+  private weekComponent: NgxHmCalendarWeekViewComponent;
 
-  @ViewChild(NgxCalendarDayViewComponent)
-  private dayComponent: NgxCalendarDayViewComponent;
+  @ViewChild(NgxHmCalendarDayViewComponent)
+  private dayComponent: NgxHmCalendarDayViewComponent;
 
   private monthPopupComponent = this._factory.resolveComponentFactory(
-    NgxCalendarMonthPopupComponent,
+    NgxHmCalendarMonthPopupComponent,
   );
 
   constructor(private _model: NgxRxModalService, private _factory: ComponentFactoryResolver) {}

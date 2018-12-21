@@ -1,0 +1,87 @@
+<div class="content"
+     [ngClass]="className"
+     [ngStyle]="size">
+  <div class="header">
+    <span class="header-button"
+          (click)="prev()">
+      <div class="button left"></div>
+    </span>
+    <h1 class="title"
+        (click)="openSelector($event)">
+      {{ monDetail }}
+    </h1>
+    <span class="header-button"
+          (click)="next()">
+      <div class="button right"></div>
+    </span>
+  </div>
+  <div class="view-block"
+       [ngSwitch]="viewMode"
+       (swipeleft)="next()"
+       (swiperight)="prev()">
+
+    <ngx-hm-calendar-month-view [className]="className"
+                                *ngSwitchCase="'month'"
+                                [weekNames]="weekNames"
+                                [yearName]="yearName"
+                                [monthName]="monthName"
+                                [events]="events"
+                                [weeklyEvents]="weeklyEvents"
+                                [nstr]="nstr"
+                                (open)="openEvent($event)"></ngx-hm-calendar-month-view>
+
+    <ngx-hm-calendar-week-view [className]="className"
+                               *ngSwitchCase="'week'"
+                               [events]="events"
+                               [weeklyEvents]="weeklyEvents"
+                               [nstr]="nstr"
+                               (open)="openEvent($event)"></ngx-hm-calendar-week-view>
+
+    <ngx-hm-calendar-day-view [className]="className"
+                              *ngSwitchCase="'day'"
+                              [events]="events"
+                              [weeklyEvents]="weeklyEvents"
+                              [nstr]="nstr"
+                              start="9:00"
+                              end="23:00"
+                              (open)="openEvent($event)"></ngx-hm-calendar-day-view>
+
+  </div>
+
+  <ul class="type-buttom"
+      [@animate]="legendOpen">
+    <li>
+      <button class="button day"
+              type="button"
+              [disabled]="viewMode === 'day'"
+              (click)="chaneMode('day')">日</button>
+    </li>
+
+    <li>
+      <button class="button week"
+              type="button"
+              [disabled]="viewMode === 'week'"
+              (click)="chaneMode('week')">周</button>
+    </li>
+
+    <li>
+      <div style="display: flex;">
+        <span class="open-menu"
+              (click)="legendToggle()"></span>
+        <button class="button month"
+                type="button"
+                [disabled]="viewMode === 'month'"
+                (click)="chaneMode('month')">月</button>
+      </div>
+    </li>
+  </ul>
+
+  <div class="legend">
+    <span class="entry"
+          *ngFor="let category of eventCategorys">
+      {{ category.name }}
+      <span class="icon"
+            [style.background]="category.color"></span>
+    </span>
+  </div>
+</div>
