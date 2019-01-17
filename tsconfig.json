@@ -23,11 +23,11 @@
       "@nghedgehog/calendar/*": [
         "dist/nghedgehog/calendar/*"
       ],
-      "@nghedgehog/ngx-calendar": [
-        "dist/nghedgehog/ngx-calendar"
+      "@nghedgehog/ngx-hm-calendar": [
+        "dist/nghedgehog/ngx-hm-calendar"
       ],
-      "@nghedgehog/ngx-calendar/*": [
-        "dist/nghedgehog/ngx-calendar/*"
+      "@nghedgehog/ngx-hm-calendar/*": [
+        "dist/nghedgehog/ngx-hm-calendar/*"
       ],
       "ngx-hm-calendar": [
         "dist/ngx-hm-calendar"
