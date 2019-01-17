@@ -1,24 +1,24 @@
-export interface CalendarWeek {
-  days: CalendarDay[];
-  selectedDay?: CalendarDay;
+export interface NgxHmCalendarWeek {
+  days: NgxHmCalendarDay[];
+  selectedDay?: NgxHmCalendarDay;
   style: any;
 }
 
-export interface CalendarDay {
+export interface NgxHmCalendarDay {
   other?: boolean;
   date: Date;
   name?: number;
   number?: number;
-  events?: CalendarEvent[];
+  events?: NgxHmCalendarEvent[];
   isToday?: boolean;
 }
 
-export interface CalendarEventCategory {
+export interface NgxHmCalendarEventCategory {
   color: string;
   name: string;
 }
 
-export interface CalendarEvent {
+export interface NgxHmCalendarEvent {
   start: Date;
   end: Date;
   title: string;
@@ -26,7 +26,7 @@ export interface CalendarEvent {
   url?: string;
 }
 
-export interface CalendarElmDetial<T = number> {
+export interface NgxHmCalendarElmDetial<T = number> {
   style: {
     top?: T;
     height?: T;
@@ -38,10 +38,10 @@ export interface CalendarElmDetial<T = number> {
   endsAfterWeek: boolean;
   title?: string;
   url?: string;
-  data: CalendarEvent;
+  data: NgxHmCalendarEvent;
 }
 
-export interface CalendarWeekDay {
+export interface NgxHmCalendarWeekDay {
   date: Date;
   year: number;
   month: number;
@@ -49,7 +49,7 @@ export interface CalendarWeekDay {
   isToday: boolean;
 }
 
-export enum CalendarViewMode {
+export enum NgxHmCalendarViewMode {
   month = 'month',
   week = 'week',
   day = 'day',

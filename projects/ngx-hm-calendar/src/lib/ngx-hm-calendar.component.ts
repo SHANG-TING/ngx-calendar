@@ -8,11 +8,11 @@ import {
   ViewChild,
 } from '@angular/core';
 import { NgxRxModalService } from 'ngx-rx-modal';
-import { NgxHmCalendarDayViewComponent } from './day/ngx-hm-calendar-day-view';
-import { NgxHmCalendarMonthPopupComponent } from './month/ngx-hm-calendar-month-popup';
-import { NgxHmCalendarMonthViewComponent } from './month/ngx-hm-calendar-month-view';
-import { CalendarEvent, CalendarEventCategory, CalendarViewMode } from './ngx-hm-calendar.model';
-import { NgxHmCalendarWeekViewComponent } from './week/ngx-hm-calendar-week-view';
+import { NgxHmCalendarEvent, NgxHmCalendarEventCategory, NgxHmCalendarViewMode } from './ngx-hm-calendar.model';
+import { NgxHmCalendarMonthViewComponent } from './month/ngx-hm-calendar-month-view/ngx-hm-calendar-month-view.component';
+import { NgxHmCalendarWeekViewComponent } from './week/ngx-hm-calendar-week-view/ngx-hm-calendar-week-view.component';
+import { NgxHmCalendarDayViewComponent } from './day/ngx-hm-calendar-day-view/ngx-hm-calendar-day-view.component';
+import { NgxHmCalendarMonthPopupComponent } from './month/ngx-hm-calendar-month-popup/ngx-hm-calendar-month-popup.component';
 
 const time = '150ms linear';
 
@@ -59,11 +59,11 @@ export class NgxHmCalendarComponent {
   @Input()
   dayName = '日';
   @Input()
-  eventCategorys: CalendarEventCategory[] = [];
+  eventCategorys: NgxHmCalendarEventCategory[] = [];
   @Input()
-  weeklyEvents: CalendarEvent[] = [];
+  weeklyEvents: NgxHmCalendarEvent[] = [];
   @Input()
-  events: CalendarEvent[] = [];
+  events: NgxHmCalendarEvent[] = [];
   @Input()
   nstr = new Date();
   @Output()
@@ -80,7 +80,7 @@ export class NgxHmCalendarComponent {
   /**
    * 顯示模式
    */
-  viewMode: CalendarViewMode = CalendarViewMode.month;
+  viewMode: NgxHmCalendarViewMode = NgxHmCalendarViewMode.month;
 
   get ynow() {
     return this.nstr.getFullYear();
@@ -94,7 +94,7 @@ export class NgxHmCalendarComponent {
   get monDetail() {
     let result = `${this.ynow} ${this.yearName} ${this.mnow + 1} ${this.monthName}`;
 
-    if (this.viewMode === CalendarViewMode.day) {
+    if (this.viewMode === NgxHmCalendarViewMode.day) {
       result = `${result} ${this.dnow} ${this.dayName}`;
     }
 
@@ -120,13 +120,13 @@ export class NgxHmCalendarComponent {
 
   prev(): void {
     switch (this.viewMode) {
-      case CalendarViewMode.month:
+      case NgxHmCalendarViewMode.month:
         this.monthComponent.prev();
         break;
-      case CalendarViewMode.week:
+      case NgxHmCalendarViewMode.week:
         this.weekComponent.prev();
         break;
-      case CalendarViewMode.day:
+      case NgxHmCalendarViewMode.day:
         this.dayComponent.prev();
         break;
     }
@@ -134,19 +134,19 @@ export class NgxHmCalendarComponent {
 
   next(): void {
     switch (this.viewMode) {
-      case CalendarViewMode.month:
+      case NgxHmCalendarViewMode.month:
         this.monthComponent.next();
         break;
-      case CalendarViewMode.week:
+      case NgxHmCalendarViewMode.week:
         this.weekComponent.next();
         break;
-      case CalendarViewMode.day:
+      case NgxHmCalendarViewMode.day:
         this.dayComponent.next();
         break;
     }
   }
 
-  openEvent(event: CalendarEvent): void {
+  openEvent(event: NgxHmCalendarEvent): void {
     this.open.emit(event);
   }
 

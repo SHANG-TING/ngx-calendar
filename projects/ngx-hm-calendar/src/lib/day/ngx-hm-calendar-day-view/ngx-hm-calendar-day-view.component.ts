@@ -11,7 +11,7 @@ import {
   ViewChildren,
 } from '@angular/core';
 import { getMutipleEvents } from '../../month/utils';
-import { CalendarElmDetial, CalendarEvent } from '../../ngx-hm-calendar.model';
+import { NgxHmCalendarElmDetial, NgxHmCalendarEvent } from '../../ngx-hm-calendar.model';
 import { HOUR_SCHEMAS } from './data';
 
 @Component({
@@ -23,9 +23,9 @@ export class NgxHmCalendarDayViewComponent implements AfterViewInit, OnChanges {
   @Input()
   className = 'black';
   @Input()
-  weeklyEvents: CalendarEvent[] = [];
+  weeklyEvents: NgxHmCalendarEvent[] = [];
   @Input()
-  events: CalendarEvent[] = [];
+  events: NgxHmCalendarEvent[] = [];
   @Input()
   nstr = new Date(2018, 6, 16);
   @Input()
@@ -40,8 +40,7 @@ export class NgxHmCalendarDayViewComponent implements AfterViewInit, OnChanges {
 
   elmWidth = 110;
 
-  @ViewChildren('bar')
-  bars: QueryList<ElementRef>;
+  @ViewChildren('bar') bars: QueryList<ElementRef>;
 
   get firstDate() {
     const date = new Date(this.nstr.getFullYear(), this.nstr.getMonth(), this.nstr.getDate());
@@ -88,11 +87,11 @@ export class NgxHmCalendarDayViewComponent implements AfterViewInit, OnChanges {
     return date;
   }
 
-  dayEvents: CalendarElmDetial<string>[] = [];
+  dayEvents: NgxHmCalendarElmDetial<string>[] = [];
 
   hourSchemas: any[] = HOUR_SCHEMAS;
 
-  constructor() {}
+  constructor() { }
 
   ngAfterViewInit(): void {
     this.initView();
@@ -133,7 +132,7 @@ export class NgxHmCalendarDayViewComponent implements AfterViewInit, OnChanges {
         ...this.weeklyEvents.map(getMutipleEvents(this.nstr.getFullYear(), this.nstr.getMonth())),
       )
       // 先過濾出會經過這一天的事件們
-      .filter((e: CalendarEvent) => {
+      .filter((e: NgxHmCalendarEvent) => {
         return (
           (e.start >= firstdate && e.start < lastdate) ||
           (firstdate >= e.start && firstdate <= e.end) ||
@@ -141,10 +140,10 @@ export class NgxHmCalendarDayViewComponent implements AfterViewInit, OnChanges {
         );
       })
       // 根據開始時間做排序
-      .sort((e1: CalendarEvent, e2: CalendarEvent) => e1.start.getTime() - e2.start.getTime())
+      .sort((e1: NgxHmCalendarEvent, e2: NgxHmCalendarEvent) => e1.start.getTime() - e2.start.getTime())
       // 轉換為畫面上需要綁定的值
-      .map((e: CalendarEvent, i: number) => {
-        const elmDetial: CalendarElmDetial = {
+      .map((e: NgxHmCalendarEvent, i: number) => {
+        const elmDetial: NgxHmCalendarElmDetial = {
           style: {
             top: 0,
             height: 0,
@@ -186,9 +185,9 @@ export class NgxHmCalendarDayViewComponent implements AfterViewInit, OnChanges {
         return elmDetial;
       })
       // 再次過濾出在這hour區間裡面的事件們
-      .filter((e: CalendarElmDetial) => e.style.height !== 0)
+      .filter((e: NgxHmCalendarElmDetial) => e.style.height !== 0)
       // 重新綁定left的順序
-      .map((e: CalendarElmDetial, i) => {
+      .map((e: NgxHmCalendarElmDetial, i) => {
         e.style.left = i * this.elmWidth;
         return {
           ...e,

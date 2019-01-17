@@ -1,4 +1,4 @@
-import { CalendarDay, CalendarEvent, CalendarWeek } from '../ngx-hm-calendar.model';
+import { NgxHmCalendarDay, NgxHmCalendarEvent, NgxHmCalendarWeek } from '../ngx-hm-calendar.model';
 
 /** 判斷是否為閏年 */
 export function is_leap(year) {
@@ -10,9 +10,9 @@ export function getCalendar(
   ynow: number,
   mnow: number,
   dnow: number,
-  events: CalendarEvent[],
-  weeklyEvents: CalendarEvent[] = [],
-): Array<CalendarWeek> {
+  events: NgxHmCalendarEvent[],
+  weeklyEvents: NgxHmCalendarEvent[] = [],
+): Array<NgxHmCalendarWeek> {
   // 今天
   const today = new Date();
   // 當月第一天
@@ -26,13 +26,13 @@ export function getCalendar(
   // 每周事件
   const mutileEvents = events.concat(...weeklyEvents.map(getMutipleEvents(ynow, mnow)));
   // 結果
-  const calendar: CalendarWeek[] = [];
+  const calendar: NgxHmCalendarWeek[] = [];
 
   let i, k, idx, date_str;
 
   // 表格的行
   for (i = 0; i < tr_str; i++) {
-    const week: CalendarWeek = {
+    const week: NgxHmCalendarWeek = {
       days: [],
       style: {},
     };
@@ -44,7 +44,7 @@ export function getCalendar(
       // 計算日期
       date_str = idx - firstday + 1;
 
-      let calendarDay: CalendarDay;
+      let calendarDay: NgxHmCalendarDay;
 
       if (date_str <= 0) {
         // 過濾無效日期（小於等於零的）
@@ -87,7 +87,7 @@ export function getCalendar(
   return calendar;
 }
 
-export function contain(event: CalendarEvent, date: Date): boolean {
+export function contain(event: NgxHmCalendarEvent, date: Date): boolean {
   if (event.start && event.end) {
     const start = new Date(
       event.start.getFullYear(),
@@ -112,7 +112,7 @@ export function contain(event: CalendarEvent, date: Date): boolean {
 }
 
 export function getMutipleEvents(ynow: number, mnow: number) {
-  return (event: CalendarEvent) => {
+  return (event: NgxHmCalendarEvent) => {
     const start = event.start;
     const distance = event.end.getTime() - event.start.getTime();
     const currentDay = start.getDay();

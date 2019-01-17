@@ -1,11 +1,11 @@
 {
-  "name": "ngx-calendar",
+  "name": "ngx-hm-calendar-demo",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve -o",
     "build": "ng build --prod --build-optimizer",
-    "build:deploy": "ng build --prod --build-optimizer --base-href=https://shang-ting.github.io/ngx-calendar/ && ngh -d dist/ngx-calendar",
+    "build:deploy": "ng build --prod --build-optimizer --base-href=https://shang-ting.github.io/ngx-hm-calendar/ && ngh -d dist/ngx-hm-calendar",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

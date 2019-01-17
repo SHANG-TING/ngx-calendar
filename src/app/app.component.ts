@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CalendarEvent } from './ngx-calendar/ngx-calendar.model';
+import { NgxHmCalendarEvent } from 'ngx-hm-calendar';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +9,7 @@ import { CalendarEvent } from './ngx-calendar/ngx-calendar.model';
 export class AppComponent {
   theme = 'black';
   title = 'app';
-  events: CalendarEvent[] = [
+  events: NgxHmCalendarEvent[] = [
     {
       title: '學科',
       start: new Date(2018, 7, 6, 18, 30),
@@ -82,7 +82,7 @@ export class AppComponent {
     this.events = newEvents;
   }
 
-  onOpenEvent($event: CalendarEvent) {
+  onOpenEvent($event: NgxHmCalendarEvent) {
     // alert(JSON.stringify($event));
     window.open($event.url);
   }
