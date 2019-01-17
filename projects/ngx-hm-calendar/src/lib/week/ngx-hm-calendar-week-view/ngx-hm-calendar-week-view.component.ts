@@ -8,7 +8,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { getMutipleEvents } from '../../month/utils';
-import { CalendarElmDetial, CalendarEvent, CalendarWeekDay } from '../../ngx-hm-calendar.model';
+import { NgxHmCalendarElmDetial, NgxHmCalendarEvent, NgxHmCalendarWeekDay } from '../../ngx-hm-calendar.model';
 
 @Component({
   selector: 'ngx-hm-calendar-week-view',
@@ -23,17 +23,17 @@ export class NgxHmCalendarWeekViewComponent implements OnInit, OnChanges {
   @Input()
   weekNames: string[] = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
   @Input()
-  weeklyEvents: CalendarEvent[] = [];
+  weeklyEvents: NgxHmCalendarEvent[] = [];
   @Input()
-  events: CalendarEvent[] = [];
+  events: NgxHmCalendarEvent[] = [];
   @Input()
   nstr = new Date();
 
   @Output()
   open: EventEmitter<any> = new EventEmitter();
 
-  weekDays: CalendarWeekDay[] = [];
-  weekEvents: CalendarElmDetial<string>[] = [];
+  weekDays: NgxHmCalendarWeekDay[] = [];
+  weekEvents: NgxHmCalendarElmDetial<string>[] = [];
 
   constructor() {}
 
@@ -66,7 +66,7 @@ export class NgxHmCalendarWeekViewComponent implements OnInit, OnChanges {
         month: date.getMonth(),
         day: date.getDate(),
         isToday: date.toDateString() === today.toDateString(),
-      } as CalendarWeekDay);
+      } as NgxHmCalendarWeekDay);
     }
   }
 
@@ -91,7 +91,7 @@ export class NgxHmCalendarWeekViewComponent implements OnInit, OnChanges {
       })
       .sort((e1, e2) => e1.start.getTime() - e2.start.getTime())
       .map(e => {
-        const event: CalendarElmDetial<number> = {
+        const event: NgxHmCalendarElmDetial<number> = {
           style: {
             width: 7,
             left: e.start.getDay() - firstday,

@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { NgxRxModalRef, NGX_RX_MODAL_TOKEN } from 'ngx-rx-modal';
 import { Subject } from 'rxjs';
-import { CalendarViewMode } from '../../ngx-hm-calendar.model';
+import { NgxHmCalendarViewMode } from '../../ngx-hm-calendar.model';
 import { getCalendar } from '../utils';
 import { CalendarSelectorData, CalendarSelectorMode } from './ngx-hm-calendar-month-popup.model';
 
@@ -46,7 +46,7 @@ export class NgxHmCalendarMonthPopupComponent implements OnInit, NgxRxModalRef {
   selectMonth(month) {
     this.selectedMonth = month;
 
-    if (this.popupData.containerViewMode === CalendarViewMode.day) {
+    if (this.popupData.containerViewMode === NgxHmCalendarViewMode.day) {
       this.mode = CalendarSelectorMode.Day;
       this.calendarData = getCalendar(
         new Date(this.selectedYear, this.selectedMonth, 1),

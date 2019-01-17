@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
-import { CalendarDay, CalendarEvent, CalendarWeek } from '../../ngx-hm-calendar.model';
+import { NgxHmCalendarDay, NgxHmCalendarEvent, NgxHmCalendarWeek } from '../../ngx-hm-calendar.model';
 import { getCalendar } from '../utils';
 
 @Component({
@@ -17,9 +17,9 @@ export class NgxHmCalendarMonthViewComponent implements OnChanges {
   @Input()
   monthName = '月';
   @Input()
-  weeklyEvents: CalendarEvent[] = [];
+  weeklyEvents: NgxHmCalendarEvent[] = [];
   @Input()
-  events: CalendarEvent[] = [];
+  events: NgxHmCalendarEvent[] = [];
   @Input()
   nstr = new Date();
 
@@ -73,7 +73,7 @@ export class NgxHmCalendarMonthViewComponent implements OnChanges {
     );
   }
 
-  showEventList(week: CalendarWeek, day: CalendarDay) {
+  showEventList(week: NgxHmCalendarWeek, day: NgxHmCalendarDay) {
     if (day.events.length) {
       if (week.selectedDay && week.selectedDay === day) {
         week.selectedDay = undefined;
@@ -94,7 +94,7 @@ export class NgxHmCalendarMonthViewComponent implements OnChanges {
     }
   }
 
-  openEvent(event: CalendarEvent) {
+  openEvent(event: NgxHmCalendarEvent) {
     this.open.emit(event);
   }
 

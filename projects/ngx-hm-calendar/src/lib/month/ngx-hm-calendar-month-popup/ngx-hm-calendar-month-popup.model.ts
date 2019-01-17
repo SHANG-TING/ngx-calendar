@@ -1,4 +1,4 @@
-import { CalendarViewMode } from '../../ngx-hm-calendar.model';
+import { NgxHmCalendarViewMode } from '../../ngx-hm-calendar.model';
 
 export enum CalendarSelectorMode {
   Year = 'Year',
@@ -8,5 +8,5 @@ export enum CalendarSelectorMode {
 
 export interface CalendarSelectorData {
   theme?: string;
-  containerViewMode?: CalendarViewMode;
+  containerViewMode?: NgxHmCalendarViewMode;
 }

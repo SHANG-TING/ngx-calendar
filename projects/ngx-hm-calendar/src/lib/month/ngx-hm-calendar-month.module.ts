@@ -2,8 +2,8 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { DIRECTION_ALL } from 'hammerjs';
-import { NgxHmCalendarMonthPopupComponent } from './ngx-hm-calendar-month-popup';
-import { NgxHmCalendarMonthViewComponent } from './ngx-hm-calendar-month-view';
+import { NgxHmCalendarMonthViewComponent } from './ngx-hm-calendar-month-view/ngx-hm-calendar-month-view.component';
+import { NgxHmCalendarMonthPopupComponent } from './ngx-hm-calendar-month-popup/ngx-hm-calendar-month-popup.component';
 
 export class HammerConfig extends HammerGestureConfig {
   overrides = <any>{
@@ -23,4 +23,4 @@ export class HammerConfig extends HammerGestureConfig {
     },
   ],
 })
-export class NgxHmCalendarMonthModule {}
+export class NgxHmCalendarMonthModule { }
