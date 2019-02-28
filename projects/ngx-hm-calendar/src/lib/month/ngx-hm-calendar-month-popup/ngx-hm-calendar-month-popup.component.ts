@@ -48,13 +48,7 @@ export class NgxHmCalendarMonthPopupComponent implements OnInit, NgxRxModalRef {
 
     if (this.popupData.containerViewMode === NgxHmCalendarViewMode.day) {
       this.mode = CalendarSelectorMode.Day;
-      this.calendarData = getCalendar(
-        new Date(this.selectedYear, this.selectedMonth, 1),
-        this.selectedYear,
-        this.selectedMonth,
-        1,
-        [],
-      );
+      this.calendarData = getCalendar(this.selectedYear, this.selectedMonth, []);
     } else {
       this.complete.next(new Date(this.selectedYear, this.selectedMonth, 1));
     }

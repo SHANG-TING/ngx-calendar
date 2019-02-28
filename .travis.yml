@@ -16,4 +16,5 @@ before_script:
 script:
   - ng lint
   - npm run test-headless
-  - ng build --prod --base-href https://shang-ting.github.io/ngx-hm-calendar/
+  - npm run build:lib
+  - npm run build
