@@ -1,5 +1,9 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
-import { NgxHmCalendarDay, NgxHmCalendarEvent, NgxHmCalendarWeek } from '../../ngx-hm-calendar.model';
+import {
+  NgxHmCalendarDay,
+  NgxHmCalendarEvent,
+  NgxHmCalendarWeek,
+} from '../../ngx-hm-calendar.model';
 import { getCalendar } from '../utils';
 
 @Component({
@@ -26,14 +30,7 @@ export class NgxHmCalendarMonthViewComponent implements OnChanges {
   @Output()
   open: EventEmitter<any> = new EventEmitter();
 
-  calendarData = getCalendar(
-    this.nstr,
-    this.ynow,
-    this.mnow,
-    this.dnow,
-    this.events,
-    this.weeklyEvents,
-  );
+  calendarData = getCalendar(this.ynow, this.mnow, this.events, this.weeklyEvents);
 
   private eachPresent = 100 / 14;
 
@@ -51,26 +48,12 @@ export class NgxHmCalendarMonthViewComponent implements OnChanges {
 
   prev() {
     this.nstr.setMonth(this.nstr.getMonth() - 1);
-    this.calendarData = getCalendar(
-      this.nstr,
-      this.ynow,
-      this.mnow,
-      this.dnow,
-      this.events,
-      this.weeklyEvents,
-    );
+    this.calendarData = getCalendar(this.ynow, this.mnow, this.events, this.weeklyEvents);
   }
 
   next() {
     this.nstr.setMonth(this.nstr.getMonth() + 1);
-    this.calendarData = getCalendar(
-      this.nstr,
-      this.ynow,
-      this.mnow,
-      this.dnow,
-      this.events,
-      this.weeklyEvents,
-    );
+    this.calendarData = getCalendar(this.ynow, this.mnow, this.events, this.weeklyEvents);
   }
 
   showEventList(week: NgxHmCalendarWeek, day: NgxHmCalendarDay) {
@@ -104,14 +87,7 @@ export class NgxHmCalendarMonthViewComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.events || changes.nstr) {
-      this.calendarData = getCalendar(
-        this.nstr,
-        this.ynow,
-        this.mnow,
-        this.dnow,
-        this.events,
-        this.weeklyEvents,
-      );
+      this.calendarData = getCalendar(this.ynow, this.mnow, this.events, this.weeklyEvents);
     }
   }
 }

@@ -6,10 +6,8 @@ export function is_leap(year) {
 }
 
 export function getCalendar(
-  nstr: Date,
   ynow: number,
   mnow: number,
-  dnow: number,
   events: NgxHmCalendarEvent[],
   weeklyEvents: NgxHmCalendarEvent[] = [],
 ): Array<NgxHmCalendarWeek> {
