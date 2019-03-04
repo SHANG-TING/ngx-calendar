@@ -1,19 +1,20 @@
 language: node_js
 node_js:
-  - '9'
-sudo: required
-dist: trusty
+  - '10.4.1'
+sudo: true
+
 addons:
-    chrome: stable
-before_script:
-    - "sudo chown root /opt/google/chrome/chrome-sandbox"
-    - "sudo chmod 4755 /opt/google/chrome/chrome-sandbox"
+  chrome: stable
+
 branches:
   only:
     - master
+
 before_script:
   - npm install -g @angular/cli
+
 script:
   - ng lint
   - npm run test-headless
-  - ng build --prod --base-href https://shang-ting.github.io/ngx-hm-calendar/
+  - npm run build:lib
+  - npm run build

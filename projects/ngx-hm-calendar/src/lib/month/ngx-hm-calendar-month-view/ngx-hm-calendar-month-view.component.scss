@@ -15,8 +15,6 @@ $max-height:5000px;
   &.new {
     animation: fadeIn 1s ease-out;
     opacity: 1;
-    // 這段會造成Safari會在下方出現一大段空白區
-    overflow-y: scroll;
   }
 
   // 顯示模式 <一般主題>

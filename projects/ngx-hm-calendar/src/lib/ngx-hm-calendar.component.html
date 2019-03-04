@@ -16,9 +16,7 @@
     </span>
   </div>
   <div class="view-block"
-       [ngSwitch]="viewMode"
-       (swipeleft)="next()"
-       (swiperight)="prev()">
+       [ngSwitch]="viewMode">
 
     <ngx-hm-calendar-month-view [className]="className"
                                 *ngSwitchCase="'month'"
@@ -28,14 +26,18 @@
                                 [events]="events"
                                 [weeklyEvents]="weeklyEvents"
                                 [nstr]="nstr"
-                                (open)="openEvent($event)"></ngx-hm-calendar-month-view>
+                                (open)="openEvent($event)"
+                                (swipeleft)="next()"
+                                (swiperight)="prev()"></ngx-hm-calendar-month-view>
 
     <ngx-hm-calendar-week-view [className]="className"
                                *ngSwitchCase="'week'"
                                [events]="events"
                                [weeklyEvents]="weeklyEvents"
                                [nstr]="nstr"
-                               (open)="openEvent($event)"></ngx-hm-calendar-week-view>
+                               (open)="openEvent($event)"
+                               (swipeleft)="next()"
+                               (swiperight)="prev()"></ngx-hm-calendar-week-view>
 
     <ngx-hm-calendar-day-view [className]="className"
                               *ngSwitchCase="'day'"
@@ -44,7 +46,9 @@
                               [nstr]="nstr"
                               start="9:00"
                               end="23:00"
-                              (open)="openEvent($event)"></ngx-hm-calendar-day-view>
+                              (open)="openEvent($event)"
+                              (swipeleft)="next()"
+                              (swiperight)="prev()"></ngx-hm-calendar-day-view>
 
   </div>
 
