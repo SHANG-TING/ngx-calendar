@@ -1,6 +1,6 @@
 {
   "name": "ngx-hm-calendar",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "dependencies": {},
   "peerDependencies": {
     "hammerjs": "^2.0.8",
