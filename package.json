@@ -5,7 +5,7 @@
     "ng": "ng",
     "start": "ng serve -o",
     "build": "ng build ngx-calendar-demo --prod --build-optimizer",
-    "build:deploy": "ng build ngx-calendar-demo --prod --build-optimizer --base-href=https://shang-ting.github.io/ngx-hm-calendar/ && ngh -d dist/ngx-hm-calendar",
+    "build:deploy": "ng run ngx-hm-calendar:build && ng build ngx-calendar-demo --prod --build-optimizer --base-href=https://shang-ting.github.io/ngx-hm-calendar/ && ngh -d dist/ngx-calendar-demo",
     "build:lib": "ng run ngx-hm-calendar:build",
     "test-headless": "ng test ngx-hm-calendar --watch=false --browsers=ChromeHeadless",
     "test": "ng test",
