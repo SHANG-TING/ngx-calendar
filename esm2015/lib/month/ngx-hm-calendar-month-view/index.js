@@ -1,6 +1,0 @@
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
- */
-export { NgxHmCalendarMonthViewComponent } from './ngx-hm-calendar-month-view.component';
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290Ijoibmc6Ly9uZ3gtaG0tY2FsZW5kYXIvIiwic291cmNlcyI6WyJsaWIvbW9udGgvbmd4LWhtLWNhbGVuZGFyLW1vbnRoLXZpZXcvaW5kZXgudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7OztBQUFBLGdEQUFjLHdDQUF3QyxDQUFDIiwic291cmNlc0NvbnRlbnQiOlsiZXhwb3J0ICogZnJvbSAnLi9uZ3gtaG0tY2FsZW5kYXItbW9udGgtdmlldy5jb21wb25lbnQnO1xuIl19
