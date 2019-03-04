@@ -1,0 +1,6 @@
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ */
+export { NgxHmCalendarDayViewComponent } from './ngx-hm-calendar-day-view.component';
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290Ijoibmc6Ly9uZ3gtaG0tY2FsZW5kYXIvIiwic291cmNlcyI6WyJsaWIvZGF5L25neC1obS1jYWxlbmRhci1kYXktdmlldy9pbmRleC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7O0FBQUEsOENBQWMsc0NBQXNDLENBQUMiLCJzb3VyY2VzQ29udGVudCI6WyJleHBvcnQgKiBmcm9tICcuL25neC1obS1jYWxlbmRhci1kYXktdmlldy5jb21wb25lbnQnO1xuIl19
