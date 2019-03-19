@@ -16,7 +16,7 @@ Support Angular 7+ and Rxjs6+
 
 - Month
 
-  ![Month](https://i.imgur.com/p531MXC.jpg)
+  ![Month](https://i.imgur.com/KRpjINL.gif)
 
 - Week
 
