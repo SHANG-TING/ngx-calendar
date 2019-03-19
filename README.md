@@ -8,11 +8,9 @@ A calendar UI for Angular, support mobile touch with Hammerjs.
 
 ## Description
 
-This package is design by angular and hammerjs, if you use @angular/material, I strongly recommend you use this package.
-
 Depend on [Hammerjs](https://hammerjs.github.io/)
 
-Support Angular 6+ and Rxjs6+
+Support Angular 7+ and Rxjs6+
 
 ## Example
 https://alanzouhome.firebaseapp.com/package/NgxHmCarousel
@@ -62,61 +60,9 @@ export class YourModule {}
 
 ```html
 
-<ngx-hm-carousel
-  [(ngModel)]="currentIndex"
-  [show-num]="4"
-  [autoplay-speed]="speed"
-  [infinite]="infinite"
-  [drag-many]="true"
-  [aniTime]="200"
-  [data]="avatars"
-  class="carousel c-accent">
-
-  <section ngx-hm-carousel-container class="content">
-    <article class="item cursor-pointer"
-      ngx-hm-carousel-item
-      *ngFor="let avatar of avatars; let i = index"
-        [ngClass]="{'visible': currentIndex===i}">
-      <div class="img" (click)="click(i)"
-        [style.backgroundImage]="'url('+avatar.url+')'">
-        {{i}}
-      </div>
-    </article>
-    <ng-template #infiniteContainer></ng-template>
-  </section>
-
-  <!-- only using in infinite mode or autoplay mode, that will render with-->
-  <ng-template #carouselContent let-avatar let-i="index">
-    <article class="item cursor-pointer"
-      [ngClass]="{'visible': currentIndex===i}">
-      <div class="img" (click)="click(i)"
-        [style.backgroundImage]="'url('+avatar.url+')'">
-        {{i}}
-      </div>
-    </article>
-  </ng-template>
-
-  <ng-template #carouselPrev>
-    <div class="click-area">
-      <i class="material-icons">keyboard_arrow_left</i>
-    </div>
-  </ng-template>
-  <ng-template #carouselNext>
-    <div class="click-area">
-      <i class="material-icons">keyboard_arrow_right</i>
-    </div>
-  </ng-template>
-
-  <ng-template #carouselDot let-model>
-    <div class="ball bg-accent"
-      [class.visible]="model.index === model.currentIndex"></div>
-  </ng-template>
-
-  <ng-template #carouselProgress let-progress>
-    <div class="progress"></div>
-  </ng-template>
-
-</ngx-hm-carousel>
+<ngx-hm-calendar [className]="theme"
+                   [events]="events"
+                   (open)="onOpenEvent($event)"></ngx-hm-calendar>
 
 ```
 
@@ -218,67 +164,7 @@ export class AppComponent {
 }
 ```
 
-3. SCSS
-
-* this project not contain any specile style, you can custom by yourself
-
-```scss
-$transition_time:.2s;
-
-.carousel {
-  color:white;
-  .content {
-    display: flex;
-
-    .item {
-      width: 100%;
-      padding: .5em;
-      display: block;
-      opacity: 0.5;
-
-      transition: opacity 0.295s linear $transition_time;
-
-      &.visible {
-        opacity: 1;
-      }
-
-      .img {
-        width: 100%;
-        height: 400px;
-        display: block;
-        background-size: cover;
-        background-position: center;
-      }
-    }
-
-
-  }
-
-  .ball {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: black;
-    border: 2px solid;
-    opacity: 0.5;
-
-    &.visible {
-      opacity: 1;
-    }
-  }
-
-  .click-area {
-    width: 50px;
-    text-align: center;
-
-    i {
-      font-size: 3em;
-    }
-  }
-}
-
-```
-[View more examples](https://alanzouhome.firebaseapp.com/package/NgxHmCarousel)
+[View more examples](https://shang-ting.github.io/ngx-calendar/)
 
 ## Attribute
 
