@@ -80,7 +80,7 @@ export class AppComponent implements OnInit {
   ];
 
   ngOnInit(): void {
-    ajax.getJSON('/assets/data.json').subscribe(({ eventCategorys, weeklyEvents, events }) => {
+    ajax.getJSON('./assets/data.json').subscribe(({ eventCategorys, weeklyEvents, events }) => {
       this.eventCategorys = eventCategorys;
       this.weeklyEvents = weeklyEvents.map(x => {
         x.start = new Date(x.start);
