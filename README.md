@@ -13,9 +13,22 @@ Depend on [Hammerjs](https://hammerjs.github.io/)
 Support Angular 7+ and Rxjs6+
 
 ## Example
-https://alanzouhome.firebaseapp.com/package/NgxHmCarousel
 
-![](https://res.cloudinary.com/dw7ecdxlp/image/upload/v1533206320/1533206262496_soounq.gif)
+- Month
+
+  ![Month](https://i.imgur.com/p531MXC.jpg)
+
+- Week
+
+  ![Week](https://i.imgur.com/cRSILKu.jpg)
+
+- Day
+
+  ![Day](https://i.imgur.com/SBXw8ol.jpg)
+
+- Month Selector
+
+  ![Month Selector](https://i.imgur.com/QOfTImj.jpg)
 
 
 ## Install
