@@ -1,14 +1,17 @@
-import { Component } from '@angular/core';
-import { NgxHmCalendarEvent } from 'ngx-hm-calendar';
+import { Component, OnInit } from '@angular/core';
+import { NgxHmCalendarEvent, NgxHmCalendarEventCategory } from 'ngx-hm-calendar';
+import { ajax } from 'rxjs/ajax';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   theme = 'black';
   title = 'app';
+  eventCategorys: NgxHmCalendarEventCategory[] = [];
+  weeklyEvents: NgxHmCalendarEvent[] = [];
   events: NgxHmCalendarEvent[] = [
     {
       title: '學科',
@@ -75,6 +78,22 @@ export class AppComponent {
         'https://docs.google.com/forms/d/e/1FAIpQLSchC4AadufooQ_wR7krQk9ys2nsPmekq0qj22ZodxPT9Dlxjw/viewform',
     },
   ];
+
+  ngOnInit(): void {
+    ajax.getJSON('/assets/data.json').subscribe(({ eventCategorys, weeklyEvents, events }) => {
+      this.eventCategorys = eventCategorys;
+      this.weeklyEvents = weeklyEvents.map(x => {
+        x.start = new Date(x.start);
+        x.end = new Date(x.end);
+        return x;
+      });
+      this.events = events.map(x => {
+        x.start = new Date(x.start);
+        x.end = new Date(x.end);
+        return x;
+      });
+    });
+  }
 
   addEvent() {
     const newEvents = this.events.slice();

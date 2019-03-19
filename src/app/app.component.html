@@ -10,6 +10,8 @@
 
 <div>
   <ngx-hm-calendar [className]="theme"
+                   [eventCategorys]="eventCategorys"
+                   [weeklyEvents]="weeklyEvents"
                    [events]="events"
                    (open)="onOpenEvent($event)"></ngx-hm-calendar>
 </div>
